@@ -31,99 +31,34 @@ const siteSettings = computed(() => usePage().props.siteSettings || {});
         <div class="py-20 bg-gray-50">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-32 relative z-20">
                 <div class="grid md:grid-cols-3 gap-8">
-                    <!-- Basic Plan -->
-                    <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 flex flex-col">
-                        <h3 class="text-xl font-bold text-gray-900 mb-2 font-heading">Pemula</h3>
-                        <p class="text-gray-500 mb-6 text-sm">Cocok untuk UMKM yang baru merintis bisnis skala kecil.</p>
-                        <div class="text-4xl font-extrabold text-gray-900 mb-6">
-                            Rp 149<span class="text-xl text-gray-500 font-normal">.000<span class="text-base text-gray-400">/bln</span></span>
-                        </div>
-                        <a href="https://app.sollu.local/trial" class="w-full block text-center py-3 px-4 bg-primary-50 text-primary-700 hover:bg-primary-100 font-bold rounded-lg transition-colors mb-8">
-                            Mulai Percobaan 14 Hari
-                        </a>
-                        <ul class="space-y-4 flex-grow mb-8">
-                            <li class="flex items-center gap-3">
-                                <Check class="w-5 h-5 text-green-500 shrink-0" />
-                                <span class="text-gray-700 text-sm">1 Outlet (Cabang)</span>
-                            </li>
-                            <li class="flex items-center gap-3">
-                                <Check class="w-5 h-5 text-green-500 shrink-0" />
-                                <span class="text-gray-700 text-sm">1 Pengguna (Kasir)</span>
-                            </li>
-                            <li class="flex items-center gap-3">
-                                <Check class="w-5 h-5 text-green-500 shrink-0" />
-                                <span class="text-gray-700 text-sm">Produk Tanpa Batas</span>
-                            </li>
-                            <li class="flex items-center gap-3">
-                                <Check class="w-5 h-5 text-green-500 shrink-0" />
-                                <span class="text-gray-700 text-sm">Laporan Penjualan Dasar</span>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- Pro Plan -->
-                    <div class="bg-primary-600 rounded-2xl shadow-xl shadow-primary-500/20 border border-primary-500 p-8 flex flex-col transform scale-105 z-10 relative">
-                        <div class="absolute top-0 right-8 transform -translate-y-1/2">
+                    <div v-for="(plan, index) in (pageContents?.pricing_plans?.attributes?.plans || [])" :key="index" :class="[
+                            'rounded-2xl p-8 flex flex-col',
+                            plan.is_popular ? 'bg-primary-600 shadow-xl shadow-primary-500/20 border border-primary-500 transform scale-105 z-10 relative' : 'bg-white shadow-lg border border-gray-100'
+                        ]">
+                        
+                        <!-- Popular Badge -->
+                        <div v-if="plan.is_popular" class="absolute top-0 right-8 transform -translate-y-1/2">
                             <span class="bg-yellow-400 text-yellow-900 text-xs font-black uppercase tracking-wider py-1 px-3 rounded-full">Paling Laris</span>
                         </div>
-                        <h3 class="text-xl font-bold text-white mb-2 font-heading">Profesional</h3>
-                        <p class="text-primary-100 mb-6 text-sm">Untuk bisnis berkembang yang butuh analitik detail.</p>
-                        <div class="text-4xl font-extrabold text-white mb-6">
-                            Rp 299<span class="text-xl text-primary-200 font-normal">.000<span class="text-base text-primary-300">/bln</span></span>
-                        </div>
-                        <a href="https://app.sollu.local/trial" class="w-full block text-center py-3 px-4 bg-white text-primary-700 hover:bg-gray-50 font-bold rounded-lg transition-colors mb-8">
-                            Pilih Paket Profesional
-                        </a>
-                        <ul class="space-y-4 flex-grow mb-8">
-                            <li class="flex items-center gap-3">
-                                <Check class="w-5 h-5 text-yellow-400 shrink-0" />
-                                <span class="text-white text-sm">Hingga 5 Outlet</span>
-                            </li>
-                            <li class="flex items-center gap-3">
-                                <Check class="w-5 h-5 text-yellow-400 shrink-0" />
-                                <span class="text-white text-sm">Tak Terbatas Pengguna</span>
-                            </li>
-                            <li class="flex items-center gap-3">
-                                <Check class="w-5 h-5 text-yellow-400 shrink-0" />
-                                <span class="text-white text-sm">Manajemen Inventori Lanjut</span>
-                            </li>
-                            <li class="flex items-center gap-3">
-                                <Check class="w-5 h-5 text-yellow-400 shrink-0" />
-                                <span class="text-white text-sm">Sistem Loyalitas Pelanggan</span>
-                            </li>
-                            <li class="flex items-center gap-3">
-                                <Check class="w-5 h-5 text-yellow-400 shrink-0" />
-                                <span class="text-white text-sm">Laporan Analitik Lengkap</span>
-                            </li>
-                        </ul>
-                    </div>
 
-                    <!-- Enterprise Plan -->
-                    <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 flex flex-col">
-                        <h3 class="text-xl font-bold text-gray-900 mb-2 font-heading">Enterprise</h3>
-                        <p class="text-gray-500 mb-6 text-sm">Solusi kustom untuk franchise atau bisnis multi-cabang besar.</p>
-                        <div class="text-4xl font-extrabold text-gray-900 mb-6">
-                            Kustom
+                        <h3 :class="['text-xl font-bold mb-2 font-heading', plan.is_popular ? 'text-white' : 'text-gray-900']">{{ plan.name }}</h3>
+                        <p :class="['mb-6 text-sm min-h-[40px]', plan.is_popular ? 'text-primary-100' : 'text-gray-500']">{{ plan.description }}</p>
+                        
+                        <div :class="['text-4xl font-extrabold mb-6', plan.is_popular ? 'text-white' : 'text-gray-900']">
+                            {{ plan.price }}<span :class="['text-xl font-normal', plan.is_popular ? 'text-primary-200' : 'text-gray-500']">{{ plan.period }}</span>
                         </div>
-                        <a href="/contact" class="w-full block text-center py-3 px-4 bg-gray-900 text-white hover:bg-gray-800 font-bold rounded-lg transition-colors mb-8">
-                            Hubungi Sales
+                        
+                        <a :href="siteSettings.portal_url || '#'" :class="[
+                                'w-full block text-center py-3 px-4 font-bold rounded-lg transition-colors mb-8',
+                                plan.is_popular ? 'bg-white text-primary-700 hover:bg-gray-50' : (plan.name === 'Enterprise' ? 'bg-gray-900 text-white hover:bg-gray-800' : 'bg-primary-50 text-primary-700 hover:bg-primary-100')
+                            ]">
+                            {{ plan.price === 'Hubungi Kami' ? 'Hubungi Sales' : 'Pilih Paket ' + plan.name }}
                         </a>
+                        
                         <ul class="space-y-4 flex-grow mb-8">
-                            <li class="flex items-center gap-3">
-                                <Check class="w-5 h-5 text-gray-400 shrink-0" />
-                                <span class="text-gray-700 text-sm">Outlet Tak Terbatas</span>
-                            </li>
-                            <li class="flex items-center gap-3">
-                                <Check class="w-5 h-5 text-gray-400 shrink-0" />
-                                <span class="text-gray-700 text-sm">Akses API & Integrasi 3rd Party</span>
-                            </li>
-                            <li class="flex items-center gap-3">
-                                <Check class="w-5 h-5 text-gray-400 shrink-0" />
-                                <span class="text-gray-700 text-sm">Account Manager Khusus</span>
-                            </li>
-                            <li class="flex items-center gap-3">
-                                <Check class="w-5 h-5 text-gray-400 shrink-0" />
-                                <span class="text-gray-700 text-sm">Customer Support 24/7 Priority</span>
+                            <li v-for="(feature, fIndex) in plan.features" :key="fIndex" class="flex items-center gap-3">
+                                <Check :class="['w-5 h-5 shrink-0', plan.is_popular ? 'text-yellow-400' : (plan.name === 'Enterprise' ? 'text-gray-400' : 'text-green-500')]" />
+                                <span :class="['text-sm', plan.is_popular ? 'text-white' : 'text-gray-700']">{{ feature }}</span>
                             </li>
                         </ul>
                     </div>

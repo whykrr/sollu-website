@@ -49,70 +49,42 @@ const activeTab = ref('fnb');
                 <!-- Tab F&B -->
                 <div v-show="activeTab === 'fnb'" class="grid md:grid-cols-2 gap-12 items-center animate-in fade-in slide-in-from-bottom-4 duration-500">
                     <div>
-                        <h2 class="text-3xl font-heading font-bold text-gray-900 mb-6">Manajemen Restoran Lebih Cerdas</h2>
+                        <h2 class="text-3xl font-heading font-bold text-gray-900 mb-6">{{ pageContents?.fnb?.title || 'Manajemen Restoran Lebih Cerdas' }}</h2>
                         <ul class="space-y-4 mb-8">
-                            <li class="flex items-start gap-3">
+                            <li v-for="(feature, idx) in (pageContents?.fnb?.attributes?.features_list || [])" :key="idx" class="flex items-start gap-3">
                                 <CheckCircle2 class="w-6 h-6 text-primary-600 shrink-0 mt-0.5" />
                                 <div>
-                                    <h4 class="font-bold text-gray-900">Manajemen Meja & Dine-in</h4>
-                                    <p class="text-gray-600 text-sm">Visualisasi tata letak meja untuk mengelola pesanan pelanggan secara langsung.</p>
-                                </div>
-                            </li>
-                            <li class="flex items-start gap-3">
-                                <CheckCircle2 class="w-6 h-6 text-primary-600 shrink-0 mt-0.5" />
-                                <div>
-                                    <h4 class="font-bold text-gray-900">Resep & Inventori Bahan Baku</h4>
-                                    <p class="text-gray-600 text-sm">Pemotongan stok bahan otomatis untuk setiap produk terjual sehingga HPP terjaga.</p>
-                                </div>
-                            </li>
-                            <li class="flex items-start gap-3">
-                                <CheckCircle2 class="w-6 h-6 text-primary-600 shrink-0 mt-0.5" />
-                                <div>
-                                    <h4 class="font-bold text-gray-900">Kitchen Display System (KDS)</h4>
-                                    <p class="text-gray-600 text-sm">Kirim pesanan secara digital ke dapur untuk mencegah miskomunikasi koki.</p>
+                                    <h4 class="font-bold text-gray-900">{{ feature.title }}</h4>
+                                    <p class="text-gray-600 text-sm">{{ feature.description }}</p>
                                 </div>
                             </li>
                         </ul>
-                        <a href="https://app.sollu.local/trial" class="inline-flex items-center gap-2 text-primary-600 font-bold hover:text-primary-800 transition">
+                        <a :href="pageContents?.fnb?.attributes?.button_url || siteSettings.portal_url || '#'" class="inline-flex items-center gap-2 text-primary-600 font-bold hover:text-primary-800 transition">
                             Coba POS F&B Gratis <ArrowRight class="w-5 h-5" />
                         </a>
                     </div>
                     <div class="relative rounded-2xl overflow-hidden shadow-2xl bg-gray-100 h-96">
-                        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="F&B POS" class="w-full h-full object-cover opacity-90" />
+                        <img :src="pageContents?.fnb?.attributes?.image_url || 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'" alt="F&B POS" class="w-full h-full object-cover opacity-90" />
                     </div>
                 </div>
 
                 <!-- Tab Retail -->
                 <div v-show="activeTab === 'retail'" class="grid md:grid-cols-2 gap-12 items-center animate-in fade-in slide-in-from-bottom-4 duration-500">
                     <div class="order-2 md:order-1 relative rounded-2xl overflow-hidden shadow-2xl bg-gray-100 h-96">
-                        <img src="https://images.unsplash.com/photo-1556740758-90de374c12ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Retail POS" class="w-full h-full object-cover opacity-90" />
+                        <img :src="pageContents?.retail?.attributes?.image_url || 'https://images.unsplash.com/photo-1556740758-90de374c12ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'" alt="Retail POS" class="w-full h-full object-cover opacity-90" />
                     </div>
                     <div class="order-1 md:order-2">
-                        <h2 class="text-3xl font-heading font-bold text-gray-900 mb-6">Kelola Stok & SKU Ribuan Item</h2>
+                        <h2 class="text-3xl font-heading font-bold text-gray-900 mb-6">{{ pageContents?.retail?.title || 'Kelola Stok & SKU Ribuan Item' }}</h2>
                         <ul class="space-y-4 mb-8">
-                            <li class="flex items-start gap-3">
+                            <li v-for="(feature, idx) in (pageContents?.retail?.attributes?.features_list || [])" :key="idx" class="flex items-start gap-3">
                                 <CheckCircle2 class="w-6 h-6 text-primary-600 shrink-0 mt-0.5" />
                                 <div>
-                                    <h4 class="font-bold text-gray-900">Barcode Scanning</h4>
-                                    <p class="text-gray-600 text-sm">Input penjualan super cepat menggunakan pemindai barcode atau kamera device.</p>
-                                </div>
-                            </li>
-                            <li class="flex items-start gap-3">
-                                <CheckCircle2 class="w-6 h-6 text-primary-600 shrink-0 mt-0.5" />
-                                <div>
-                                    <h4 class="font-bold text-gray-900">Peringatan Stok Tipis</h4>
-                                    <p class="text-gray-600 text-sm">Notifikasi otomatis jika barang hampir habis untuk re-stock lebih terencana.</p>
-                                </div>
-                            </li>
-                            <li class="flex items-start gap-3">
-                                <CheckCircle2 class="w-6 h-6 text-primary-600 shrink-0 mt-0.5" />
-                                <div>
-                                    <h4 class="font-bold text-gray-900">Multi Cabang Gudang</h4>
-                                    <p class="text-gray-600 text-sm">Lacak perpindahan stok antar toko dan terpusat dalam satu dashboard.</p>
+                                    <h4 class="font-bold text-gray-900">{{ feature.title }}</h4>
+                                    <p class="text-gray-600 text-sm">{{ feature.description }}</p>
                                 </div>
                             </li>
                         </ul>
-                        <a href="https://app.sollu.local/trial" class="inline-flex items-center gap-2 text-primary-600 font-bold hover:text-primary-800 transition">
+                        <a :href="pageContents?.retail?.attributes?.button_url || siteSettings.portal_url || '#'" class="inline-flex items-center gap-2 text-primary-600 font-bold hover:text-primary-800 transition">
                             Coba POS Retail Gratis <ArrowRight class="w-5 h-5" />
                         </a>
                     </div>
@@ -121,36 +93,22 @@ const activeTab = ref('fnb');
                 <!-- Tab Jasa -->
                 <div v-show="activeTab === 'jasa'" class="grid md:grid-cols-2 gap-12 items-center animate-in fade-in slide-in-from-bottom-4 duration-500">
                     <div>
-                        <h2 class="text-3xl font-heading font-bold text-gray-900 mb-6">Kenyamanan Pelanggan Jasa Anda</h2>
+                        <h2 class="text-3xl font-heading font-bold text-gray-900 mb-6">{{ pageContents?.jasa?.title || 'Kenyamanan Pelanggan Jasa Anda' }}</h2>
                         <ul class="space-y-4 mb-8">
-                            <li class="flex items-start gap-3">
+                            <li v-for="(feature, idx) in (pageContents?.jasa?.attributes?.features_list || [])" :key="idx" class="flex items-start gap-3">
                                 <CheckCircle2 class="w-6 h-6 text-primary-600 shrink-0 mt-0.5" />
                                 <div>
-                                    <h4 class="font-bold text-gray-900">Penjadwalan (Booking) Booking</h4>
-                                    <p class="text-gray-600 text-sm">Atur jadwal layanan pelanggan dan karyawan tanpa khawatir bentrok.</p>
-                                </div>
-                            </li>
-                            <li class="flex items-start gap-3">
-                                <CheckCircle2 class="w-6 h-6 text-primary-600 shrink-0 mt-0.5" />
-                                <div>
-                                    <h4 class="font-bold text-gray-900">Sistem Komisi Karyawan</h4>
-                                    <p class="text-gray-600 text-sm">Perhitungan bagi hasil otomatis untuk setiap pegawai layanan.</p>
-                                </div>
-                            </li>
-                            <li class="flex items-start gap-3">
-                                <CheckCircle2 class="w-6 h-6 text-primary-600 shrink-0 mt-0.5" />
-                                <div>
-                                    <h4 class="font-bold text-gray-900">Member Loyalty</h4>
-                                    <p class="text-gray-600 text-sm">Simpan riwayat transaksi pelanggan untuk retensi dan program loyalitas.</p>
+                                    <h4 class="font-bold text-gray-900">{{ feature.title }}</h4>
+                                    <p class="text-gray-600 text-sm">{{ feature.description }}</p>
                                 </div>
                             </li>
                         </ul>
-                        <a href="https://app.sollu.local/trial" class="inline-flex items-center gap-2 text-primary-600 font-bold hover:text-primary-800 transition">
+                        <a :href="pageContents?.jasa?.attributes?.button_url || siteSettings.portal_url || '#'" class="inline-flex items-center gap-2 text-primary-600 font-bold hover:text-primary-800 transition">
                             Coba POS Jasa Gratis <ArrowRight class="w-5 h-5" />
                         </a>
                     </div>
                     <div class="relative rounded-2xl overflow-hidden shadow-2xl bg-gray-100 h-96">
-                        <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Service POS" class="w-full h-full object-cover opacity-90" />
+                        <img :src="pageContents?.jasa?.attributes?.image_url || 'https://images.unsplash.com/photo-1560066984-138dadb4c035?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'" alt="Service POS" class="w-full h-full object-cover opacity-90" />
                     </div>
                 </div>
 

@@ -84,11 +84,7 @@ const submitForm = () => {
                             </div>
                             <div>
                                 <h3 class="font-bold text-gray-900 text-lg mb-1">Kantor Pusat</h3>
-                                <p class="text-gray-600 text-sm leading-relaxed">
-                                    Gedung Sollu POS, Lt. 3<br>
-                                    Jl. Sudirman No 123<br>
-                                    Jakarta Selatan, 12190
-                                </p>
+                                <p class="text-gray-600 text-sm leading-relaxed whitespace-pre-line">{{ siteSettings?.office_address || "Gedung Sollu POS, Lt. 3\nJl. Sudirman No 123\nJakarta Selatan, 12190" }}</p>
                             </div>
                         </div>
                     </div>

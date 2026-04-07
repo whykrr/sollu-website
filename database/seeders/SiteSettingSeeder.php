@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\SiteSetting;
 
 class SiteSettingSeeder extends Seeder
 {
@@ -13,13 +13,18 @@ class SiteSettingSeeder extends Seeder
     public function run(): void
     {
         $settings = [
-            ['key' => 'portal_url', 'value' => 'https://app.sollupos.com', 'type' => 'url'],
-            ['key' => 'wa_number', 'value' => '6281234567890', 'type' => 'text'],
-            ['key' => 'contact_email', 'value' => 'hello@sollupos.com', 'type' => 'text'],
+            ['key' => 'portal_url', 'value' => 'https://app.sollu.local/login', 'type' => 'url'],
+            ['key' => 'cta_trial_url', 'value' => 'https://app.sollu.local/trial', 'type' => 'url'],
+            ['key' => 'wa_number', 'value' => '6281112345678', 'type' => 'text'],
+            ['key' => 'contact_email', 'value' => 'hello@sollu.local', 'type' => 'text'],
+            ['key' => 'office_address', 'value' => "Gedung Sollu POS, Lt. 3\nJl. Sudirman No 123\nJakarta Selatan, 12190", 'type' => 'textarea'],
         ];
 
         foreach ($settings as $setting) {
-            \App\Models\SiteSetting::firstOrCreate(['key' => $setting['key']], $setting);
+            SiteSetting::updateOrCreate(
+                ['key' => $setting['key']],
+                $setting
+            );
         }
     }
 }

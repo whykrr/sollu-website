@@ -22,7 +22,7 @@ const showingNavigationDropdown = ref(false);
                         <div class="flex">
                             <!-- Logo -->
                             <div class="flex shrink-0 items-center">
-                                <Link :href="route('dashboard')">
+                                <Link :href="route('admin.dashboard')">
                                     <ApplicationLogo
                                         class="block h-9 w-auto fill-current text-gray-800"
                                     />
@@ -30,14 +30,21 @@ const showingNavigationDropdown = ref(false);
                             </div>
 
                             <!-- Navigation Links -->
-                            <div
-                                class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex"
-                            >
-                                <NavLink
-                                    :href="route('dashboard')"
-                                    :active="route().current('dashboard')"
-                                >
+                            <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                <NavLink :href="route('admin.dashboard')" :active="route().current('admin.dashboard')">
                                     Dashboard
+                                </NavLink>
+                                <NavLink :href="route('admin.pages.index')" :active="route().current('admin.pages.*')">
+                                    Kelola Halaman
+                                </NavLink>
+                                <NavLink :href="route('admin.articles.index')" :active="route().current('admin.articles.*')">
+                                    Artikel
+                                </NavLink>
+                                <NavLink :href="route('admin.categories.index')" :active="route().current('admin.categories.*')">
+                                    Kategori
+                                </NavLink>
+                                <NavLink :href="route('admin.settings.index')" :active="route().current('admin.settings.*')">
+                                    Pengaturan Situs
                                 </NavLink>
                             </div>
                         </div>
@@ -140,11 +147,20 @@ const showingNavigationDropdown = ref(false);
                     class="sm:hidden"
                 >
                     <div class="space-y-1 pb-3 pt-2">
-                        <ResponsiveNavLink
-                            :href="route('dashboard')"
-                            :active="route().current('dashboard')"
-                        >
+                        <ResponsiveNavLink :href="route('admin.dashboard')" :active="route().current('admin.dashboard')">
                             Dashboard
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('admin.pages.index')" :active="route().current('admin.pages.*')">
+                            Kelola Halaman
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('admin.articles.index')" :active="route().current('admin.articles.*')">
+                            Artikel
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('admin.categories.index')" :active="route().current('admin.categories.*')">
+                            Kategori
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('admin.settings.index')" :active="route().current('admin.settings.*')">
+                            Pengaturan Situs
                         </ResponsiveNavLink>
                     </div>
 
