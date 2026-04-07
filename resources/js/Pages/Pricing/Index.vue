@@ -1,7 +1,17 @@
 <script setup>
-import { Head, Link } from '@inertiajs/vue3';
+import { Head, Link, usePage } from '@inertiajs/vue3';
 import MainLayout from '@/Layouts/MainLayout.vue';
 import { Check } from 'lucide-vue-next';
+import { computed } from 'vue';
+
+const props = defineProps({
+    pageContents: {
+        type: Object,
+        default: () => ({})
+    }
+});
+
+const siteSettings = computed(() => usePage().props.siteSettings || {});
 </script>
 
 <template>
@@ -12,8 +22,8 @@ import { Check } from 'lucide-vue-next';
         <div class="bg-primary-900 py-24 border-b border-primary-800 text-center relative overflow-hidden">
             <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/micro-carbon.png')] opacity-20 hidden md:block"></div>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <h1 class="text-4xl md:text-5xl font-heading font-extrabold text-white mb-6">Investasi Transparan untuk Skala Bisnis</h1>
-                <p class="text-xl text-primary-200 max-w-3xl mx-auto">Tanpa biaya tersembunyi. Pilih paket yang sesuai dengan ukuran bisnis Anda hari ini dan tingkatkan kapan saja.</p>
+                <h1 class="text-4xl md:text-5xl font-heading font-extrabold text-white mb-6">{{ pageContents?.hero?.title || 'Investasi Transparan untuk Skala Bisnis' }}</h1>
+                <p class="text-xl text-primary-200 max-w-3xl mx-auto">{{ pageContents?.hero?.subtitle || 'Tanpa biaya tersembunyi. Pilih paket yang sesuai dengan ukuran bisnis Anda hari ini dan tingkatkan kapan saja.' }}</p>
             </div>
         </div>
 

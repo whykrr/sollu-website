@@ -1,8 +1,17 @@
 <script setup>
-import { Head, Link } from '@inertiajs/vue3';
+import { Head, Link, usePage } from '@inertiajs/vue3';
 import MainLayout from '@/Layouts/MainLayout.vue';
 import { Mail, Phone, MapPin, Send } from 'lucide-vue-next';
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
+
+const props = defineProps({
+    pageContents: {
+        type: Object,
+        default: () => ({})
+    }
+});
+
+const siteSettings = computed(() => usePage().props.siteSettings || {});
 
 const form = ref({
     name: '',
@@ -34,8 +43,8 @@ const submitForm = () => {
         <!-- Header Section -->
         <div class="bg-primary-900 py-20 text-center relative">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <h1 class="text-4xl md:text-5xl font-heading font-extrabold text-white mb-6">Mari Ciptakan Solusi Bersama</h1>
-                <p class="text-xl text-primary-200 max-w-2xl mx-auto">Tim kami siap membantu Anda memilih paket yang tepat atau memandu Anda dalam menggunakan Sollu POS di hari pertama.</p>
+                <h1 class="text-4xl md:text-5xl font-heading font-extrabold text-white mb-6">{{ pageContents?.hero?.title || 'Mari Ciptakan Solusi Bersama' }}</h1>
+                <p class="text-xl text-primary-200 max-w-2xl mx-auto">{{ pageContents?.hero?.subtitle || 'Tim kami siap membantu Anda memilih paket yang tepat atau memandu Anda dalam menggunakan Sollu POS di hari pertama.' }}</p>
             </div>
         </div>
 
@@ -52,7 +61,7 @@ const submitForm = () => {
                             <div>
                                 <h3 class="font-bold text-gray-900 text-lg mb-1">Telepon & WhatsApp</h3>
                                 <p class="text-gray-600 mb-3 text-sm">Konsultasi cepat via WhatsApp dengan spesialis kami.</p>
-                                <a href="#" class="text-primary-600 font-bold hover:text-primary-800 transition">+62 811 1234 5678</a>
+                                <a :href="'https://wa.me/' + (siteSettings?.wa_number || '6281112345678')" class="text-primary-600 font-bold hover:text-primary-800 transition">+{{ siteSettings?.wa_number || '62 811 1234 5678' }}</a>
                             </div>
                         </div>
 
@@ -64,7 +73,7 @@ const submitForm = () => {
                             <div>
                                 <h3 class="font-bold text-gray-900 text-lg mb-1">Email</h3>
                                 <p class="text-gray-600 mb-3 text-sm">Untuk pertanyaan kerjasama atau detail teknis.</p>
-                                <a href="mailto:hello@sollu.local" class="text-primary-600 font-bold hover:text-primary-800 transition">hello@sollu.local</a>
+                                <a :href="'mailto:' + (siteSettings?.contact_email || 'hello@sollu.local')" class="text-primary-600 font-bold hover:text-primary-800 transition">{{ siteSettings?.contact_email || 'hello@sollu.local' }}</a>
                             </div>
                         </div>
 

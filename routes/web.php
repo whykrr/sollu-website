@@ -6,24 +6,18 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-// Public Pages Routes (Dummy for Layouts except home)
+// Public Pages Routes
 Route::get('/', [PageController::class, 'home'])->name('home');
 
-Route::get('/services', function () {
-    return Inertia::render('Services/Index');
-})->name('services');
+Route::get('/services', [PageController::class, 'services'])->name('services');
 
-Route::get('/pricing', function () {
-    return Inertia::render('Pricing/Index');
-})->name('pricing');
+Route::get('/pricing', [PageController::class, 'pricing'])->name('pricing');
 
 Route::get('/blog', function () {
     return Inertia::render('Blog/Index');
 })->name('blog');
 
-Route::get('/contact', function () {
-    return Inertia::render('Contact/Index');
-})->name('contact');
+Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 
 // Admin Routes (using Breeze scaffold)
 Route::get('/admin/dashboard', function () {

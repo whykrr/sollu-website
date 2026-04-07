@@ -24,10 +24,10 @@ class PageContentSeeder extends Seeder
                 'attributes' => json_encode(['button_text' => 'Coba Sekarang', 'button_url' => '/trial']),
             ],
             [
-                'page_slug' => 'services',
+                'page_slug' => 'home',
                 'section_key' => 'features',
                 'version' => '1.0',
-                'order' => 1,
+                'order' => 2,
                 'title' => 'Fitur Unggulan',
                 'subtitle' => 'Kami memiliki semua yang Anda butuhkan.',
                 'is_active' => true,
@@ -50,6 +50,36 @@ class PageContentSeeder extends Seeder
                         ]
                     ]
                 ]),
+            ],
+            [
+                'page_slug' => 'services',
+                'section_key' => 'hero',
+                'version' => '1.0',
+                'order' => 1,
+                'title' => 'Solusi Disesuaikan untuk Bisnis Anda',
+                'subtitle' => 'Sollu POS menyediakan fitur terdedikasi untuk industri F&B, Retail, dan Jasa. Tingkatkan efisiensi dan skala bisnis Anda.',
+                'is_active' => true,
+                'attributes' => null,
+            ],
+            [
+                'page_slug' => 'pricing',
+                'section_key' => 'hero',
+                'version' => '1.0',
+                'order' => 1,
+                'title' => 'Investasi Transparan untuk Skala Bisnis',
+                'subtitle' => 'Tanpa biaya tersembunyi. Pilih paket yang sesuai dengan ukuran bisnis Anda hari ini dan tingkatkan kapan saja.',
+                'is_active' => true,
+                'attributes' => null,
+            ],
+            [
+                'page_slug' => 'contact',
+                'section_key' => 'hero',
+                'version' => '1.0',
+                'order' => 1,
+                'title' => 'Mari Ciptakan Solusi Bersama',
+                'subtitle' => 'Tim kami siap membantu Anda memilih paket yang tepat atau memandu Anda dalam menggunakan Sollu POS di hari pertama.',
+                'is_active' => true,
+                'attributes' => null,
             ]
         ];
 

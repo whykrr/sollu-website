@@ -1,9 +1,17 @@
 <script setup>
-import { Head, Link } from '@inertiajs/vue3';
+import { Head, Link, usePage } from '@inertiajs/vue3';
 import MainLayout from '@/Layouts/MainLayout.vue';
 import { Coffee, ShoppingBag, Scissors, ArrowRight, CheckCircle2 } from 'lucide-vue-next';
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 
+const props = defineProps({
+    pageContents: {
+        type: Object,
+        default: () => ({})
+    }
+});
+
+const siteSettings = computed(() => usePage().props.siteSettings || {});
 const activeTab = ref('fnb');
 </script>
 
@@ -14,8 +22,8 @@ const activeTab = ref('fnb');
         <!-- Header Section -->
         <div class="bg-primary-50 py-20 border-b border-primary-100">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <h1 class="text-4xl md:text-5xl font-heading font-extrabold text-gray-900 mb-6">Solusi Disesuaikan untuk Bisnis Anda</h1>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Sollu POS menyediakan fitur terdedikasi untuk industri F&B, Retail, dan Jasa. Tingkatkan efisiensi dan skala bisnis Anda.</p>
+                <h1 class="text-4xl md:text-5xl font-heading font-extrabold text-gray-900 mb-6">{{ pageContents?.hero?.title || 'Solusi Disesuaikan untuk Bisnis Anda' }}</h1>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">{{ pageContents?.hero?.subtitle || 'Sollu POS menyediakan fitur terdedikasi untuk industri F&B, Retail, dan Jasa. Tingkatkan efisiensi dan skala bisnis Anda.' }}</p>
             </div>
         </div>
 
