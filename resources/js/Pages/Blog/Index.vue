@@ -9,6 +9,10 @@ const props = defineProps({
     featuredArticle: Object,
     categories: Array,
     filters: Object,
+    seo: {
+        type: Object,
+        default: null
+    }
 });
 
 const filterByCategory = (categoryId) => {
@@ -28,7 +32,12 @@ const readTime = (content) => {
 </script>
 
 <template>
-    <Head title="Blog & Edukasi" />
+    <Head :title="seo?.meta_title || 'Blog & Edukasi'">
+        <meta v-if="seo?.meta_description" name="description" :content="seo.meta_description" />
+        <meta v-if="seo?.meta_title" property="og:title" :content="seo.meta_title" />
+        <meta v-if="seo?.meta_description" property="og:description" :content="seo.meta_description" />
+        <meta v-if="seo?.og_image_url" property="og:image" :content="seo.og_image_url" />
+    </Head>
 
     <MainLayout>
         <!-- Header Section -->

@@ -46,6 +46,9 @@ const showingNavigationDropdown = ref(false);
                                 <NavLink :href="route('admin.settings.index')" :active="route().current('admin.settings.*')">
                                     Pengaturan Situs
                                 </NavLink>
+                                <NavLink :href="route('admin.seo.index')" :active="route().current('admin.seo.*')">
+                                    SEO
+                                </NavLink>
                             </div>
                         </div>
 
@@ -161,6 +164,9 @@ const showingNavigationDropdown = ref(false);
                         </ResponsiveNavLink>
                         <ResponsiveNavLink :href="route('admin.settings.index')" :active="route().current('admin.settings.*')">
                             Pengaturan Situs
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('admin.seo.index')" :active="route().current('admin.seo.*')">
+                            SEO
                         </ResponsiveNavLink>
                     </div>
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\ContentController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\SeoController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -47,6 +48,10 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
     Route::put('/categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
     Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+
+    // SEO Settings
+    Route::get('/seo', [SeoController::class, 'index'])->name('seo.index');
+    Route::put('/seo', [SeoController::class, 'update'])->name('seo.update');
 });
 
 Route::middleware('auth')->group(function () {

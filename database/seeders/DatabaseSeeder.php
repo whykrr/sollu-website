@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             SiteSettingSeeder::class,
             PageContentSeeder::class,
+            SeoSettingSeeder::class,
             CategorySeeder::class,
             ArticleSeeder::class,
         ]);

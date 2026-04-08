@@ -8,6 +8,10 @@ const props = defineProps({
     pageContents: {
         type: Object,
         default: () => ({})
+    },
+    seo: {
+        type: Object,
+        default: null
     }
 });
 
@@ -15,7 +19,12 @@ const siteSettings = computed(() => usePage().props.siteSettings || {});
 </script>
 
 <template>
-    <Head title="Harga & Paket" />
+    <Head :title="seo?.meta_title || 'Harga & Paket'">
+        <meta v-if="seo?.meta_description" name="description" :content="seo.meta_description" />
+        <meta v-if="seo?.meta_title" property="og:title" :content="seo.meta_title" />
+        <meta v-if="seo?.meta_description" property="og:description" :content="seo.meta_description" />
+        <meta v-if="seo?.og_image_url" property="og:image" :content="seo.og_image_url" />
+    </Head>
 
     <MainLayout>
         <!-- Header Section -->

@@ -21,7 +21,13 @@ const readTime = (content) => {
 </script>
 
 <template>
-    <Head :title="article.title" />
+    <Head :title="article.title">
+        <meta v-if="article.excerpt" name="description" :content="article.excerpt" />
+        <meta property="og:title" :content="article.title" />
+        <meta v-if="article.excerpt" property="og:description" :content="article.excerpt" />
+        <meta v-if="article.image_url" property="og:image" :content="article.image_url" />
+        <meta property="og:type" content="article" />
+    </Head>
 
     <MainLayout>
         <!-- Hero Cover -->
