@@ -1,59 +1,155 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# SaaS POS Landing Page — Dynamic CMS Website
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## 1. Overview
+Website promosi (Company Profile + Landing Page) untuk produk SaaS POS dengan pendekatan fully dynamic CMS.
+Semua konten dapat dikelola tanpa perubahan kode melalui Admin Panel.
 
-## About Laravel
+## 2. Core Features
+- **Global Content Manager:** Panel admin untuk mengedit konten pada seluruh halaman (Beranda, Layanan, Harga, Kontak, Blog) tanpa mengubah kode.
+  - **Editable Elements:** Headline, Sub-headline, Paragraf, Tombol (CTA), Gambar Banner, Ikon Fitur, Daftar Harga, Testimoni, dan FAQ.
+  - **Asset Management:** Upload dan ganti gambar atau ikon langsung dari dasbor.
+- **SEO Manager:** Form khusus untuk mengisi Meta Title, Meta Description, dan Keywords untuk setiap halaman guna optimasi mesin pencari.
+- **Halaman Layanan Dinamis:** Konten fitur untuk F&B, Retail, dan Jasa dapat ditambah, dikurangi, atau diubah urutannya oleh Admin.
+- **Halaman Harga (Tiered Pricing) Editor:** Kemampuan untuk memperbarui nominal harga, nama paket, dan daftar fitur dalam tabel harga secara real-time.
+- **Portal Link Manager:** Fitur pengaturan untuk mengubah URL tujuan tombol "Masuk/Login" (mengarah ke aplikasi POS utama) secara dinamis.
+- **Header CTA Manager:** Fitur khusus untuk mengelola tombol "Coba Sekarang" di bagian header website, termasuk teks tombol dan URL tujuan yang dapat diubah via admin.
+- **Blog / Artikel CMS:** Sistem publikasi konten edukasi bisnis dengan kategori dan tags yang dapat dikelola.
+- **WhatsApp Integration:** Nomor tujuan WhatsApp dapat diubah melalui admin panel.
+- **Contact Form & Leads Tracker:** Admin dapat melihat daftar potensial klien yang mengisi form kontak.
+- **Footer & Header Config:** Pengaturan menu navigasi, link sosial media, hak cipta, dan tombol CTA utama di bagian header.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 3. User Flow
+**Perjalanan Pengunjung (Calon Pelanggan):**
+1. Pengunjung masuk ke **Beranda** website (konten ditarik dinamis dari database).
+2. Pengunjung melihat tombol **"Coba Sekarang"** di header dan mengkliknya (dialihkan ke URL trial yang dikelola admin).
+3. Pengunjung mengklik menu **Layanan** untuk melihat fitur POS (konten fitur disesuaikan admin).
+4. Pengunjung masuk ke halaman **Harga** untuk melihat paket berlangganan (harga terkini sesuai update admin).
+5. Pengunjung klik tombol **"Masuk"** dan dialihkan ke URL Portal Aplikasi (URL dikelola dinamis oleh Admin).
+6. Jika ada pertanyaan, pengunjung mengklik ikon **WhatsApp** atau mengisi form di halaman **Hubungi Kami**.
+7. Pengunjung membaca tips bisnis di halaman **Blog**.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+**Perjalanan Admin internal:**
+1. Admin mengakses halaman *Login* tersembunyi (misal: `/admin/login`).
+2. Masuk ke **Dashboard Admin**.
+3. **Full Site Visual & Text Customization:**
+   - Memilih menu **Kelola Halaman** (Home, Services, Pricing, dll).
+   - Memilih section tertentu (misal: Hero Section, Feature List).
+   - Mengubah teks, upload gambar baru, atau mengatur ulang urutan fitur.
+   - Menyimpan perubahan dan melihat pratinjau (preview).
+4. **Pengaturan SEO & Global:**
+   - Mengisi Meta Title/Description untuk setiap halaman.
+   - Mengupdate **URL Portal Aplikasi** dan **URL Tombol "Coba Sekarang"** di menu Pengaturan.
+   - Mengupdate Nomor WhatsApp di menu Pengaturan.
+5. **Konten & Leads:** Menulis artikel blog baru dan melihat pesan masuk dari formulir kontak.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 4. Architecture
+Aplikasi ini menggunakan pendekatan **Monolith Modern** dengan fokus pada **Dynamic Content Rendering**. Backend (Laravel) bertindak sebagai penyedia data konten yang disimpan di database, sedangkan Frontend (Vue.js) bertindak sebagai *renderer* yang menerima data tersebut melalui Inertia.js. Tidak ada teks *hard-coded* pada view frontend; semua string UI diambil dari database.
 
-## Learning Laravel
+```mermaid
+flowchart TD
+    User([Pengunjung / Admin]) -->|Akses Website via Browser| EC2[AWS EC2 Server]
+    
+    subgraph Sistem Monolith [Di dalam AWS EC2]
+        direction TB
+        Route[Laravel Routing] --> Inertia[Inertia.js Middleware]
+        Inertia <-->|Kirim Data Konten DB| Vue[Vue.js Frontend / UI]
+        Route <-->|Logic & Akses Data| Controller[Laravel Controllers]
+        Controller <--> ORM[Eloquent ORM]
+        ORM <--> DB[(PostgreSQL Database)]
+    end
+    
+    Vue -->|Render Teks & Gambar Dinamis| UI_Display[Tampilan Website]
+    User <-->|Klik Tombol Chat| WA[Aplikasi WhatsApp external]
+    User <-->|Klik Tombol Masuk| AppPortal[Portal Aplikasi Utama / External URL]
+    User <-->|Klik Coba Sekarang| TrialURL[URL Trial / Demo / External]
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## 5. Database Schema
+Untuk memfasilitasi kebutuhan website promosi yang sepenuhnya dinamis, skema database (menggunakan PostgreSQL) dirancang untuk menyimpan konten terstruktur per halaman dan section.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+**Daftar Tabel:**
+- `users`: Menyimpan data Admin yang bisa mengelola web.
+- `page_contents`: Menyimpan konten terstruktur untuk setiap halaman dan section (Hero, Features, Pricing, dll). Menggunakan kolom JSONB untuk fleksibilitas atribut.
+- `seo_settings`: Menyimpan metadata SEO untuk setiap URL/halaman.
+- `categories`: Menyimpan kategori untuk artikel blog.
+- `articles`: Menyimpan konten blog.
+- `contact_messages`: Menyimpan data pesan dari pengunjung.
+- `site_settings`: Menyimpan konfigurasi global (URL Portal, URL Trial, Nomor WA, Email, Social Links).
 
-## Laravel Sponsors
+```mermaid
+erDiagram
+    users {
+        int id PK
+        string name "Nama admin"
+        string email "Email untuk login"
+        string password "Password terenkripsi"
+        timestamp created_at
+    }
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+    site_settings {
+        int id PK
+        string key "Misal: portal_url, cta_trial_url, wa_number"
+        text value "Isi konfigurasi"
+        string type "text, url, boolean"
+    }
 
-### Premium Partners
+    seo_settings {
+        int id PK
+        string page_slug "Misal: home, services, pricing"
+        string meta_title
+        text meta_description
+        string og_image_url
+    }
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+    page_contents {
+        int id PK
+        string page_slug "Halaman tujuan (home, services, dll)"
+        string section_key "Identifikasi section (hero, features, pricing)"
+        int order "Urutan tampilan"
+        string title "Judul Section"
+        text subtitle "Deskripsi pendek"
+        text content "Isi lengkap (HTML/Text)"
+        jsonb attributes "Data fleksibel (harga, list fitur, URL gambar)"
+        boolean is_active "Status tayang"
+    }
 
-## Contributing
+    categories {
+        int id PK
+        string name
+        string slug
+    }
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+    articles {
+        int id PK
+        int user_id FK
+        int category_id FK
+        string title
+        string slug
+        text content
+        string image_url
+        timestamp published_at
+    }
 
-## Code of Conduct
+    contact_messages {
+        int id PK
+        string name
+        string business_name
+        string phone
+        string email
+        text message
+        boolean is_read
+    }
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+    users ||--o{ articles : "menulis"
+    categories ||--o{ articles : "memiliki"
+    page_contents ||--o{ seo_settings : "related_by_slug"
+```
 
-## Security Vulnerabilities
+## 6. Tech Stack
+Berdasarkan kebutuhan skalabilitas, kemudahan maintenance, serta instruksi yang ada, teknologi yang digunakan adalah:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- **Frontend:** **Vue.js** (Framework JavaScript yang interaktif) + **Tailwind CSS** (Untuk styling yang cepat, modern, dan rapi. **Konfigurasi warna kustom #1e40af akan diatur dalam tailwind.config.js untuk memastikan konsistensi branding**). Komponen Vue akan menerima *props* dari backend untuk merender konten dinamis.
+- **Penghubung (Bridge):** **Inertia.js** (Digunakan untuk merender Vue langsung dari Laravel tanpa perlu membuat API publik terpisah, memungkinkan passing data konten database langsung ke komponen UI).
+- **Backend:** **Laravel** (Framework server-side berbasis PHP yang sangat andal. Fitur Eloquent dan Accessors akan digunakan untuk mengelola data konten yang kompleks).
+- **Database:** **PostgreSQL** (Database rasional berskala *enterprise*. Fitur **JSONB** akan dimanfaatkan pada tabel `page_contents` untuk menyimpan atribut section yang bervariasi tanpa perlu mengubah struktur tabel).
+- **Deployment & Infrastruktur:** **AWS EC2** (Amazon Elastic Compute Cloud sebagai server/virtual machine untuk perilisian kode kurang dari 1 bulan agar kontrol sepenuhnya ada pada tangan developer).
