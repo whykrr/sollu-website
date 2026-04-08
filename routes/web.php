@@ -25,9 +25,8 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::get('/', function () {
         return redirect()->route('admin.dashboard');
     });
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
+    
+    Route::get('/dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
 
     // Protected Core Management Routes
     Route::middleware('can:manage-pages')->group(function () {
