@@ -63,7 +63,7 @@ const icons = {
                     </div>
                     <div class="relative hidden lg:block">
                         <div class="absolute inset-0 bg-gradient-to-tr from-primary-200 to-primary-50 rounded-2xl transform rotate-3 scale-105"></div>
-                        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Sollu POS Dashboard" class="relative z-10 rounded-2xl shadow-2xl border border-white/50" />
+                        <img :src="pageContents?.hero?.attributes?.hero_image_url || 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'" alt="Sollu POS Dashboard" class="relative z-10 rounded-2xl shadow-2xl border border-white/50" />
                         
                         <!-- Floating Card -->
                         <div class="absolute -bottom-6 -left-6 bg-white p-4 rounded-xl shadow-xl z-20 flex items-center gap-4">

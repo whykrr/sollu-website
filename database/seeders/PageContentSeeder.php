@@ -23,6 +23,7 @@ class PageContentSeeder extends Seeder
                 'attributes' => [
                     'button_text' => 'Coba Gratis Sekarang',
                     'button_url' => 'https://app.sollu.local/trial',
+                    'hero_image_url' => 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
                 ],
                 'is_active' => true,
                 'order' => 1

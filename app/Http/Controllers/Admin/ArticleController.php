@@ -19,7 +19,7 @@ class ArticleController extends Controller
                 $query->where('category_id', $categoryId);
             })
             ->latest()
-            ->paginate(10)
+            ->paginate(5)
             ->withQueryString();
 
         return Inertia::render('Admin/Articles/Index', [

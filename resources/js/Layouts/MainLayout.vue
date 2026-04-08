@@ -16,7 +16,7 @@ const toggleMenu = () => { isMenuOpen.value = !isMenuOpen.value; };
                     <!-- Logo -->
                     <div class="flex-shrink-0 flex items-center gap-2">
                         <Link href="/" class="flex items-center gap-2 text-primary-800 hover:text-primary-900 transition font-heading font-bold text-2xl">
-                            <img src="/storage/img/logo-colored.png" alt="Sollu POS" class="h-8 w-auto" />
+                            <img src="/storage/img/logo-colored.png" alt="Sollu POS" class="h-12 w-auto" />
                         </Link>
                     </div>
 

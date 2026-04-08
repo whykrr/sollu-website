@@ -9,7 +9,7 @@ import { Link } from '@inertiajs/vue3';
     >
         <div>
             <Link href="/">
-                <ApplicationLogo class="h-20 w-20 fill-current text-gray-500" />
+                <img src="/storage/img/logo-colored.png" alt="Sollu POS" class="h-12 w-auto" />
             </Link>
         </div>
 

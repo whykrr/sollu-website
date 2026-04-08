@@ -127,10 +127,14 @@ const formatDate = (dateStr) => {
                     </table>
 
                     <!-- Pagination -->
-                    <div v-if="articles.last_page > 1" class="px-6 py-4 bg-gray-50 border-t border-gray-200 flex items-center justify-between">
-                        <p class="text-sm text-gray-500">Halaman {{ articles.current_page }} dari {{ articles.last_page }} ({{ articles.total }} artikel)</p>
-                        <div class="flex gap-1">
-                            <Link v-for="link in articles.links" :key="link.label" :href="link.url || '#'" :class="['px-3 py-1 text-sm rounded border transition', link.active ? 'bg-primary-600 text-white border-primary-600' : 'bg-white text-gray-600 border-gray-300 hover:bg-gray-50', !link.url ? 'opacity-50 cursor-not-allowed' : '']" v-html="link.label" />
+                    <div class="px-6 py-4 bg-gray-50 border-t border-gray-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                        <p class="text-sm text-gray-500">
+                            Menampilkan <span class="font-medium">{{ articles.from || 0 }}</span> sampai <span class="font-medium">{{ articles.to || 0 }}</span> dari <span class="font-medium">{{ articles.total }}</span> artikel
+                            <span v-if="articles.last_page > 1">(Halaman {{ articles.current_page }} dari {{ articles.last_page }})</span>
+                        </p>
+                        
+                        <div v-if="articles.last_page > 1" class="flex flex-wrap gap-1">
+                            <Link v-for="link in articles.links" :key="link.label" :href="link.url || '#'" preserve-scroll preserve-state :class="['px-3 py-1 text-sm rounded border transition whitespace-nowrap', link.active ? 'bg-primary-600 text-white border-primary-600' : 'bg-white text-gray-600 border-gray-300 hover:bg-gray-50', !link.url ? 'opacity-50 cursor-not-allowed' : '']" v-html="link.label" />
                         </div>
                     </div>
                 </div>
