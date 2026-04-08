@@ -34,7 +34,7 @@ const showingNavigationDropdown = ref(false);
                                 <NavLink :href="route('admin.dashboard')" :active="route().current('admin.dashboard')">
                                     Dashboard
                                 </NavLink>
-                                <NavLink :href="route('admin.pages.index')" :active="route().current('admin.pages.*')">
+                                <NavLink v-if="['superadmin', 'admin'].includes($page.props.auth.user.role)" :href="route('admin.pages.index')" :active="route().current('admin.pages.*')">
                                     Kelola Halaman
                                 </NavLink>
                                 <NavLink :href="route('admin.articles.index')" :active="route().current('admin.articles.*')">
@@ -43,11 +43,14 @@ const showingNavigationDropdown = ref(false);
                                 <NavLink :href="route('admin.categories.index')" :active="route().current('admin.categories.*')">
                                     Kategori
                                 </NavLink>
-                                <NavLink :href="route('admin.settings.index')" :active="route().current('admin.settings.*')">
+                                <NavLink v-if="['superadmin', 'admin'].includes($page.props.auth.user.role)" :href="route('admin.settings.index')" :active="route().current('admin.settings.*')">
                                     Pengaturan Situs
                                 </NavLink>
-                                <NavLink :href="route('admin.seo.index')" :active="route().current('admin.seo.*')">
+                                <NavLink v-if="['superadmin', 'admin'].includes($page.props.auth.user.role)" :href="route('admin.seo.index')" :active="route().current('admin.seo.*')">
                                     SEO
+                                </NavLink>
+                                <NavLink v-if="$page.props.auth.user.role === 'superadmin'" :href="route('admin.users.index')" :active="route().current('admin.users.*')">
+                                    Pengguna
                                 </NavLink>
                             </div>
                         </div>
@@ -153,7 +156,7 @@ const showingNavigationDropdown = ref(false);
                         <ResponsiveNavLink :href="route('admin.dashboard')" :active="route().current('admin.dashboard')">
                             Dashboard
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink :href="route('admin.pages.index')" :active="route().current('admin.pages.*')">
+                        <ResponsiveNavLink v-if="['superadmin', 'admin'].includes($page.props.auth.user.role)" :href="route('admin.pages.index')" :active="route().current('admin.pages.*')">
                             Kelola Halaman
                         </ResponsiveNavLink>
                         <ResponsiveNavLink :href="route('admin.articles.index')" :active="route().current('admin.articles.*')">
@@ -162,11 +165,14 @@ const showingNavigationDropdown = ref(false);
                         <ResponsiveNavLink :href="route('admin.categories.index')" :active="route().current('admin.categories.*')">
                             Kategori
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink :href="route('admin.settings.index')" :active="route().current('admin.settings.*')">
+                        <ResponsiveNavLink v-if="['superadmin', 'admin'].includes($page.props.auth.user.role)" :href="route('admin.settings.index')" :active="route().current('admin.settings.*')">
                             Pengaturan Situs
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink :href="route('admin.seo.index')" :active="route().current('admin.seo.*')">
+                        <ResponsiveNavLink v-if="['superadmin', 'admin'].includes($page.props.auth.user.role)" :href="route('admin.seo.index')" :active="route().current('admin.seo.*')">
                             SEO
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink v-if="$page.props.auth.user.role === 'superadmin'" :href="route('admin.users.index')" :active="route().current('admin.users.*')">
+                            Pengguna
                         </ResponsiveNavLink>
                     </div>
 

@@ -8,6 +8,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Gate;
 
 class ArticleController extends Controller
 {
@@ -63,6 +64,8 @@ class ArticleController extends Controller
 
     public function edit(Article $article)
     {
+        Gate::authorize('update', $article);
+
         return Inertia::render('Admin/Articles/Form', [
             'article' => $article,
             'categories' => Category::orderBy('name')->get(),
@@ -71,6 +74,8 @@ class ArticleController extends Controller
 
     public function update(Request $request, Article $article)
     {
+        Gate::authorize('update', $article);
+
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'excerpt' => 'nullable|string',
@@ -97,6 +102,8 @@ class ArticleController extends Controller
 
     public function destroy(Article $article)
     {
+        Gate::authorize('delete', $article);
+
         $article->delete();
 
         return redirect()->route('admin.articles.index')->with('success', 'Artikel berhasil dihapus.');

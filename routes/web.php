@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SeoController;
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -21,19 +22,38 @@ Route::get('/blog/{slug}', [PageController::class, 'blogShow'])->name('blog.show
 
 // Admin Routes (using Breeze scaffold)
 Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', function () {
+        return redirect()->route('admin.dashboard');
+    });
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
-    // Page Contents
-    Route::get('/pages', [ContentController::class, 'index'])->name('pages.index');
-    Route::get('/pages/{slug}/edit', [ContentController::class, 'edit'])->name('pages.edit');
-    Route::put('/pages/{slug}', [ContentController::class, 'update'])->name('pages.update');
+    // Protected Core Management Routes
+    Route::middleware('can:manage-pages')->group(function () {
+        Route::get('/pages', [ContentController::class, 'index'])->name('pages.index');
+        Route::get('/pages/{slug}/edit', [ContentController::class, 'edit'])->name('pages.edit');
+        Route::put('/pages/{slug}', [ContentController::class, 'update'])->name('pages.update');
+    });
+
     Route::post('/upload', [ContentController::class, 'uploadImage'])->name('upload');
 
-    // Site Settings
-    Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
-    Route::put('/settings', [SettingController::class, 'update'])->name('settings.update');
+    Route::middleware('can:manage-settings')->group(function () {
+        Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
+        Route::put('/settings', [SettingController::class, 'update'])->name('settings.update');
+    });
+
+    Route::middleware('can:manage-seo')->group(function () {
+        Route::get('/seo', [SeoController::class, 'index'])->name('seo.index');
+        Route::put('/seo', [SeoController::class, 'update'])->name('seo.update');
+    });
+
+    Route::middleware('can:manage-users')->group(function () {
+        Route::get('/users', [UserController::class, 'index'])->name('users.index');
+        Route::post('/users', [UserController::class, 'store'])->name('users.store');
+        Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
+        Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+    });
 
     // Articles
     Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
@@ -48,10 +68,6 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
     Route::put('/categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
     Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
-
-    // SEO Settings
-    Route::get('/seo', [SeoController::class, 'index'])->name('seo.index');
-    Route::put('/seo', [SeoController::class, 'update'])->name('seo.update');
 });
 
 Route::middleware('auth')->group(function () {

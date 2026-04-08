@@ -104,12 +104,17 @@ const formatDate = (dateStr) => {
                                 </td>
                                 <td class="px-6 py-4 text-right">
                                     <div class="flex items-center justify-end gap-2">
-                                        <Link :href="route('admin.articles.edit', article.id)" class="p-2 text-gray-400 hover:text-primary-600 transition" title="Edit">
-                                            <Pencil class="w-4 h-4" />
-                                        </Link>
-                                        <button @click="deleteArticle(article)" class="p-2 text-gray-400 hover:text-red-600 transition" title="Hapus">
-                                            <Trash2 class="w-4 h-4" />
-                                        </button>
+                                        <template v-if="['superadmin', 'admin'].includes($page.props.auth.user.role) || $page.props.auth.user.id === article.user_id">
+                                            <Link :href="route('admin.articles.edit', article.id)" class="p-2 text-gray-400 hover:text-primary-600 transition" title="Edit">
+                                                <Pencil class="w-4 h-4" />
+                                            </Link>
+                                            <button @click="deleteArticle(article)" class="p-2 text-gray-400 hover:text-red-600 transition" title="Hapus">
+                                                <Trash2 class="w-4 h-4" />
+                                            </button>
+                                        </template>
+                                        <template v-else>
+                                            <span class="text-xs text-gray-300 italic">No Access</span>
+                                        </template>
                                     </div>
                                 </td>
                             </tr>

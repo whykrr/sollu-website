@@ -12,12 +12,32 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\User::firstOrCreate(
-            ['email' => 'admin@sollupos.com'],
+        $users = [
             [
-                'name' => 'Admin Sollu POS',
+                'name' => 'Super Administrator',
+                'email' => 'superadmin@sollupos.com',
+                'role' => 'superadmin',
                 'password' => \Illuminate\Support\Facades\Hash::make('password123'),
-            ]
-        );
+            ],
+            [
+                'name' => 'Admin Utama',
+                'email' => 'admin@sollupos.com',
+                'role' => 'admin',
+                'password' => \Illuminate\Support\Facades\Hash::make('password123'),
+            ],
+            [
+                'name' => 'Content Creator',
+                'email' => 'creator@sollupos.com',
+                'role' => 'creator',
+                'password' => \Illuminate\Support\Facades\Hash::make('password123'),
+            ],
+        ];
+
+        foreach ($users as $user) {
+            \App\Models\User::firstOrCreate(
+                ['email' => $user['email']],
+                $user
+            );
+        }
     }
 }
