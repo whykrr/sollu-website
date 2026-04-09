@@ -102,8 +102,28 @@ const formatKeyName = (key) => {
                                         </div>
                                         <div v-for="(subVal, subKey) in item" :key="subKey">
                                             <label class="block text-xs font-medium text-gray-600 mb-1 capitalize">{{ formatKeyName(subKey) }}</label>
+                                            
+                                            <!-- String Input -->
                                             <input v-if="typeof subVal === 'string'" type="text" v-model="section.attributes[attrKey][iIndex][subKey]" class="w-full text-sm rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500">
-                                            <!-- Additional types can be handled here if needed -->
+                                            
+                                            <!-- Boolean Input -->
+                                            <div v-else-if="typeof subVal === 'boolean'" class="flex items-center gap-2">
+                                                <input type="checkbox" v-model="section.attributes[attrKey][iIndex][subKey]" class="rounded text-primary-600 focus:ring-primary-500 border-gray-300 shadow-sm">
+                                                <span class="text-sm text-gray-600">Aktifkan</span>
+                                            </div>
+
+                                            <!-- Array Input (e.g., features list) -->
+                                            <div v-else-if="Array.isArray(subVal)" class="space-y-2">
+                                                <div v-for="(strVal, strIndex) in section.attributes[attrKey][iIndex][subKey]" :key="strIndex" class="flex gap-2 items-center">
+                                                    <input type="text" v-model="section.attributes[attrKey][iIndex][subKey][strIndex]" class="flex-1 text-sm rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500">
+                                                    <button @click.prevent="section.attributes[attrKey][iIndex][subKey].splice(strIndex, 1)" type="button" class="p-1 px-2 bg-red-50 text-red-600 hover:bg-red-100 rounded text-xs font-bold">X</button>
+                                                </div>
+                                                <button @click.prevent="section.attributes[attrKey][iIndex][subKey].push('')" type="button" class="text-xs font-medium text-primary-600 hover:text-primary-800 bg-primary-50 px-2 py-1 rounded inline-block mt-1">+ Tambah Fitur/Item</button>
+                                            </div>
+
+                                            <div v-else>
+                                                <span class="text-xs text-gray-400">Tipe data tidak didukung ({{ typeof subVal }})</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

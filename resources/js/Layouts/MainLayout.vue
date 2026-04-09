@@ -1,10 +1,11 @@
 <script setup>
-import { Link } from '@inertiajs/vue3';
-import { ref } from 'vue';
+import { Link, usePage } from '@inertiajs/vue3';
+import { computed, ref } from 'vue';
 import { Menu, X, Rocket } from 'lucide-vue-next';
 
 const isMenuOpen = ref(false);
 const toggleMenu = () => { isMenuOpen.value = !isMenuOpen.value; };
+const siteSettings = computed(() => usePage().props.siteSettings || {});
 </script>
 
 <template>
@@ -31,8 +32,8 @@ const toggleMenu = () => { isMenuOpen.value = !isMenuOpen.value; };
 
                     <!-- CTA Buttons -->
                     <div class="hidden md:flex items-center space-x-4">
-                        <a href="https://app.sollu.local/login" class="text-primary-700 font-medium hover:text-primary-900 transition">Masuk</a>
-                        <a href="https://app.sollu.local/trial" class="bg-primary-600 text-white px-5 py-2.5 rounded-full font-medium shadow-md shadow-primary-500/30 hover:bg-primary-700 hover:shadow-lg hover:shadow-primary-500/40 transition-all transform hover:-translate-y-0.5">
+                        <a :href="siteSettings.portal_url" target="blank" class="text-primary-700 font-medium hover:text-primary-900 transition">Masuk</a>
+                        <a :href="siteSettings.cta_trial_url" target="blank" class="bg-primary-600 text-white px-5 py-2.5 rounded-full font-medium shadow-md shadow-primary-500/30 hover:bg-primary-700 hover:shadow-lg hover:shadow-primary-500/40 transition-all transform hover:-translate-y-0.5">
                             Coba Sekarang
                         </a>
                     </div>
@@ -56,8 +57,8 @@ const toggleMenu = () => { isMenuOpen.value = !isMenuOpen.value; };
                     <Link href="/blog" @click="isMenuOpen = false" class="block px-3 py-2 text-base font-medium text-gray-800 hover:text-primary-600 hover:bg-gray-50 rounded-md">Blog</Link>
                     <Link href="/contact" @click="isMenuOpen = false" class="block px-3 py-2 text-base font-medium text-gray-800 hover:text-primary-600 hover:bg-gray-50 rounded-md">Hubungi Kami</Link>
                     <div class="h-px bg-gray-100 my-2"></div>
-                    <a href="https://app.sollu.local/login" class="block px-3 py-2 text-base font-medium text-primary-700">Masuk Aplikasi</a>
-                    <a href="https://app.sollu.local/trial" class="block px-3 py-3 text-center text-base font-medium bg-primary-600 text-white rounded-md mt-2 shadow-sm">Coba Sekarang Gratis</a>
+                    <a :href="siteSettings.portal_url" class="block px-3 py-2 text-base font-medium text-primary-700">Masuk Aplikasi</a>
+                    <a :href="siteSettings.cta_trial_url" class="block px-3 py-3 text-center text-base font-medium bg-primary-600 text-white rounded-md mt-2 shadow-sm">Coba Sekarang Gratis</a>
                 </div>
             </div>
         </header>

@@ -171,6 +171,24 @@ class PageContentSeeder extends Seeder
                 'is_active' => true,
                 'order' => 2
             ],
+            [
+                'page_slug' => 'pricing',
+                'section_key' => 'trusted_by',
+                'title' => 'Dipercaya oleh lebih dari 5.000 bisnis di Indonesia',
+                'subtitle' => null,
+                'content' => null,
+                'attributes' => [
+                    'brand_logos' => [
+                        // Since we don't have actual logos right now, we can use strings for text-based logos, or image URLs
+                        ['name' => 'BRANDONE'],
+                        ['name' => 'COMPANYTWO'],
+                        ['name' => 'GROUPTHREE'],
+                        ['name' => 'STUDIOFOUR']
+                    ]
+                ],
+                'is_active' => true,
+                'order' => 3
+            ],
 
             // CONTACT PAGE
             [
