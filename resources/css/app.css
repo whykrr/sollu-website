@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@theme {
+    /* Main: Navy Blue (Elegant & Deep) */
+    --color-main: #1e40af;
+    --color-main-light: #3b82f6;
+    --color-main-lighter: #60a5fa;
+    --color-main-dark: #1e3a8a;
+    --color-main-darker: #172554;
+
+    /* Secondary: Turquoise (Bright, Elegant Gradient with Navy) */
+    --color-secondary: #06b6d4;
+    --color-secondary-light: #67e8f9;
+    --color-secondary-lighter: #a5f3fc;
+    --color-secondary-dark: #0891b2;
+    --color-secondary-darker: #0e7490;
+}

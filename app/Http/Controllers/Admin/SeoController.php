@@ -11,7 +11,7 @@ class SeoController extends Controller
 {
     public function index()
     {
-        $seoSettings = SeoSetting::orderBy('page_slug')->get();
+        $seoSettings = SeoSetting::orderBy('id')->get();
 
         return Inertia::render('Admin/Seo/Index', [
             'seoSettings' => $seoSettings,
