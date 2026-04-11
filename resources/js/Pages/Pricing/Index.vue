@@ -119,7 +119,7 @@ const siteSettings = computed(() => usePage().props.siteSettings || {});
 
                         <div
                             :class="[
-                                'text-4xl font-extrabold mb-6',
+                                'text-4xl font-extrabold mb-4',
                                 plan.is_popular
                                     ? 'text-white'
                                     : 'text-gray-900',
@@ -128,12 +128,12 @@ const siteSettings = computed(() => usePage().props.siteSettings || {});
                             {{ plan.price
                             }}<span
                                 :class="[
-                                    'text-xl font-normal',
+                                    'text-sm font-normal pb-2',
                                     plan.is_popular
                                         ? 'text-primary-200'
                                         : 'text-gray-500',
                                 ]"
-                                ><br />{{ plan.period }}</span
+                                >{{ plan.period }}</span
                             >
                         </div>
 
@@ -186,7 +186,7 @@ const siteSettings = computed(() => usePage().props.siteSettings || {});
                 </div>
 
                 <!-- Trusted By -->
-                <div class="mt-32 text-center">
+                <div class="mt-16 text-center">
                     <p
                         class="text-sm font-bold text-gray-400 uppercase tracking-wider mb-8"
                     >
