@@ -36,7 +36,7 @@ jobs:
           username: ubuntu # atau 'opc' untuk Oracle
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd ~/app/${{ github.event.repository.name }}
+            cd ~/sollu-deployment/${{ github.event.repository.name }}
             echo "${{ secrets.ENV_FILE }}" > .env
             # Login ulang di server untuk pull dari GHCR
             echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
