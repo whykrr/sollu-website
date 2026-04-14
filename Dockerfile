@@ -35,6 +35,10 @@ COPY package*.json ./
 RUN npm install
 
 COPY . .
+
+# 3. PENTING: Ambil folder vendor dari stage php-build agar Ziggy ditemukan oleh Vite
+COPY --from=php-build /var/www/html/vendor ./vendor
+
 RUN npm run build
 
 # Stage 3: Final Production Image
