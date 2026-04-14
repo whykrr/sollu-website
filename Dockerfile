@@ -1,5 +1,5 @@
-# Stage 1: Build dependencies
-FROM php:8.3-fpm-alpine as build
+# Stage 1: Build PHP dependencies
+FROM php:8.3-fpm-alpine as php-build
 
 RUN apk add --no-cache \
     zip \
@@ -24,11 +24,20 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 WORKDIR /var/www/html
 COPY . .
 
-# Install dependencies tanpa dev-tools untuk performa maksimal
+# Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader --no-interaction
+
+# Stage 2: Build Node.js assets
+FROM node:20-alpine as node-build
+
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+
+COPY . .
 RUN npm run build
 
-# Stage 2: Final Production Image
+# Stage 3: Final Production Image
 FROM php:8.3-fpm-alpine
 
 # Install runtime dependencies saja
@@ -37,12 +46,17 @@ RUN apk add --no-cache \
 
 WORKDIR /var/www/html
 
-# Copy aplikasi dari stage build
-COPY --from=build --chown=www-data:www-data /var/www/html /var/www/html
-COPY --from=build /usr/local/lib/php/extensions /usr/local/lib/php/extensions
-COPY --from=build /usr/local/etc/php/conf.d /usr/local/etc/php/conf.d
+# Copy aplikasi dari stage php-build
+COPY --from=php-build --chown=www-data:www-data /var/www/html /var/www/html
 
-# Copy konfigurasi custom (Harus Anda buat di folder ./docker/...)
+# Copy built assets dari stage node-build
+COPY --from=node-build --chown=www-data:www-data /app/public/build /var/www/html/public/build
+
+# Copy PHP extensions dari stage php-build
+COPY --from=php-build /usr/local/lib/php/extensions /usr/local/lib/php/extensions
+COPY --from=php-build /usr/local/etc/php/conf.d /usr/local/etc/php/conf.d
+
+# Copy konfigurasi custom
 COPY ./docker/nginx.conf /etc/nginx/http.d/default.conf
 COPY ./docker/supervisord.conf /etc/supervisord.conf
 COPY ./docker/php-production.ini /usr/local/etc/php/conf.d/app.ini
