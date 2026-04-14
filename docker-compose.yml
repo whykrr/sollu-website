@@ -9,6 +9,11 @@ services:
       - .env
     networks:
       - sollu-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m" # Maksimal ukuran 1 file log 10 Megabyte
+        max-file: "3" # Simpan maksimal 3 file (lama akan dihapus)
 
 networks:
   sollu-network:
