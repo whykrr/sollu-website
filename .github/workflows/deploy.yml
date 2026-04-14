@@ -29,6 +29,16 @@ jobs:
           push: true
           tags: ghcr.io/${{ github.repository }}:latest
 
+      - name: Copy config files to server
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ubuntu
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          # Kita kirim docker-compose dan folder docker (isi nginx & php config)
+          source: "docker-compose.yml,docker/"
+          target: "~/sollu-deployment/${{ github.event.repository.name }}/"
+
       - name: Deploy via SSH
         uses: appleboy/ssh-action@master
         with:
