@@ -1,6 +1,6 @@
 <script setup>
-import ApplicationLogo from '@/Components/ApplicationLogo.vue';
-import { Link } from '@inertiajs/vue3';
+import ApplicationLogo from "@/Components/ApplicationLogo.vue";
+import { Link } from "@inertiajs/vue3";
 </script>
 
 <template>
@@ -9,7 +9,11 @@ import { Link } from '@inertiajs/vue3';
     >
         <div>
             <Link href="/">
-                <img src="/storage/img/logo-colored.png" alt="Sollu POS" class="h-12 w-auto" />
+                <img
+                    src="/img/logo-colored.png"
+                    alt="Sollu POS"
+                    class="h-12 w-auto"
+                />
             </Link>
         </div>
 

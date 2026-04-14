@@ -25,7 +25,7 @@ const siteSettings = computed(() => usePage().props.siteSettings || {});
                             class="flex items-center gap-2 text-primary-800 hover:text-primary-900 transition font-heading font-bold text-2xl"
                         >
                             <img
-                                src="/storage/img/logo-colored.png"
+                                src="/img/logo-colored.png"
                                 alt="Sollu POS"
                                 class="h-12 w-auto"
                             />
@@ -159,7 +159,7 @@ const siteSettings = computed(() => usePage().props.siteSettings || {});
                             class="flex items-center gap-2 text-white font-heading font-bold text-2xl mb-4"
                         >
                             <img
-                                src="/storage/img/logo-white.png"
+                                src="/img/logo-white.png"
                                 alt="Sollu POS"
                                 class="h-8 w-auto"
                             />

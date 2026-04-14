@@ -26,6 +26,7 @@ COPY . .
 
 # Install dependencies tanpa dev-tools untuk performa maksimal
 RUN composer install --no-dev --optimize-autoloader --no-interaction
+RUN npm run build
 
 # Stage 2: Final Production Image
 FROM php:8.3-fpm-alpine
