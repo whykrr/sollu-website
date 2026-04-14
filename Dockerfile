@@ -2,10 +2,22 @@
 FROM php:8.3-fpm-alpine as build
 
 RUN apk add --no-cache \
-    zip libzip-dev libpng-dev libjpeg-turbo-dev freetype-dev icu-dev
+    zip \
+    libzip-dev \
+    libpng-dev \
+    libjpeg-turbo-dev \
+    freetype-dev \
+    icu-dev \
+    postgresql-dev
 
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install pdo_mysql pdo_pgsql zip gd intl opcache
+    && docker-php-ext-install \
+        pdo_mysql \
+        pdo_pgsql \
+        zip \
+        gd \
+        intl \
+        opcache
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
@@ -22,12 +34,12 @@ FROM php:8.3-fpm-alpine
 RUN apk add --no-cache \
     nginx supervisor libzip libpng libjpeg-turbo freetype icu libpq
 
-RUN docker-php-ext-install pdo_pgsql pdo_mysql opcache
-
 WORKDIR /var/www/html
 
 # Copy aplikasi dari stage build
 COPY --from=build --chown=www-data:www-data /var/www/html /var/www/html
+COPY --from=build /usr/local/lib/php/extensions /usr/local/lib/php/extensions
+COPY --from=build /usr/local/etc/php/conf.d /usr/local/etc/php/conf.d
 
 # Copy konfigurasi custom (Harus Anda buat di folder ./docker/...)
 COPY ./docker/nginx.conf /etc/nginx/http.d/default.conf
