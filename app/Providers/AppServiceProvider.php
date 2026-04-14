@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\User;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
-use App\Models\User;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,21 +23,26 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Tambahkan baris ini
+        if (app()->environment('production')) {
+            URL::forceScheme('https');
+        }
+
         Vite::prefetch(concurrency: 3);
 
-        \Illuminate\Support\Facades\Gate::define('manage-users', function (User $user) {
+        Gate::define('manage-users', function (User $user) {
             return $user->isSuperAdmin();
         });
 
-        \Illuminate\Support\Facades\Gate::define('manage-settings', function (User $user) {
+        Gate::define('manage-settings', function (User $user) {
             return $user->isSuperAdmin() || $user->isAdmin();
         });
 
-        \Illuminate\Support\Facades\Gate::define('manage-pages', function (User $user) {
+        Gate::define('manage-pages', function (User $user) {
             return $user->isSuperAdmin() || $user->isAdmin();
         });
 
-        \Illuminate\Support\Facades\Gate::define('manage-seo', function (User $user) {
+        Gate::define('manage-seo', function (User $user) {
             return $user->isSuperAdmin() || $user->isAdmin();
         });
     }
