@@ -10,6 +10,8 @@ jobs:
     permissions:
       contents: read
       packages: write
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
     steps:
       - name: Checkout code
@@ -50,5 +52,6 @@ jobs:
             echo "${{ secrets.ENV_FILE }}" > .env
             # Login ulang di server untuk pull dari GHCR
             echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+            docker compose down --remove-orphans
             docker compose pull
             docker compose up -d
