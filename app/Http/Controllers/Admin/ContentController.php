@@ -12,7 +12,8 @@ class ContentController extends Controller
     public function index()
     {
         $pages = PageContent::select('page_slug')
-            ->distinct()
+            ->groupBy('page_slug')
+            ->orderByRaw('MIN(id)')
             ->get()
             ->pluck('page_slug')
             ->map(function ($slug) {
@@ -59,7 +60,7 @@ class ContentController extends Controller
             $content = PageContent::where('page_slug', $slug)
                                   ->where('id', $item['id'])
                                   ->first();
-            
+
             if ($content) {
                 $content->update([
                     'title' => $item['title'] ?? null,
@@ -80,7 +81,7 @@ class ContentController extends Controller
         ]);
 
         $path = $request->file('image')->store('uploads', 'public');
-        
+
         return response()->json([
             'url' => '/storage/' . $path
         ]);

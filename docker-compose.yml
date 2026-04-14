@@ -1,0 +1,15 @@
+services:
+  sollu-website:
+    image: ghcr.io/whykrr/sollu-website:latest
+    container_name: sollu-website
+    restart: always
+    ports:
+      - "8001:80" # Port 8001 di server ke port 80 di container
+    env_file:
+      - .env
+    networks:
+      - sollu-network
+
+networks:
+  sollu-network:
+    external: true # Kita buat network global agar bisa berkomunikasi dengan Proxy
