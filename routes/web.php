@@ -23,8 +23,11 @@ Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 Route::post('/contact', [ContactFormController::class, 'store'])->name('contact.store');
 Route::get('/blog', [PageController::class, 'blog'])->name('blog');
 Route::get('/blog/{slug}', [PageController::class, 'blogShow'])->name('blog.show');
-Route::get('/coming-soon', fn () => view('coming-soon'))->name('coming-soon');
+Route::get('/coming-soon', fn () => Inertia::render('ComingSoon'))->name('coming-soon');
 Route::post('/coming-soon/subscribe', [SubscriberController::class, 'store'])->name('coming-soon.subscribe');
+Route::get('/maintenance', fn () => Inertia::render('Maintenance', [
+    'contactEmail' => config('mail.from.address', 'hello@solluapp.com'),
+]))->name('maintenance');
 
 // Admin Routes (using Breeze scaffold)
 Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {

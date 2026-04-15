@@ -581,8 +581,8 @@
                 </svg>
             </a>
             <a href="#" class="social-link" aria-label="Twitter">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                    stroke-linejoin="round">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                    stroke-linecap="round" stroke-linejoin="round">
                     <path
                         d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />
                 </svg>
@@ -654,14 +654,16 @@
             messageEl.style.display = 'none';
 
             try {
-                const response = await fetch('{{ route("coming-soon.subscribe") }}', {
+                const response = await fetch('{{ route('coming-soon.subscribe') }}', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                         'Accept': 'application/json',
                         'X-CSRF-TOKEN': csrfToken,
                     },
-                    body: JSON.stringify({ email }),
+                    body: JSON.stringify({
+                        email
+                    }),
                 });
 
                 const data = await response.json();

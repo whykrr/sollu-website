@@ -262,13 +262,36 @@
             }
         }
 
-        /* Responsive */
+        /* Responsive — Tablets */
+        @media (max-width: 768px) {
+            .container { padding: 1.5rem; }
+            .orb-1 { width: 300px; height: 300px; }
+            .orb-2 { width: 200px; height: 200px; }
+            .orb-3 { width: 150px; height: 150px; }
+        }
+
+        /* Responsive — Mobile */
         @media (max-width: 640px) {
+            .logo { height: 36px; margin-bottom: 1.5rem; }
             h1 { font-size: 1.75rem; }
-            .description { font-size: 1rem; }
+            .description { font-size: 1rem; margin-bottom: 2rem; }
             .glass-card { padding: 2rem 1.5rem; }
-            .icon-wrapper { width: 80px; height: 80px; border-radius: 20px; }
+            .icon-wrapper { width: 80px; height: 80px; border-radius: 20px; margin-bottom: 1rem; }
             .gear-icon { width: 36px; height: 36px; }
+            .status-badge { font-size: 0.7rem; padding: 5px 12px; }
+            .progress-section { margin-bottom: 2rem; }
+            .contact-section p { font-size: 0.8rem; }
+        }
+
+        /* Responsive — Very small screens */
+        @media (max-width: 380px) {
+            .container { padding: 1rem; }
+            .logo { height: 28px; margin-bottom: 1rem; }
+            h1 { font-size: 1.5rem; }
+            .description { font-size: 0.9rem; }
+            .glass-card { padding: 1.5rem 1rem; border-radius: 16px; }
+            .icon-wrapper { width: 64px; height: 64px; border-radius: 16px; }
+            .gear-icon { width: 28px; height: 28px; }
         }
     </style>
 </head>
