@@ -68,6 +68,9 @@ COPY ./docker/php-production.ini /usr/local/etc/php/conf.d/app.ini
 # Permission untuk Laravel
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
+# linked storage untuk akses file yang diupload
+RUN ln -s /var/www/html/storage/app/public /var/www/html/public/storage
+
 EXPOSE 80
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
