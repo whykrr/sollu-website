@@ -98,9 +98,9 @@ class ShareOpenGraphData
             ->first(['title', 'excerpt', 'image_url', 'slug']);
 
         if ($article) {
-            $ogData['title'] = $article->title . ' — ' . $ogData['site_name'];
+            $ogData['title'] = $article->title . ' | ' . $ogData['site_name'];
             $ogData['description'] = $article->excerpt;
-            $ogData['image'] = $article->image_url;
+            $ogData['image'] = url($article->image_url);
             $ogData['type'] = 'article';
         }
 

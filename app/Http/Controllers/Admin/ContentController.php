@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\PageContent;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class ContentController extends Controller
@@ -80,10 +81,10 @@ class ContentController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048'
         ]);
 
-        $path = $request->file('image')->store('uploads', 'public');
+        $path = $request->file('image')->store('uploads');
 
         return response()->json([
-            'url' => '/storage/' . $path
+            'url' => Storage::disk('s3')->url($path)
         ]);
     }
 }
