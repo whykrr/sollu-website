@@ -1,5 +1,5 @@
 <script setup>
-import { Head, Link, usePage } from "@inertiajs/vue3";
+import { Head, Link, usePage, useForm } from "@inertiajs/vue3";
 import MainLayout from "@/Layouts/MainLayout.vue";
 import { Mail, Phone, MapPin, Send } from "lucide-vue-next";
 import { ref, computed } from "vue";
@@ -17,7 +17,7 @@ const props = defineProps({
 
 const siteSettings = computed(() => usePage().props.siteSettings || {});
 
-const form = ref({
+const form = useForm({
     name: "",
     business_name: "",
     phone: "",
@@ -25,24 +25,17 @@ const form = ref({
     message: "",
 });
 
-const isSubmitting = ref(false);
 const isSuccess = ref(false);
 
 const submitForm = () => {
-    isSubmitting.value = true;
-    // Simulate submission since backend isn't ready
-    setTimeout(() => {
-        isSubmitting.value = false;
-        isSuccess.value = true;
-        form.value = {
-            name: "",
-            business_name: "",
-            phone: "",
-            email: "",
-            message: "",
-        };
-        setTimeout(() => (isSuccess.value = false), 5000);
-    }, 1500);
+    form.post(route("contact.store"), {
+        preserveScroll: true,
+        onSuccess: () => {
+            form.reset();
+            isSuccess.value = true;
+            setTimeout(() => (isSuccess.value = false), 5000);
+        },
+    });
 };
 </script>
 
@@ -226,15 +219,17 @@ const submitForm = () => {
                                 <div>
                                     <label
                                         class="block text-sm font-medium text-gray-700 mb-2"
-                                        >Nama Lengkap</label
+                                        >Nama Lengkap <span class="text-red-500">*</span></label
                                     >
                                     <input
                                         type="text"
                                         v-model="form.name"
                                         required
                                         class="w-full rounded-lg border-gray-300 focus:border-primary-500 focus:ring-primary-500 shadow-sm transition px-4 py-3 bg-gray-50 focus:bg-white"
+                                        :class="{ 'border-red-500': form.errors.name }"
                                         placeholder="Contoh: Budi Santoso"
                                     />
+                                    <p v-if="form.errors.name" class="mt-1 text-sm text-red-600">{{ form.errors.name }}</p>
                                 </div>
                                 <div>
                                     <label
@@ -244,10 +239,11 @@ const submitForm = () => {
                                     <input
                                         type="text"
                                         v-model="form.business_name"
-                                        required
                                         class="w-full rounded-lg border-gray-300 focus:border-primary-500 focus:ring-primary-500 shadow-sm transition px-4 py-3 bg-gray-50 focus:bg-white"
+                                        :class="{ 'border-red-500': form.errors.business_name }"
                                         placeholder="Contoh: Kopi Janji Kita"
                                     />
+                                    <p v-if="form.errors.business_name" class="mt-1 text-sm text-red-600">{{ form.errors.business_name }}</p>
                                 </div>
                             </div>
 
@@ -255,51 +251,56 @@ const submitForm = () => {
                                 <div>
                                     <label
                                         class="block text-sm font-medium text-gray-700 mb-2"
-                                        >Nomor WhatsApp</label
+                                        >Nomor WhatsApp <span class="text-red-500">*</span></label
                                     >
                                     <input
                                         type="tel"
                                         v-model="form.phone"
                                         required
                                         class="w-full rounded-lg border-gray-300 focus:border-primary-500 focus:ring-primary-500 shadow-sm transition px-4 py-3 bg-gray-50 focus:bg-white"
+                                        :class="{ 'border-red-500': form.errors.phone }"
                                         placeholder="Contoh: 08123456789"
                                     />
+                                    <p v-if="form.errors.phone" class="mt-1 text-sm text-red-600">{{ form.errors.phone }}</p>
                                 </div>
                                 <div>
                                     <label
                                         class="block text-sm font-medium text-gray-700 mb-2"
-                                        >Email Valid</label
+                                        >Email</label
                                     >
                                     <input
                                         type="email"
                                         v-model="form.email"
-                                        required
                                         class="w-full rounded-lg border-gray-300 focus:border-primary-500 focus:ring-primary-500 shadow-sm transition px-4 py-3 bg-gray-50 focus:bg-white"
+                                        :class="{ 'border-red-500': form.errors.email }"
                                         placeholder="budi@example.com"
                                     />
+                                    <p v-if="form.errors.email" class="mt-1 text-sm text-red-600">{{ form.errors.email }}</p>
                                 </div>
                             </div>
 
                             <div class="mb-8">
                                 <label
                                     class="block text-sm font-medium text-gray-700 mb-2"
-                                    >Bagaimana kami bisa membantu?</label
+                                    >Bagaimana kami bisa membantu? <span class="text-red-500">*</span></label
                                 >
                                 <textarea
                                     rows="4"
                                     v-model="form.message"
                                     required
                                     class="w-full rounded-lg border-gray-300 focus:border-primary-500 focus:ring-primary-500 shadow-sm transition px-4 py-3 bg-gray-50 focus:bg-white"
+                                    :class="{ 'border-red-500': form.errors.message }"
                                     placeholder="Ceritakan kebutuhan atau kendala bisnis yang sedang Anda hadapi..."
                                 ></textarea>
+                                <p v-if="form.errors.message" class="mt-1 text-sm text-red-600">{{ form.errors.message }}</p>
                             </div>
 
                             <button
                                 type="submit"
-                                :disabled="isSubmitting"
+                                :disabled="form.processing"
                                 class="w-full flex justify-center items-center gap-2 bg-linear-to-r from-main to-secondary text-white font-bold px-8 py-4 rounded-xl shadow-lg shadow-primary-500/30 hover:bg-primary-700 hover:shadow-xl transition-all disabled:opacity-70 disabled:cursor-not-allowed"
                             >
-                                <span v-if="isSubmitting"
+                                <span v-if="form.processing"
                                     >Mengirim Pesan...</span
                                 >
                                 <span v-else class="flex items-center gap-2"
