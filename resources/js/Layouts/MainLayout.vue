@@ -1,5 +1,5 @@
 <script setup>
-import { Link, usePage } from "@inertiajs/vue3";
+import { Head, Link, usePage } from "@inertiajs/vue3";
 import { computed, ref } from "vue";
 import { Menu, X, Rocket } from "lucide-vue-next";
 
@@ -11,6 +11,9 @@ const siteSettings = computed(() => usePage().props.siteSettings || {});
 </script>
 
 <template>
+    <Head>
+        <link rel="icon" type="image/png" href="/img/icon-trans.png" />
+    </Head>
     <div class="min-h-screen bg-white font-sans text-gray-900 flex flex-col">
         <!-- Header / Navbar -->
         <header
@@ -52,7 +55,7 @@ const siteSettings = computed(() => usePage().props.siteSettings || {});
                         <Link
                             href="/blog"
                             class="text-base font-medium text-gray-600 hover:text-main transition"
-                            >Blog</Link
+                            >Tips Usaha</Link
                         >
                         <Link
                             href="/contact"
