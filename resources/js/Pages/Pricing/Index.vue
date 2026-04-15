@@ -188,55 +188,13 @@ const siteSettings = computed(() => usePage().props.siteSettings || {});
                 <!-- Trusted By -->
                 <div class="mt-16 text-center">
                     <p
-                        class="text-sm font-bold text-gray-400 uppercase tracking-wider mb-8"
+                        class="text-sm font-bold text-gray-400 uppercase tracking-wider"
                     >
                         {{
                             pageContents?.trusted_by?.title ||
                             "Dipercaya oleh lebih dari 5.000 bisnis di Indonesia"
                         }}
                     </p>
-                    <div
-                        class="flex justify-center gap-12 flex-wrap opacity-50 grayscale"
-                    >
-                        <template
-                            v-if="
-                                pageContents?.trusted_by?.attributes
-                                    ?.brand_logos?.length
-                            "
-                        >
-                            <div
-                                v-for="(logo, idx) in pageContents.trusted_by
-                                    .attributes.brand_logos"
-                                :key="idx"
-                                class="h-8 md:h-10 text-xl font-bold text-gray-800 tracking-tighter"
-                            >
-                                {{ logo.name }}
-                            </div>
-                        </template>
-                        <template v-else>
-                            <!-- Placeholder fallback -->
-                            <div
-                                class="h-8 md:h-10 text-xl font-bold text-gray-800 tracking-tighter"
-                            >
-                                BRANDONE
-                            </div>
-                            <div
-                                class="h-8 md:h-10 text-xl font-bold text-gray-800 tracking-tighter"
-                            >
-                                COMPANYTWO
-                            </div>
-                            <div
-                                class="h-8 md:h-10 text-xl font-bold text-gray-800 tracking-tighter"
-                            >
-                                GROUPTHREE
-                            </div>
-                            <div
-                                class="h-8 md:h-10 text-xl font-bold text-gray-800 tracking-tighter"
-                            >
-                                STUDIOFOUR
-                            </div>
-                        </template>
-                    </div>
                 </div>
             </div>
         </div>
