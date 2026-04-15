@@ -5,6 +5,7 @@ namespace App\Mail;
 use App\Models\ContactMessage;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
@@ -28,7 +29,10 @@ class ContactReplyMail extends Mailable
     {
         return new Envelope(
             subject: $this->contactMessage->reply_subject ?: 'Balasan dari Tim ' . config('app.name'),
-            from: env('MAIL_CS_FROM_ADDRESS', 'customer.service@solluapp.com')
+            from: new Address(
+                env('MAIL_CS_FROM_ADDRESS', 'customer.service@solluapp.com'),
+                'CS ' . config('app.name')
+                )
         );
     }
 
