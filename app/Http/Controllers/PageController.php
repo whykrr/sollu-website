@@ -55,6 +55,8 @@ class PageController extends Controller
 
     public function blog(Request $request)
     {
+        $contents = PageContent::where('page_slug', 'blog')->where('is_active', true)->get()->keyBy('section_key');
+
         $query = Article::published()->with(['category', 'user'])->latest('published_at');
 
         if ($request->category) {
@@ -73,6 +75,7 @@ class PageController extends Controller
         }])->orderBy('name')->get();
 
         return Inertia::render('Blog/Index', [
+            'pageContents' => $contents,
             'articles' => $articles,
             'featuredArticle' => $featuredArticle,
             'categories' => $categories,

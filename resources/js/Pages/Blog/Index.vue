@@ -5,6 +5,10 @@ import { ChevronRight, Clock, User, ArrowRight } from "lucide-vue-next";
 import { computed } from "vue";
 
 const props = defineProps({
+    pageContents: {
+        type: Object,
+        default: () => ({}),
+    },
     articles: Object,
     featuredArticle: Object,
     categories: Array,
@@ -66,17 +70,19 @@ const readTime = (content) => {
     <MainLayout>
         <!-- Header Section -->
         <div
-            class="bg-gray-50 py-16 border-b border-gray-100 text-center relative overflow-hidden"
+            class="bg-primary-50 py-16 border-b border-primary-100 text-center relative overflow-hidden"
         >
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <h1
                     class="text-4xl md:text-5xl font-heading font-extrabold text-gray-900 mb-6"
                 >
-                    Wawasan & Tips Bisnis
+                    {{ pageContents?.hero?.title || "Wawasan & Tips Bisnis" }}
                 </h1>
                 <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-                    Kumpulan artikel, studi kasus, dan panduan praktis untuk
-                    membantu Anda menumbuhkan usaha menjadi lebih besar.
+                    {{
+                        pageContents?.hero?.subtitle ||
+                        "Kumpulan artikel, studi kasus, dan panduan praktis untuk membantu Anda menumbuhkan usaha menjadi lebih besar."
+                    }}
                 </p>
             </div>
         </div>
