@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ContactFormController;
+use App\Http\Controllers\SubscriberController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\ContentController;
 use App\Http\Controllers\Admin\SettingController;
@@ -22,6 +23,8 @@ Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 Route::post('/contact', [ContactFormController::class, 'store'])->name('contact.store');
 Route::get('/blog', [PageController::class, 'blog'])->name('blog');
 Route::get('/blog/{slug}', [PageController::class, 'blogShow'])->name('blog.show');
+Route::get('/coming-soon', fn () => view('coming-soon'))->name('coming-soon');
+Route::post('/coming-soon/subscribe', [SubscriberController::class, 'store'])->name('coming-soon.subscribe');
 
 // Admin Routes (using Breeze scaffold)
 Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
