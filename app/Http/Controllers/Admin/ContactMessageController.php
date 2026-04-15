@@ -72,6 +72,8 @@ class ContactMessageController extends Controller
             return redirect()->back()->with('error', 'Tidak dapat mengirim balasan: pengirim tidak mencantumkan email.');
         }
 
+        $message->reply_subject = $validated['reply_subject'];
+
         // Send the email
         Mail::to($message->email)->send(
             new ContactReplyMail($message, $validated['reply_message'])
