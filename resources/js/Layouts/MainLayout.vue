@@ -1,12 +1,26 @@
 <script setup>
 import { Head, Link, usePage } from "@inertiajs/vue3";
-import { computed, ref } from "vue";
+import { computed, ref, onMounted, onUnmounted } from "vue";
 import { Menu, X, Rocket, Facebook, Instagram, Twitter } from "lucide-vue-next";
 
 const isMenuOpen = ref(false);
 const toggleMenu = () => {
     isMenuOpen.value = !isMenuOpen.value;
 };
+
+const isScrolled = ref(false);
+const handleScroll = () => {
+    isScrolled.value = window.scrollY > 20;
+};
+
+onMounted(() => {
+    window.addEventListener("scroll", handleScroll);
+});
+
+onUnmounted(() => {
+    window.removeEventListener("scroll", handleScroll);
+});
+
 const siteSettings = computed(() => usePage().props.siteSettings || {});
 </script>
 
@@ -17,10 +31,13 @@ const siteSettings = computed(() => usePage().props.siteSettings || {});
     <div class="min-h-screen bg-white font-sans text-gray-900 flex flex-col">
         <!-- Header / Navbar -->
         <header
-            class="fixed w-full bg-white/90 backdrop-blur-md z-50 border-b border-gray-100 transition-all"
+            :class="[
+                'fixed w-full backdrop-blur-md z-50 transition-all duration-300',
+                isScrolled ? 'bg-white/95 shadow-md border-b-transparent' : 'bg-white/90 border-b border-gray-100'
+            ]"
         >
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex justify-between items-center h-20">
+                <div :class="['flex justify-between items-center transition-all duration-300', isScrolled ? 'h-16' : 'h-20']">
                     <!-- Logo -->
                     <div class="flex-shrink-0 flex items-center gap-2">
                         <Link
@@ -39,29 +56,39 @@ const siteSettings = computed(() => usePage().props.siteSettings || {});
                     <nav class="hidden md:flex space-x-8">
                         <Link
                             href="/"
-                            class="text-base font-medium text-gray-600 hover:text-main transition"
-                            >Beranda</Link
+                            :class="['text-base font-medium transition duration-300 relative group py-1', $page.url === '/' ? 'text-primary-600' : 'text-gray-600 hover:text-primary-600']"
                         >
+                            Beranda
+                            <span :class="['absolute -bottom-1 left-0 w-full h-0.5 bg-primary-600 transition-transform origin-left duration-300', $page.url === '/' ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100']"></span>
+                        </Link>
                         <Link
                             href="/services"
-                            class="text-base font-medium text-gray-600 hover:text-main transition"
-                            >Layanan</Link
+                            :class="['text-base font-medium transition duration-300 relative group py-1', $page.url.startsWith('/services') ? 'text-primary-600' : 'text-gray-600 hover:text-primary-600']"
                         >
+                            Layanan
+                            <span :class="['absolute -bottom-1 left-0 w-full h-0.5 bg-primary-600 transition-transform origin-left duration-300', $page.url.startsWith('/services') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100']"></span>
+                        </Link>
                         <Link
                             href="/pricing"
-                            class="text-base font-medium text-gray-600 hover:text-main transition"
-                            >Harga</Link
+                            :class="['text-base font-medium transition duration-300 relative group py-1', $page.url.startsWith('/pricing') ? 'text-primary-600' : 'text-gray-600 hover:text-primary-600']"
                         >
+                            Harga
+                            <span :class="['absolute -bottom-1 left-0 w-full h-0.5 bg-primary-600 transition-transform origin-left duration-300', $page.url.startsWith('/pricing') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100']"></span>
+                        </Link>
                         <Link
                             href="/blog"
-                            class="text-base font-medium text-gray-600 hover:text-main transition"
-                            >Tips Usaha</Link
+                            :class="['text-base font-medium transition duration-300 relative group py-1', $page.url.startsWith('/blog') ? 'text-primary-600' : 'text-gray-600 hover:text-primary-600']"
                         >
+                            Tips Usaha
+                            <span :class="['absolute -bottom-1 left-0 w-full h-0.5 bg-primary-600 transition-transform origin-left duration-300', $page.url.startsWith('/blog') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100']"></span>
+                        </Link>
                         <Link
                             href="/contact"
-                            class="text-base font-medium text-gray-600 hover:text-main transition"
-                            >Hubungi Kami</Link
+                            :class="['text-base font-medium transition duration-300 relative group py-1', $page.url.startsWith('/contact') ? 'text-primary-600' : 'text-gray-600 hover:text-primary-600']"
                         >
+                            Hubungi Kami
+                            <span :class="['absolute -bottom-1 left-0 w-full h-0.5 bg-primary-600 transition-transform origin-left duration-300', $page.url.startsWith('/contact') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100']"></span>
+                        </Link>
                     </nav>
 
                     <!-- CTA Buttons -->
@@ -105,31 +132,31 @@ const siteSettings = computed(() => usePage().props.siteSettings || {});
                     <Link
                         href="/"
                         @click="isMenuOpen = false"
-                        class="block px-3 py-2 text-base font-medium text-gray-800 hover:text-primary-600 hover:bg-gray-50 rounded-md"
+                        :class="['block px-3 py-2 text-base font-medium rounded-md transition-colors', $page.url === '/' ? 'bg-primary-50 text-primary-600' : 'text-gray-800 hover:text-primary-600 hover:bg-gray-50']"
                         >Beranda</Link
                     >
                     <Link
                         href="/services"
                         @click="isMenuOpen = false"
-                        class="block px-3 py-2 text-base font-medium text-gray-800 hover:text-primary-600 hover:bg-gray-50 rounded-md"
+                        :class="['block px-3 py-2 text-base font-medium rounded-md transition-colors', $page.url.startsWith('/services') ? 'bg-primary-50 text-primary-600' : 'text-gray-800 hover:text-primary-600 hover:bg-gray-50']"
                         >Layanan</Link
                     >
                     <Link
                         href="/pricing"
                         @click="isMenuOpen = false"
-                        class="block px-3 py-2 text-base font-medium text-gray-800 hover:text-primary-600 hover:bg-gray-50 rounded-md"
+                        :class="['block px-3 py-2 text-base font-medium rounded-md transition-colors', $page.url.startsWith('/pricing') ? 'bg-primary-50 text-primary-600' : 'text-gray-800 hover:text-primary-600 hover:bg-gray-50']"
                         >Harga</Link
                     >
                     <Link
                         href="/blog"
                         @click="isMenuOpen = false"
-                        class="block px-3 py-2 text-base font-medium text-gray-800 hover:text-primary-600 hover:bg-gray-50 rounded-md"
+                        :class="['block px-3 py-2 text-base font-medium rounded-md transition-colors', $page.url.startsWith('/blog') ? 'bg-primary-50 text-primary-600' : 'text-gray-800 hover:text-primary-600 hover:bg-gray-50']"
                         >Blog</Link
                     >
                     <Link
                         href="/contact"
                         @click="isMenuOpen = false"
-                        class="block px-3 py-2 text-base font-medium text-gray-800 hover:text-primary-600 hover:bg-gray-50 rounded-md"
+                        :class="['block px-3 py-2 text-base font-medium rounded-md transition-colors', $page.url.startsWith('/contact') ? 'bg-primary-50 text-primary-600' : 'text-gray-800 hover:text-primary-600 hover:bg-gray-50']"
                         >Hubungi Kami</Link
                     >
                     <div class="h-px bg-gray-100 my-2"></div>

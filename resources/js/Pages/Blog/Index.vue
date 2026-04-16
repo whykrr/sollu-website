@@ -275,21 +275,27 @@ const readTime = (content) => {
                 <!-- Pagination -->
                 <div
                     v-if="articles.last_page > 1"
-                    class="mt-16 flex justify-center gap-1"
+                    class="mt-16 flex justify-center flex-wrap gap-2"
                 >
-                    <Link
-                        v-for="link in articles.links"
-                        :key="link.label"
-                        :href="link.url || '#'"
-                        :class="[
-                            'px-4 py-2 text-sm rounded-lg border transition',
-                            link.active
-                                ? 'bg-primary-600 text-white border-primary-600'
-                                : 'bg-white text-gray-600 border-gray-200 hover:bg-gray-50',
-                            !link.url ? 'opacity-50 cursor-not-allowed' : '',
-                        ]"
-                        v-html="link.label"
-                    />
+                    <template v-for="(link, i) in articles.links" :key="i">
+                        <Link
+                            v-if="link.url"
+                            :href="link.url"
+                            preserve-scroll
+                            :class="[
+                                'px-4 py-2 text-sm rounded-full border transition font-medium',
+                                link.active
+                                    ? 'bg-main text-white border-main shadow-md'
+                                    : 'bg-white text-gray-600 border-gray-200 hover:border-main hover:text-main'
+                            ]"
+                            v-html="link.label"
+                        />
+                        <span
+                            v-else
+                            class="px-4 py-2 text-sm rounded-full border border-gray-100 bg-gray-50 text-gray-400 cursor-not-allowed font-medium"
+                            v-html="link.label"
+                        ></span>
+                    </template>
                 </div>
             </div>
         </div>
