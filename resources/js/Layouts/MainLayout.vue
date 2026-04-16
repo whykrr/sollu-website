@@ -1,7 +1,7 @@
 <script setup>
 import { Head, Link, usePage } from "@inertiajs/vue3";
 import { computed, ref } from "vue";
-import { Menu, X, Rocket } from "lucide-vue-next";
+import { Menu, X, Rocket, Facebook, Instagram, Twitter } from "lucide-vue-next";
 
 const isMenuOpen = ref(false);
 const toggleMenu = () => {
@@ -227,10 +227,10 @@ const siteSettings = computed(() => usePage().props.siteSettings || {});
                                 >
                             </li>
                             <li>
-                                <a
-                                    href="#"
+                                <Link
+                                    href="/faq"
                                     class="text-gray-400 hover:text-white transition text-sm"
-                                    >Syarat & Ketentuan</a
+                                    >Pertanyaan Umum</Link
                                 >
                             </li>
                         </ul>
@@ -240,23 +240,54 @@ const siteSettings = computed(() => usePage().props.siteSettings || {});
                     class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4"
                 >
                     <p class="text-gray-500 text-sm">
-                        &copy; {{ new Date().getFullYear() }} Sollu POS. All
-                        rights reserved.
+                        &copy; {{ new Date().getFullYear() }} Sollu Indonesia.
+                        Seluruh hak dilindungi undang-undang.
                     </p>
                     <div class="flex gap-4">
                         <!-- Social placeholders -->
-                        <div
-                            class="w-8 h-8 rounded-full bg-gray-800 hover:bg-primary-600 transition cursor-pointer flex justify-center items-center"
-                        ></div>
-                        <div
-                            class="w-8 h-8 rounded-full bg-gray-800 hover:bg-primary-600 transition cursor-pointer flex justify-center items-center"
-                        ></div>
-                        <div
-                            class="w-8 h-8 rounded-full bg-gray-800 hover:bg-primary-600 transition cursor-pointer flex justify-center items-center"
-                        ></div>
+                        <a
+                            v-if="siteSettings.social_facebook"
+                            :href="siteSettings.social_facebook"
+                            target="_blank"
+                            class="w-8 h-8 rounded-full bg-gray-800 hover:bg-primary-600 transition cursor-pointer flex justify-center items-center text-gray-400 hover:text-white"
+                        >
+                            <Facebook class="w-4 h-4" />
+                        </a>
+                        <a
+                            v-if="siteSettings.social_instagram"
+                            :href="siteSettings.social_instagram"
+                            target="_blank"
+                            class="w-8 h-8 rounded-full bg-gray-800 hover:bg-primary-600 transition cursor-pointer flex justify-center items-center text-gray-400 hover:text-white"
+                        >
+                            <Instagram class="w-4 h-4" />
+                        </a>
+                        <a
+                            v-if="siteSettings.social_twitter"
+                            :href="siteSettings.social_twitter"
+                            target="_blank"
+                            class="w-8 h-8 rounded-full bg-gray-800 hover:bg-primary-600 transition cursor-pointer flex justify-center items-center text-gray-400 hover:text-white"
+                        >
+                            <Twitter class="w-4 h-4" />
+                        </a>
                     </div>
                 </div>
             </div>
         </footer>
+
+        <!-- Floating WhatsApp Button -->
+        <a
+            v-if="siteSettings.wa_number"
+            :href="`https://wa.me/${siteSettings.wa_number}`"
+            target="_blank"
+            class="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white p-4 rounded-full shadow-[0_4px_14px_0_rgba(37,211,102,0.39)] hover:shadow-[0_6px_20px_rgba(37,211,102,0.23)] hover:-translate-y-1 transition-all duration-300 flex items-center justify-center group"
+            aria-label="Hubungi via WhatsApp"
+        >
+            <span class="absolute right-full mr-4 bg-white text-gray-800 px-4 py-2 rounded-lg shadow-lg text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap hidden md:block">
+                Hubungi Kami
+            </span>
+            <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
+                <path d="M11.99 2C6.47 2 2 6.48 2 12c0 1.76.46 3.42 1.27 4.88L2 22l5.34-1.25c1.4.74 2.99 1.16 4.65 1.16 5.52 0 10-4.48 10-10S17.51 2 11.99 2zm0 18.06c-1.48 0-2.9-.38-4.18-1.07l-.3-.18-3.08.72.73-2.96-.2-.31A8.067 8.067 0 0 1 3.93 12c0-4.46 3.63-8.08 8.06-8.08 4.44 0 8.06 3.63 8.06 8.08 0 4.45-3.62 8.06-8.06 8.06zm4.4-6.02c-.24-.12-1.43-.71-1.65-.79-.22-.08-.38-.12-.54.12-.16.24-.62.79-.76.95-.14.16-.28.18-.52.06-.24-.12-1.02-.38-1.94-1.2-.72-.64-1.2-1.43-1.34-1.67-.14-.24-.01-.37.11-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.31-.74-1.8-.2-.48-.4-.41-.54-.42-.14-.01-.3-.01-.46-.01-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2 0 1.18.86 2.32.98 2.48.12.16 1.7 2.6 4.12 3.64.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.48-.07 1.43-.58 1.63-1.14.2-.56.2-1.04.14-1.14-.06-.1-.22-.16-.46-.28z"/>
+            </svg>
+        </a>
     </div>
 </template>

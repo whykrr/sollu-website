@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ContactMessageController;
+use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\SeoController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Foundation\Application;
@@ -22,6 +23,7 @@ Route::get('/pricing', [PageController::class, 'pricing'])->name('pricing');
 Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 Route::post('/contact', [ContactFormController::class, 'store'])->name('contact.store');
 Route::get('/blog', [PageController::class, 'blog'])->name('blog');
+Route::get('/faq', [PageController::class, 'faq'])->name('faq');
 Route::get('/blog/{slug}', [PageController::class, 'blogShow'])->name('blog.show');
 Route::get('/coming-soon', fn () => Inertia::render('ComingSoon'))->name('coming-soon');
 Route::post('/coming-soon/subscribe', [SubscriberController::class, 'store'])->name('coming-soon.subscribe');
@@ -76,6 +78,12 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
     Route::put('/categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
     Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+
+    // FAQs
+    Route::get('/faqs', [FaqController::class, 'index'])->name('faqs.index');
+    Route::post('/faqs', [FaqController::class, 'store'])->name('faqs.store');
+    Route::put('/faqs/{faq}', [FaqController::class, 'update'])->name('faqs.update');
+    Route::delete('/faqs/{faq}', [FaqController::class, 'destroy'])->name('faqs.destroy');
 
     // Contact Messages (Leads Tracker)
     Route::get('/messages', [ContactMessageController::class, 'index'])->name('messages.index');

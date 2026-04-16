@@ -8,6 +8,7 @@ use Inertia\Inertia;
 use App\Models\PageContent;
 use App\Models\Article;
 use App\Models\Category;
+use App\Models\Faq;
 use App\Models\SeoSetting;
 
 class PageController extends Controller
@@ -50,6 +51,19 @@ class PageController extends Controller
         return Inertia::render('Contact/Index', [
             'pageContents' => $contents,
             'seo' => $this->getSeo('contact'),
+        ]);
+    }
+
+    public function faq()
+    {
+        $faqs = Faq::where('is_active', true)->orderBy('order')->orderBy('created_at', 'desc')->get();
+
+        return Inertia::render('Faq/Index', [
+            'faqs' => $faqs,
+            'seo' => $this->getSeo('faq') ?: [
+                'meta_title' => 'Pertanyaan Umum (FAQ) - Sollu POS',
+                'meta_description' => 'Temukan jawaban untuk pertanyaan umum seputar fitur dan layanan Sollu POS.'
+            ]
         ]);
     }
 

@@ -24,6 +24,7 @@ Aplikasi ini adalah website promosi (Company Profile & Landing Page) untuk produ
 - **Blog / Artikel CMS:** Sistem publikasi konten edukasi bisnis dengan kategori dan tags yang dapat dikelola.
 - **WhatsApp Integration:** Nomor tujuan WhatsApp dapat diubah melalui admin panel.
 - **Contact Form & Leads Tracker:** Admin dapat melihat daftar potensial klien yang mengisi form kontak.
+- **Pertanyaan Umum:** halaman yang digunakan untuk menampilkan pertanyaan umum seputar platform atau aplikasi sollu pos.
 - **Footer & Header Config:** Pengaturan menu navigasi, link sosial media, hak cipta, dan tombol CTA utama di bagian header.
 
 ## 4. User Flow
@@ -33,7 +34,8 @@ Aplikasi ini adalah website promosi (Company Profile & Landing Page) untuk produ
 3. Pengunjung mengklik menu **Layanan** untuk melihat fitur POS (konten fitur disesuaikan admin).
 4. Pengunjung masuk ke halaman **Harga** untuk melihat paket berlangganan (harga terkini sesuai update admin).
 5. Pengunjung klik tombol **"Masuk"** dan dialihkan ke URL Portal Aplikasi (URL dikelola dinamis oleh Admin).
-6. Jika ada pertanyaan, pengunjung mengklik ikon **WhatsApp** atau mengisi form di halaman **Hubungi Kami**.
+6. Jika ada pertanyaan umum, pengunjung dapat masuk halaman **Pertanyaan Umum** untuk melihat pertanyaan pertanyaan umum tentang solu POS.
+6. Jika ada pertanyaan lain, pengunjung mengklik ikon **WhatsApp** atau mengisi form di halaman **Hubungi Kami**.
 7. Pengunjung membaca tips bisnis di halaman **Blog**.
 
 **Perjalanan Admin internal:**
@@ -49,6 +51,7 @@ Aplikasi ini adalah website promosi (Company Profile & Landing Page) untuk produ
    - Mengupdate **URL Portal Aplikasi** dan **URL Tombol "Coba Sekarang"** di menu Pengaturan.
    - Mengupdate Nomor WhatsApp di menu Pengaturan.
 5. **Konten & Leads:** Menulis artikel blog baru dan melihat pesan masuk dari formulir kontak.
+6. **Pertanyaan Umum:** Menambah, mengedit, atau menghapus pertanyaan umum yang ditampilkan di halaman Pertanyaan Umum.
 
 ## 5. Architecture
 Aplikasi ini menggunakan pendekatan **Monolith Modern** dengan fokus pada **Dynamic Content Rendering**. Backend (Laravel) bertindak sebagai penyedia data konten yang disimpan di database, sedangkan Frontend (Vue.js) bertindak sebagai *renderer* yang menerima data tersebut melalui Inertia.js. Tidak ada teks *hard-coded* pada view frontend; semua string UI diambil dari database.
@@ -83,6 +86,7 @@ Untuk memfasilitasi kebutuhan website promosi yang sepenuhnya dinamis, skema dat
 - `articles`: Menyimpan konten blog.
 - `contact_messages`: Menyimpan data pesan dari pengunjung.
 - `site_settings`: Menyimpan konfigurasi global (URL Portal, URL Trial, Nomor WA, Email, Social Links).
+- `faqs`: Menyimpan daftar pertanyaan umum dan jawaban.
 
 ```mermaid
 erDiagram
@@ -146,6 +150,14 @@ erDiagram
         string email
         text message
         boolean is_read
+    }
+
+    faqs {
+        int id PK
+        string question
+        text answer
+        int order
+        boolean is_active
     }
 
     users ||--o{ articles : "menulis"

@@ -62,6 +62,14 @@ const showingNavigationDropdown = ref(false);
                                     Artikel
                                 </NavLink>
                                 <NavLink
+                                    :href="route('admin.faqs.index')"
+                                    :active="
+                                        route().current('admin.faqs.*')
+                                    "
+                                >
+                                    FAQ
+                                </NavLink>
+                                <NavLink
                                     :href="route('admin.categories.index')"
                                     :active="
                                         route().current('admin.categories.*')
@@ -234,6 +242,12 @@ const showingNavigationDropdown = ref(false);
                             :active="route().current('admin.articles.*')"
                         >
                             Artikel
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            :href="route('admin.faqs.index')"
+                            :active="route().current('admin.faqs.*')"
+                        >
+                            FAQ
                         </ResponsiveNavLink>
                         <ResponsiveNavLink
                             :href="route('admin.categories.index')"
