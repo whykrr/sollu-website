@@ -23,7 +23,7 @@ class GenerateSitemap extends Command
             ->setPriority(1.0)
             ->setChangeFrequency(Url::CHANGE_FREQUENCY_DAILY));
 
-        $sitemap->add(Url::create('/service')
+        $sitemap->add(Url::create('/services')
             ->setPriority(0.9)
             ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY));
 
