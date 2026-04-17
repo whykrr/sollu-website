@@ -31,8 +31,8 @@ class GenerateSitemap extends Command
             ->setPriority(0.8)
             ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY));
 
-            $sitemap->add(Url::create('/service')
-            ->setPriority(0.9)
+        $sitemap->add(Url::create('/faq')
+            ->setPriority(0.7)
             ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY));
 
         // 3. Tambahkan Halaman Dinamis dari Database (Contoh: Postingan CMS)
