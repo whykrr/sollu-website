@@ -75,7 +75,7 @@ const readTime = (content) => {
                 </div>
 
                 <!-- Content -->
-                <article class="prose prose-lg max-w-none prose-headings:font-heading prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-primary-600 prose-a:no-underline hover:prose-a:underline prose-img:rounded-xl prose-blockquote:border-primary-500 prose-blockquote:text-gray-600 prose-blockquote:italic" v-html="article.content">
+                <article class="tiptap max-w-none text-gray-700" v-html="article.content">
                 </article>
 
                 <!-- Share Section -->
