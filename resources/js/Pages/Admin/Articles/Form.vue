@@ -82,6 +82,64 @@ const saveDraft = () => {
     form.published_at = "";
 };
 
+// Image compression helper (max 500kb auto)
+const compressImage = async (file, maxSizeKB = 500) => {
+    return new Promise((resolve) => {
+        const maxSize = maxSizeKB * 1024;
+        if (file.size <= maxSize) return resolve(file); // Sudah cukup kecil
+
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = (event) => {
+            const img = new window.Image();
+            img.src = event.target.result;
+            img.onload = () => {
+                const canvas = document.createElement("canvas");
+                let width = img.width;
+                let height = img.height;
+
+                // Max resolution bounding
+                const maxDim = 1920;
+                if (width > maxDim || height > maxDim) {
+                    if (width > height) {
+                        height = Math.round((height *= maxDim / width));
+                        width = maxDim;
+                    } else {
+                        width = Math.round((width *= maxDim / height));
+                        height = maxDim;
+                    }
+                }
+
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext("2d");
+                ctx.drawImage(img, 0, 0, width, height);
+
+                let quality = 0.9;
+                const compress = () => {
+                    canvas.toBlob(
+                        (blob) => {
+                            if (blob.size <= maxSize || quality <= 0.3) {
+                                const newFile = new File([blob], file.name, {
+                                    type: "image/jpeg",
+                                    lastModified: Date.now(),
+                                });
+                                resolve(newFile);
+                            } else {
+                                quality -= 0.15; // Turunkan kualitas bertahap
+                                compress();
+                            }
+                        },
+                        "image/jpeg",
+                        quality
+                    );
+                };
+                compress();
+            };
+        };
+    });
+};
+
 // Cover image upload
 const uploadingCover = ref(false);
 const uploadCover = async (event) => {
@@ -89,10 +147,12 @@ const uploadCover = async (event) => {
     if (!file) return;
     uploadingCover.value = true;
 
-    const formData = new FormData();
-    formData.append("image", file);
-
     try {
+        const compressedFile = await compressImage(file, 500);
+
+        const formData = new FormData();
+        formData.append("image", compressedFile);
+
         const response = await axios.post(route("admin.upload"), formData, {
             headers: { "Content-Type": "multipart/form-data" },
         });
@@ -110,10 +170,12 @@ const insertEditorImage = async (event) => {
     const file = event.target.files[0];
     if (!file) return;
 
-    const formData = new FormData();
-    formData.append("image", file);
-
     try {
+        const compressedFile = await compressImage(file, 500);
+
+        const formData = new FormData();
+        formData.append("image", compressedFile);
+
         const response = await axios.post(route("admin.upload"), formData, {
             headers: { "Content-Type": "multipart/form-data" },
         });

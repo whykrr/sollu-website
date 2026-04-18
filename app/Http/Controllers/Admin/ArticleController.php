@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends Controller
 {
@@ -95,7 +96,14 @@ class ArticleController extends Controller
             }
         }
 
+        $oldImage = $article->getRawOriginal('image_url');
+
         $article->update($validated);
+
+        // Hapus gambar lama di AWS S3 jika url cover berganti / dihapus
+        if ($oldImage && $article->getRawOriginal('image_url') !== $oldImage) {
+            Storage::disk('s3')->delete($oldImage);
+        }
 
         return redirect()->route('admin.articles.index')->with('success', 'Artikel berhasil diperbarui.');
     }
