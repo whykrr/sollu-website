@@ -100,8 +100,9 @@ const formatDate = (dateStr) => {
 
                 <!-- Articles Table -->
                 <div class="bg-white shadow-sm sm:rounded-lg overflow-hidden">
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
                             <tr>
                                 <th
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
@@ -257,7 +258,8 @@ const formatDate = (dateStr) => {
                                 </td>
                             </tr>
                         </tbody>
-                    </table>
+                        </table>
+                    </div>
 
                     <!-- Pagination -->
                     <div
