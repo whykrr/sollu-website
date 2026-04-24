@@ -12,7 +12,7 @@
         content="Sesuatu yang menarik sedang kami siapkan. Sollu POS — Platform Kasir Digital terbaik untuk UMKM Indonesia.">
     <meta property="og:type" content="website">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="icon" type="image/png" href="/img/icon-trans.png">
+    <link rel="icon" type="image/png" href="/img/icon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link

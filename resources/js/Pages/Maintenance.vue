@@ -12,7 +12,7 @@ const props = defineProps({
 <template>
     <Head title="Sedang Dalam Pemeliharaan">
         <meta name="robots" content="noindex, nofollow" />
-        <link rel="icon" type="image/png" href="/img/icon-trans.png" />
+        <link rel="icon" type="image/png" href="/img/icon.png" />
     </Head>
 
     <!-- Full-screen wrapper -->

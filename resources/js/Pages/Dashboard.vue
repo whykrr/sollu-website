@@ -236,7 +236,7 @@ const statCards = [
         bg: "bg-blue-50",
     },
     {
-        title: "Kategori",
+        title: "Kategori Artikel",
         value: props.stats.categories,
         icon: Layers,
         color: "text-indigo-600",
@@ -250,7 +250,7 @@ const statCards = [
         bg: "bg-emerald-50",
     },
     {
-        title: "Pengguna",
+        title: "Pengguna Terdaftar",
         value: props.stats.users,
         icon: Users,
         color: "text-orange-600",
@@ -286,10 +286,12 @@ const totalPageViews = props.chartData.traffic.pageViews.reduce(
                         :key="i"
                         class="overflow-hidden bg-white shadow-sm sm:rounded-xl border border-gray-100 hover:shadow-md transition-shadow"
                     >
-                        <div class="p-5 flex items-center justify-between">
+                        <div
+                            class="p-5 flex items-start justify-between gap-1.5"
+                        >
                             <div>
                                 <p
-                                    class="text-xs font-medium text-gray-500 uppercase tracking-wide"
+                                    class="text-xs font-medium text-gray-500 uppercase tracking-wide min-h-[3lh]"
                                 >
                                     {{ card.title }}
                                 </p>

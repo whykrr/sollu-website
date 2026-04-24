@@ -96,7 +96,7 @@ const icons = {
                                     siteSettings.portal_url ||
                                     pageContents?.hero?.attributes?.button_url
                                 "
-                                class="flex items-center justify-center gap-2 bg-linear-to-r from-main to-secondary text-white px-8 py-4 rounded-full font-semibold text-lg shadow-lg shadow-primary-500/30 hover:bg-primary-700 hover:shadow-primary-500/50 transition-all transform hover:-translate-y-1"
+                                class="flex items-center justify-center gap-2 bg-main text-white px-8 py-4 rounded-full font-semibold text-lg shadow-lg shadow-primary-500/30 hover:bg-primary-700 hover:shadow-primary-500/50 transition-all transform hover:-translate-y-1"
                             >
                                 {{
                                     pageContents?.hero?.attributes

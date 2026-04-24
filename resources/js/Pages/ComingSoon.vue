@@ -113,7 +113,7 @@ onUnmounted(() => {
             content="Sesuatu yang menarik sedang kami siapkan. Sollu POS — Platform Kasir Digital terbaik untuk UMKM Indonesia."
         />
         <meta property="og:type" content="website" />
-        <link rel="icon" type="image/png" href="/img/icon-trans.png" />
+        <link rel="icon" type="image/png" href="/img/icon.png" />
     </Head>
 
     <!-- Full-screen wrapper -->

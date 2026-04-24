@@ -26,20 +26,27 @@ const siteSettings = computed(() => usePage().props.siteSettings || {});
 
 <template>
     <Head>
-        <link rel="icon" type="image/png" href="/img/icon-trans.png" />
+        <link rel="icon" type="image/png" href="/img/icon.png" />
     </Head>
     <div class="min-h-screen bg-white font-sans text-gray-900 flex flex-col">
         <!-- Header / Navbar -->
         <header
             :class="[
                 'fixed w-full backdrop-blur-md z-50 transition-all duration-300',
-                isScrolled ? 'bg-white/95 shadow-md border-b-transparent' : 'bg-white/90 border-b border-gray-100'
+                isScrolled
+                    ? 'bg-white/95 shadow-md border-b-transparent'
+                    : 'bg-white/90 border-b border-gray-100',
             ]"
         >
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div :class="['flex justify-between items-center transition-all duration-300', isScrolled ? 'h-16' : 'h-20']">
+                <div
+                    :class="[
+                        'flex justify-between items-center transition-all duration-300',
+                        isScrolled ? 'h-16' : 'h-20',
+                    ]"
+                >
                     <!-- Logo -->
-                    <div class="flex-shrink-0 flex items-center gap-2">
+                    <div class="shrink-0 flex items-center gap-2">
                         <Link
                             href="/"
                             class="flex items-center gap-2 text-primary-800 hover:text-primary-900 transition font-heading font-bold text-2xl"
@@ -47,47 +54,107 @@ const siteSettings = computed(() => usePage().props.siteSettings || {});
                             <img
                                 src="/img/logo-colored.png"
                                 alt="Sollu POS"
-                                class="h-12 w-auto"
+                                class="h-8 w-auto"
                             />
                         </Link>
                     </div>
 
                     <!-- Desktop Menu -->
-                    <nav class="hidden md:flex space-x-8">
+                    <nav class="hidden md:flex space-x-6">
                         <Link
                             href="/"
-                            :class="['text-base font-medium transition duration-300 relative group py-1', $page.url === '/' ? 'text-primary-600' : 'text-gray-600 hover:text-primary-600']"
+                            :class="[
+                                'text-base font-bold transition duration-300 relative group py-1',
+                                $page.url === '/'
+                                    ? 'text-primary-600'
+                                    : 'text-gray-600 hover:text-primary-600',
+                            ]"
                         >
                             Beranda
-                            <span :class="['absolute -bottom-1 left-0 w-full h-0.5 bg-primary-600 transition-transform origin-left duration-300', $page.url === '/' ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100']"></span>
+                            <span
+                                :class="[
+                                    'absolute -bottom-1 left-0 w-full h-0.5 bg-primary-600 transition-transform origin-left duration-300',
+                                    $page.url === '/'
+                                        ? 'scale-x-100'
+                                        : 'scale-x-0 group-hover:scale-x-100',
+                                ]"
+                            ></span>
                         </Link>
                         <Link
                             href="/services"
-                            :class="['text-base font-medium transition duration-300 relative group py-1', $page.url.startsWith('/services') ? 'text-primary-600' : 'text-gray-600 hover:text-primary-600']"
+                            :class="[
+                                'text-base font-bold transition duration-300 relative group py-1',
+                                $page.url.startsWith('/services')
+                                    ? 'text-primary-600'
+                                    : 'text-gray-600 hover:text-primary-600',
+                            ]"
                         >
                             Layanan
-                            <span :class="['absolute -bottom-1 left-0 w-full h-0.5 bg-primary-600 transition-transform origin-left duration-300', $page.url.startsWith('/services') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100']"></span>
+                            <span
+                                :class="[
+                                    'absolute -bottom-1 left-0 w-full h-0.5 bg-primary-600 transition-transform origin-left duration-300',
+                                    $page.url.startsWith('/services')
+                                        ? 'scale-x-100'
+                                        : 'scale-x-0 group-hover:scale-x-100',
+                                ]"
+                            ></span>
                         </Link>
                         <Link
                             href="/pricing"
-                            :class="['text-base font-medium transition duration-300 relative group py-1', $page.url.startsWith('/pricing') ? 'text-primary-600' : 'text-gray-600 hover:text-primary-600']"
+                            :class="[
+                                'text-base font-bold transition duration-300 relative group py-1',
+                                $page.url.startsWith('/pricing')
+                                    ? 'text-primary-600'
+                                    : 'text-gray-600 hover:text-primary-600',
+                            ]"
                         >
                             Harga
-                            <span :class="['absolute -bottom-1 left-0 w-full h-0.5 bg-primary-600 transition-transform origin-left duration-300', $page.url.startsWith('/pricing') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100']"></span>
+                            <span
+                                :class="[
+                                    'absolute -bottom-1 left-0 w-full h-0.5 bg-primary-600 transition-transform origin-left duration-300',
+                                    $page.url.startsWith('/pricing')
+                                        ? 'scale-x-100'
+                                        : 'scale-x-0 group-hover:scale-x-100',
+                                ]"
+                            ></span>
                         </Link>
                         <Link
                             href="/blog"
-                            :class="['text-base font-medium transition duration-300 relative group py-1', $page.url.startsWith('/blog') ? 'text-primary-600' : 'text-gray-600 hover:text-primary-600']"
+                            :class="[
+                                'text-base font-bold transition duration-300 relative group py-1',
+                                $page.url.startsWith('/blog')
+                                    ? 'text-primary-600'
+                                    : 'text-gray-600 hover:text-primary-600',
+                            ]"
                         >
                             Tips Usaha
-                            <span :class="['absolute -bottom-1 left-0 w-full h-0.5 bg-primary-600 transition-transform origin-left duration-300', $page.url.startsWith('/blog') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100']"></span>
+                            <span
+                                :class="[
+                                    'absolute -bottom-1 left-0 w-full h-0.5 bg-primary-600 transition-transform origin-left duration-300',
+                                    $page.url.startsWith('/blog')
+                                        ? 'scale-x-100'
+                                        : 'scale-x-0 group-hover:scale-x-100',
+                                ]"
+                            ></span>
                         </Link>
                         <Link
                             href="/contact"
-                            :class="['text-base font-medium transition duration-300 relative group py-1', $page.url.startsWith('/contact') ? 'text-primary-600' : 'text-gray-600 hover:text-primary-600']"
+                            :class="[
+                                'text-base font-bold transition duration-300 relative group py-1',
+                                $page.url.startsWith('/contact')
+                                    ? 'text-primary-600'
+                                    : 'text-gray-600 hover:text-primary-600',
+                            ]"
                         >
                             Hubungi Kami
-                            <span :class="['absolute -bottom-1 left-0 w-full h-0.5 bg-primary-600 transition-transform origin-left duration-300', $page.url.startsWith('/contact') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100']"></span>
+                            <span
+                                :class="[
+                                    'absolute -bottom-1 left-0 w-full h-0.5 bg-primary-600 transition-transform origin-left duration-300',
+                                    $page.url.startsWith('/contact')
+                                        ? 'scale-x-100'
+                                        : 'scale-x-0 group-hover:scale-x-100',
+                                ]"
+                            ></span>
                         </Link>
                     </nav>
 
@@ -96,13 +163,13 @@ const siteSettings = computed(() => usePage().props.siteSettings || {});
                         <a
                             :href="siteSettings.portal_url"
                             target="blank"
-                            class="text-primary-700 font-medium hover:text-primary-900 transition"
+                            class="text-primary-700 font-bold hover:text-primary-900 transition"
                             >Masuk</a
                         >
                         <a
                             :href="siteSettings.cta_trial_url"
                             target="blank"
-                            class="bg-linear-to-r from-main to-secondary text-white px-5 py-2.5 rounded-full font-medium shadow-md shadow-primary-500/30 hover:shadow-lg hover:shadow-primary-500/40 transition-all transform hover:-translate-y-0.5"
+                            class="bg-main text-white px-5 py-2.5 rounded-full font-bold shadow-md shadow-primary-500/30 hover:shadow-lg hover:shadow-primary-500/40 transition-all transform hover:-translate-y-0.5"
                         >
                             Coba Sekarang
                         </a>
@@ -132,31 +199,56 @@ const siteSettings = computed(() => usePage().props.siteSettings || {});
                     <Link
                         href="/"
                         @click="isMenuOpen = false"
-                        :class="['block px-3 py-2 text-base font-medium rounded-md transition-colors', $page.url === '/' ? 'bg-primary-50 text-primary-600' : 'text-gray-800 hover:text-primary-600 hover:bg-gray-50']"
+                        :class="[
+                            'block px-3 py-2 text-base font-medium rounded-md transition-colors',
+                            $page.url === '/'
+                                ? 'bg-primary-50 text-primary-600'
+                                : 'text-gray-800 hover:text-primary-600 hover:bg-gray-50',
+                        ]"
                         >Beranda</Link
                     >
                     <Link
                         href="/services"
                         @click="isMenuOpen = false"
-                        :class="['block px-3 py-2 text-base font-medium rounded-md transition-colors', $page.url.startsWith('/services') ? 'bg-primary-50 text-primary-600' : 'text-gray-800 hover:text-primary-600 hover:bg-gray-50']"
+                        :class="[
+                            'block px-3 py-2 text-base font-medium rounded-md transition-colors',
+                            $page.url.startsWith('/services')
+                                ? 'bg-primary-50 text-primary-600'
+                                : 'text-gray-800 hover:text-primary-600 hover:bg-gray-50',
+                        ]"
                         >Layanan</Link
                     >
                     <Link
                         href="/pricing"
                         @click="isMenuOpen = false"
-                        :class="['block px-3 py-2 text-base font-medium rounded-md transition-colors', $page.url.startsWith('/pricing') ? 'bg-primary-50 text-primary-600' : 'text-gray-800 hover:text-primary-600 hover:bg-gray-50']"
+                        :class="[
+                            'block px-3 py-2 text-base font-medium rounded-md transition-colors',
+                            $page.url.startsWith('/pricing')
+                                ? 'bg-primary-50 text-primary-600'
+                                : 'text-gray-800 hover:text-primary-600 hover:bg-gray-50',
+                        ]"
                         >Harga</Link
                     >
                     <Link
                         href="/blog"
                         @click="isMenuOpen = false"
-                        :class="['block px-3 py-2 text-base font-medium rounded-md transition-colors', $page.url.startsWith('/blog') ? 'bg-primary-50 text-primary-600' : 'text-gray-800 hover:text-primary-600 hover:bg-gray-50']"
+                        :class="[
+                            'block px-3 py-2 text-base font-medium rounded-md transition-colors',
+                            $page.url.startsWith('/blog')
+                                ? 'bg-primary-50 text-primary-600'
+                                : 'text-gray-800 hover:text-primary-600 hover:bg-gray-50',
+                        ]"
                         >Blog</Link
                     >
                     <Link
                         href="/contact"
                         @click="isMenuOpen = false"
-                        :class="['block px-3 py-2 text-base font-medium rounded-md transition-colors', $page.url.startsWith('/contact') ? 'bg-primary-50 text-primary-600' : 'text-gray-800 hover:text-primary-600 hover:bg-gray-50']"
+                        :class="[
+                            'block px-3 py-2 text-base font-medium rounded-md transition-colors',
+                            $page.url.startsWith('/contact')
+                                ? 'bg-primary-50 text-primary-600'
+                                : 'text-gray-800 hover:text-primary-600 hover:bg-gray-50',
+                        ]"
                         >Hubungi Kami</Link
                     >
                     <div class="h-px bg-gray-100 my-2"></div>
@@ -309,11 +401,15 @@ const siteSettings = computed(() => usePage().props.siteSettings || {});
             class="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white p-4 rounded-full shadow-[0_4px_14px_0_rgba(37,211,102,0.39)] hover:shadow-[0_6px_20px_rgba(37,211,102,0.23)] hover:-translate-y-1 transition-all duration-300 flex items-center justify-center group"
             aria-label="Hubungi via WhatsApp"
         >
-            <span class="absolute right-full mr-4 bg-white text-gray-800 px-4 py-2 rounded-lg shadow-lg text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap hidden md:block">
+            <span
+                class="absolute right-full mr-4 bg-white text-gray-800 px-4 py-2 rounded-lg shadow-lg text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap hidden md:block"
+            >
                 Hubungi Kami
             </span>
             <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
-                <path d="M11.99 2C6.47 2 2 6.48 2 12c0 1.76.46 3.42 1.27 4.88L2 22l5.34-1.25c1.4.74 2.99 1.16 4.65 1.16 5.52 0 10-4.48 10-10S17.51 2 11.99 2zm0 18.06c-1.48 0-2.9-.38-4.18-1.07l-.3-.18-3.08.72.73-2.96-.2-.31A8.067 8.067 0 0 1 3.93 12c0-4.46 3.63-8.08 8.06-8.08 4.44 0 8.06 3.63 8.06 8.08 0 4.45-3.62 8.06-8.06 8.06zm4.4-6.02c-.24-.12-1.43-.71-1.65-.79-.22-.08-.38-.12-.54.12-.16.24-.62.79-.76.95-.14.16-.28.18-.52.06-.24-.12-1.02-.38-1.94-1.2-.72-.64-1.2-1.43-1.34-1.67-.14-.24-.01-.37.11-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.31-.74-1.8-.2-.48-.4-.41-.54-.42-.14-.01-.3-.01-.46-.01-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2 0 1.18.86 2.32.98 2.48.12.16 1.7 2.6 4.12 3.64.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.48-.07 1.43-.58 1.63-1.14.2-.56.2-1.04.14-1.14-.06-.1-.22-.16-.46-.28z"/>
+                <path
+                    d="M11.99 2C6.47 2 2 6.48 2 12c0 1.76.46 3.42 1.27 4.88L2 22l5.34-1.25c1.4.74 2.99 1.16 4.65 1.16 5.52 0 10-4.48 10-10S17.51 2 11.99 2zm0 18.06c-1.48 0-2.9-.38-4.18-1.07l-.3-.18-3.08.72.73-2.96-.2-.31A8.067 8.067 0 0 1 3.93 12c0-4.46 3.63-8.08 8.06-8.08 4.44 0 8.06 3.63 8.06 8.08 0 4.45-3.62 8.06-8.06 8.06zm4.4-6.02c-.24-.12-1.43-.71-1.65-.79-.22-.08-.38-.12-.54.12-.16.24-.62.79-.76.95-.14.16-.28.18-.52.06-.24-.12-1.02-.38-1.94-1.2-.72-.64-1.2-1.43-1.34-1.67-.14-.24-.01-.37.11-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.31-.74-1.8-.2-.48-.4-.41-.54-.42-.14-.01-.3-.01-.46-.01-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2 0 1.18.86 2.32.98 2.48.12.16 1.7 2.6 4.12 3.64.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.48-.07 1.43-.58 1.63-1.14.2-.56.2-1.04.14-1.14-.06-.1-.22-.16-.46-.28z"
+                />
             </svg>
         </a>
     </div>

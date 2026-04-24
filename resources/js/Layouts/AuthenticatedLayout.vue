@@ -32,7 +32,7 @@ const hasAccess = (item) => {
 
 <template>
     <Head>
-        <link rel="icon" type="image/png" href="/img/icon-dark.png" />
+        <link rel="icon" type="image/png" href="/img/icon-colored.png" />
     </Head>
     <div class="h-screen flex overflow-hidden bg-gray-50">
         <!-- Static sidebar for desktop -->

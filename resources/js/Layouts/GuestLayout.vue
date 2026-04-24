@@ -5,7 +5,7 @@ import { Head, Link } from "@inertiajs/vue3";
 
 <template>
     <Head>
-        <link rel="icon" type="image/png" href="/img/icon-dark.png" />
+        <link rel="icon" type="image/png" href="/img/icon-colored.png" />
     </Head>
     <div
         class="flex min-h-screen flex-col items-center bg-gray-100 pt-6 sm:justify-center sm:pt-0"
