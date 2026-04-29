@@ -1,5 +1,5 @@
 <script setup>
-import { Head } from "@inertiajs/vue3";
+import { Head, Link } from "@inertiajs/vue3";
 
 const props = defineProps({
     contactEmail: {
@@ -114,7 +114,7 @@ const props = defineProps({
                 </div>
 
                 <!-- Contact info -->
-                <div>
+                <div class="mb-6">
                     <p class="text-xs sm:text-sm text-white/40">
                         Ada pertanyaan mendesak? Hubungi kami di
                         <a
@@ -124,6 +124,19 @@ const props = defineProps({
                             {{ contactEmail }}
                         </a>
                     </p>
+                </div>
+
+                <!-- Back to Home Link -->
+                <div class="pt-6 border-t border-white/10 w-full flex justify-center">
+                    <Link
+                        href="/"
+                        class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.05] border border-white/10 text-sm text-white/60 hover:text-white hover:bg-white/[0.1] transition-all"
+                    >
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                        </svg>
+                        Kembali ke Beranda
+                    </Link>
                 </div>
             </div>
         </div>

@@ -1,5 +1,5 @@
 <script setup>
-import { Head, useForm } from "@inertiajs/vue3";
+import { Head, useForm, Link } from "@inertiajs/vue3";
 import { ref, onMounted, onUnmounted } from "vue";
 
 // ==============================
@@ -399,6 +399,19 @@ onUnmounted(() => {
                         />
                     </svg>
                 </a>
+            </div>
+
+            <!-- Back to Home Link -->
+            <div class="mt-8 md:mt-10 animate-fade-in-delay-2 flex justify-center">
+                <Link
+                    href="/"
+                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.05] border border-white/10 text-sm text-white/60 hover:text-white hover:bg-white/[0.1] transition-all"
+                >
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                    Kembali ke Beranda
+                </Link>
             </div>
         </div>
     </div>

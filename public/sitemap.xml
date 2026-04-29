@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+    xmlns:xhtml="http://www.w3.org/1999/xhtml"
+    xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+    xmlns:video="http://www.google.com/schemas/sitemap-video/1.1"
+    xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
     <url>
         <loc>https://solluapp.com</loc>
         <lastmod>2026-04-15T18:14:49+07:00</lastmod>
         <priority>1.0</priority>
-        </url>
-        <url>
+    </url>
+    <url>
         <loc>https://solluapp.com/pricing</loc>
         <lastmod>2026-04-10T16:07:25+07:00</lastmod>
         <priority>1.0</priority>
-        </url>
-        <url>
+    </url>
+    <url>
         <loc>https://solluapp.com/services</loc>
         <lastmod>2026-04-15T18:15:14+07:00</lastmod>
         <priority>0.8</priority>
-        </url>
-        <url>
+    </url>
+    <url>
         <loc>https://solluapp.com/faq</loc>
         <lastmod>2026-04-29T21:04:55+07:00</lastmod>
         <priority>0.6</priority>
-        </url>
+    </url>
 </urlset>
