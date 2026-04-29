@@ -23,7 +23,7 @@ let countdownInterval = null;
 
 const getTargetDate = () => {
     if (props.launchDate) return new Date(props.launchDate);
-    return new Date(2026, 4, 1); // May 1, 2026 (month is 0-indexed)
+    return new Date(2026, 4, 11); // May 1, 2026 (month is 0-indexed)
 };
 
 const updateCountdown = () => {
