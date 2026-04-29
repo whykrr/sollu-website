@@ -27,6 +27,9 @@ COPY . .
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader --no-interaction
 
+# Regenerate sitemap
+RUN php artisan sitemap:generate
+
 # Stage 2: Build Node.js assets
 FROM node:20-alpine as node-build
 
@@ -67,9 +70,6 @@ COPY ./docker/php-production.ini /usr/local/etc/php/conf.d/app.ini
 
 # Permission untuk Laravel
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
-
-# Regenerate sitemap
-RUN php artisan sitemap:generate
 
 # linked storage untuk akses file yang diupload
 RUN ln -s /var/www/html/storage/app/public /var/www/html/public/storage
