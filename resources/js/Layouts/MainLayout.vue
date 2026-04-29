@@ -359,8 +359,8 @@ const siteSettings = computed(() => usePage().props.siteSettings || {});
                     class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4"
                 >
                     <p class="text-gray-500 text-sm">
-                        &copy; {{ new Date().getFullYear() }} Sollu Indonesia.
-                        Seluruh hak dilindungi undang-undang.
+                        &copy; {{ new Date().getFullYear() }} PT. Solusi Dari
+                        Anak Bangsa. Seluruh hak dilindungi undang-undang.
                     </p>
                     <div class="flex gap-4">
                         <!-- Social placeholders -->

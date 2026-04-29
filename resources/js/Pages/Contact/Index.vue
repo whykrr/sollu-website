@@ -160,7 +160,7 @@ const submitForm = () => {
                         </div>
 
                         <!-- Contact Card 3 -->
-                        <div
+                        <!-- <div
                             class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 flex items-start gap-4"
                         >
                             <div
@@ -183,7 +183,7 @@ const submitForm = () => {
                                     }}
                                 </p>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
 
                     <!-- Contact Form -->
@@ -219,17 +219,27 @@ const submitForm = () => {
                                 <div>
                                     <label
                                         class="block text-sm font-medium text-gray-700 mb-2"
-                                        >Nama Lengkap <span class="text-red-500">*</span></label
+                                        >Nama Lengkap
+                                        <span class="text-red-500"
+                                            >*</span
+                                        ></label
                                     >
                                     <input
                                         type="text"
                                         v-model="form.name"
                                         required
                                         class="w-full rounded-lg border-gray-300 focus:border-primary-500 focus:ring-primary-500 shadow-sm transition px-4 py-3 bg-gray-50 focus:bg-white"
-                                        :class="{ 'border-red-500': form.errors.name }"
+                                        :class="{
+                                            'border-red-500': form.errors.name,
+                                        }"
                                         placeholder="Contoh: Budi Santoso"
                                     />
-                                    <p v-if="form.errors.name" class="mt-1 text-sm text-red-600">{{ form.errors.name }}</p>
+                                    <p
+                                        v-if="form.errors.name"
+                                        class="mt-1 text-sm text-red-600"
+                                    >
+                                        {{ form.errors.name }}
+                                    </p>
                                 </div>
                                 <div>
                                     <label
@@ -240,10 +250,18 @@ const submitForm = () => {
                                         type="text"
                                         v-model="form.business_name"
                                         class="w-full rounded-lg border-gray-300 focus:border-primary-500 focus:ring-primary-500 shadow-sm transition px-4 py-3 bg-gray-50 focus:bg-white"
-                                        :class="{ 'border-red-500': form.errors.business_name }"
+                                        :class="{
+                                            'border-red-500':
+                                                form.errors.business_name,
+                                        }"
                                         placeholder="Contoh: Kopi Janji Kita"
                                     />
-                                    <p v-if="form.errors.business_name" class="mt-1 text-sm text-red-600">{{ form.errors.business_name }}</p>
+                                    <p
+                                        v-if="form.errors.business_name"
+                                        class="mt-1 text-sm text-red-600"
+                                    >
+                                        {{ form.errors.business_name }}
+                                    </p>
                                 </div>
                             </div>
 
@@ -251,17 +269,27 @@ const submitForm = () => {
                                 <div>
                                     <label
                                         class="block text-sm font-medium text-gray-700 mb-2"
-                                        >Nomor WhatsApp <span class="text-red-500">*</span></label
+                                        >Nomor WhatsApp
+                                        <span class="text-red-500"
+                                            >*</span
+                                        ></label
                                     >
                                     <input
                                         type="tel"
                                         v-model="form.phone"
                                         required
                                         class="w-full rounded-lg border-gray-300 focus:border-primary-500 focus:ring-primary-500 shadow-sm transition px-4 py-3 bg-gray-50 focus:bg-white"
-                                        :class="{ 'border-red-500': form.errors.phone }"
+                                        :class="{
+                                            'border-red-500': form.errors.phone,
+                                        }"
                                         placeholder="Contoh: 08123456789"
                                     />
-                                    <p v-if="form.errors.phone" class="mt-1 text-sm text-red-600">{{ form.errors.phone }}</p>
+                                    <p
+                                        v-if="form.errors.phone"
+                                        class="mt-1 text-sm text-red-600"
+                                    >
+                                        {{ form.errors.phone }}
+                                    </p>
                                 </div>
                                 <div>
                                     <label
@@ -272,27 +300,42 @@ const submitForm = () => {
                                         type="email"
                                         v-model="form.email"
                                         class="w-full rounded-lg border-gray-300 focus:border-primary-500 focus:ring-primary-500 shadow-sm transition px-4 py-3 bg-gray-50 focus:bg-white"
-                                        :class="{ 'border-red-500': form.errors.email }"
+                                        :class="{
+                                            'border-red-500': form.errors.email,
+                                        }"
                                         placeholder="budi@example.com"
                                     />
-                                    <p v-if="form.errors.email" class="mt-1 text-sm text-red-600">{{ form.errors.email }}</p>
+                                    <p
+                                        v-if="form.errors.email"
+                                        class="mt-1 text-sm text-red-600"
+                                    >
+                                        {{ form.errors.email }}
+                                    </p>
                                 </div>
                             </div>
 
                             <div class="mb-8">
                                 <label
                                     class="block text-sm font-medium text-gray-700 mb-2"
-                                    >Bagaimana kami bisa membantu? <span class="text-red-500">*</span></label
+                                    >Bagaimana kami bisa membantu?
+                                    <span class="text-red-500">*</span></label
                                 >
                                 <textarea
                                     rows="4"
                                     v-model="form.message"
                                     required
                                     class="w-full rounded-lg border-gray-300 focus:border-primary-500 focus:ring-primary-500 shadow-sm transition px-4 py-3 bg-gray-50 focus:bg-white"
-                                    :class="{ 'border-red-500': form.errors.message }"
+                                    :class="{
+                                        'border-red-500': form.errors.message,
+                                    }"
                                     placeholder="Ceritakan kebutuhan atau kendala bisnis yang sedang Anda hadapi..."
                                 ></textarea>
-                                <p v-if="form.errors.message" class="mt-1 text-sm text-red-600">{{ form.errors.message }}</p>
+                                <p
+                                    v-if="form.errors.message"
+                                    class="mt-1 text-sm text-red-600"
+                                >
+                                    {{ form.errors.message }}
+                                </p>
                             </div>
 
                             <button
