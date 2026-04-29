@@ -27,8 +27,6 @@ COPY . .
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader --no-interaction
 
-# Regenerate sitemap
-RUN php artisan sitemap:generate
 
 # Stage 2: Build Node.js assets
 FROM node:20-alpine as node-build
