@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Faq;
+use App\Http\Requests\StoreFaqRequest;
+use App\Http\Requests\UpdateFaqRequest;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -18,14 +20,9 @@ class FaqController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(StoreFaqRequest $request)
     {
-        $validated = $request->validate([
-            'question' => 'required|string|max:255',
-            'answer' => 'required|string',
-            'order' => 'nullable|integer',
-            'is_active' => 'boolean',
-        ]);
+        $validated = $request->validated();
 
         Faq::create([
             'question' => $validated['question'],
@@ -37,14 +34,9 @@ class FaqController extends Controller
         return redirect()->route('admin.faqs.index')->with('success', 'Pertanyaan Umum berhasil ditambahkan.');
     }
 
-    public function update(Request $request, Faq $faq)
+    public function update(UpdateFaqRequest $request, Faq $faq)
     {
-        $validated = $request->validate([
-            'question' => 'required|string|max:255',
-            'answer' => 'required|string',
-            'order' => 'nullable|integer',
-            'is_active' => 'boolean',
-        ]);
+        $validated = $request->validated();
 
         $faq->update([
             'question' => $validated['question'],
