@@ -96,7 +96,7 @@ return [
             'prefix' => '',
             'prepared' => false,
             'prefix_indexes' => true,
-            'search_path' => 'public',
+            'search_path' => 'website',
             'sslmode' => env('DB_SSLMODE', 'prefer'),
         ],
 
