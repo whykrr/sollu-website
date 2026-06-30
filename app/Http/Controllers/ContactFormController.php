@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ContactMessage;
+use App\Services\CreateContactMessageService;
 use Illuminate\Http\Request;
 
 class ContactFormController extends Controller
 {
-    public function store(Request $request)
+    public function store(Request $request, CreateContactMessageService $service)
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
@@ -17,7 +17,7 @@ class ContactFormController extends Controller
             'message' => 'required|string|max:5000',
         ]);
 
-        ContactMessage::create($validated);
+        $service->execute($validated);
 
         return redirect()->back()->with('success', 'Pesan berhasil dikirim! Kami akan segera menghubungi Anda.');
     }
