@@ -57,12 +57,15 @@ const icons = {
     <MainLayout>
         <!-- Hero Section -->
         <section class="relative bg-primary-50 pt-20 pb-32 overflow-hidden">
-            <!-- Background Decoration -->
+            <!-- Background Decoration (Playful Mesh Gradient Orbs) -->
             <div
-                class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-primary-200/50 blur-3xl opacity-50"
+                class="absolute top-0 right-0 -mr-20 -mt-20 w-[30rem] h-[30rem] rounded-full bg-primary-300/40 blur-3xl opacity-60 animate-float-organic"
             ></div>
             <div
-                class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full bg-blue-300/40 blur-3xl opacity-50"
+                class="absolute bottom-0 left-0 -ml-20 -mb-20 w-[24rem] h-[24rem] rounded-full bg-blue-400/30 blur-3xl opacity-60 animate-float-organic" style="animation-delay: -2s;"
+            ></div>
+            <div
+                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40rem] h-[40rem] rounded-full bg-cyan-300/20 blur-3xl opacity-40 animate-float-organic" style="animation-delay: -4s;"
             ></div>
 
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -71,7 +74,7 @@ const icons = {
                 >
                     <div>
                         <div
-                            class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-100 text-primary-700 text-sm font-medium mb-6"
+                            class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-100 text-primary-700 text-sm font-medium mb-6 opacity-0 animate-bouncy-entry"
                         >
                             <span
                                 class="w-2 h-2 rounded-full bg-primary-600 animate-pulse"
@@ -79,24 +82,24 @@ const icons = {
                             Platform POS Pilihan UMKM
                         </div>
                         <h1
-                            class="text-4xl md:text-5xl lg:text-6xl font-heading font-extrabold text-gray-900 leading-tight mb-6"
+                            class="text-4xl md:text-5xl lg:text-6xl font-heading font-extrabold text-gray-900 leading-tight mb-6 opacity-0 animate-bouncy-entry" style="animation-delay: 100ms;"
                             v-html="pageContents?.hero?.title || 'Sollu POS'"
                         ></h1>
                         <p
-                            class="text-lg text-gray-600 mb-8 max-w-xl leading-relaxed"
+                            class="text-lg text-gray-600 mb-8 max-w-xl leading-relaxed opacity-0 animate-bouncy-entry" style="animation-delay: 200ms;"
                         >
                             {{
                                 pageContents?.hero?.subtitle ||
                                 "Tingkatkan penjualan bisnis Anda."
                             }}
                         </p>
-                        <div class="flex flex-col sm:flex-row gap-4">
+                        <div class="flex flex-col sm:flex-row gap-4 opacity-0 animate-bouncy-entry" style="animation-delay: 300ms;">
                             <a
                                 :href="
                                     siteSettings.portal_url ||
                                     pageContents?.hero?.attributes?.button_url
                                 "
-                                class="flex items-center justify-center gap-2 bg-main text-white px-8 py-4 rounded-full font-semibold text-lg shadow-lg shadow-primary-500/30 hover:bg-primary-700 hover:shadow-primary-500/50 transition-all transform hover:-translate-y-1"
+                                class="flex items-center justify-center gap-2 bg-main text-white px-8 py-4 rounded-full font-semibold text-lg shadow-lg shadow-primary-500/30 hover:bg-primary-600 hover:shadow-primary-500/60 transition-all transform hover:-translate-y-1 hover:scale-105 active:scale-95"
                             >
                                 {{
                                     pageContents?.hero?.attributes
@@ -112,9 +115,9 @@ const icons = {
                             </Link>
                         </div>
                     </div>
-                    <div class="relative hidden lg:block">
+                    <div class="relative hidden lg:block opacity-0 animate-bouncy-entry" style="animation-delay: 400ms;">
                         <div
-                            class="absolute inset-0 bg-gradient-to-tr from-primary-200 to-primary-50 rounded-2xl transform rotate-3 scale-105"
+                            class="absolute inset-0 bg-gradient-to-tr from-primary-300/40 to-primary-100/40 rounded-2xl transform rotate-3 scale-105 animate-float-organic"
                         ></div>
                         <img
                             :src="
@@ -123,12 +126,12 @@ const icons = {
                                 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
                             "
                             alt="Sollu POS Dashboard"
-                            class="relative z-10 rounded-2xl shadow-2xl border border-white/50"
+                            class="relative z-10 rounded-2xl shadow-2xl shadow-primary-900/20 border border-white/60 transition-transform duration-500 hover:scale-[1.02]"
                         />
 
                         <!-- Floating Card -->
                         <div
-                            class="absolute -bottom-6 -left-6 bg-white p-4 rounded-xl shadow-xl z-20 flex items-center gap-4"
+                            class="absolute -bottom-6 -left-6 bg-white/90 backdrop-blur-md p-4 rounded-xl shadow-xl border border-white z-20 flex items-center gap-4 animate-float-organic" style="animation-delay: -3s;"
                         >
                             <div
                                 class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center"
@@ -175,10 +178,11 @@ const icons = {
                         v-for="(feature, index) in pageContents?.features
                             ?.attributes?.features_list || []"
                         :key="index"
-                        class="p-8 rounded-2xl border border-gray-100 hover:border-primary-100 hover:shadow-xl hover:shadow-primary-100/50 transition-all bg-white group cursor-pointer"
+                        class="p-8 rounded-2xl border border-gray-100/60 hover:border-primary-200 hover:shadow-2xl hover:shadow-primary-100/60 transition-all duration-300 bg-white/80 backdrop-blur-sm group cursor-pointer hover:-translate-y-2 opacity-0 animate-slide-up"
+                        :style="`animation-delay: ${index * 150}ms;`"
                     >
                         <div
-                            class="w-14 h-14 rounded-xl bg-primary-50 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform"
+                            class="w-14 h-14 rounded-xl bg-gradient-to-br from-primary-50 to-primary-100 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300"
                         >
                             <component
                                 :is="icons[feature.icon]"
@@ -190,10 +194,10 @@ const icons = {
                                 class="w-7 h-7 text-primary-600"
                             />
                         </div>
-                        <h3 class="text-xl font-bold text-gray-900 mb-3">
+                        <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-primary-700 transition-colors">
                             {{ feature.title }}
                         </h3>
-                        <p class="text-gray-600 leading-relaxed">
+                        <p class="text-gray-600 leading-relaxed group-hover:text-gray-700">
                             {{ feature.description }}
                         </p>
                     </div>

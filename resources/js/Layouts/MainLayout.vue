@@ -32,10 +32,10 @@ const siteSettings = computed(() => usePage().props.siteSettings || {});
         <!-- Header / Navbar -->
         <header
             :class="[
-                'fixed w-full backdrop-blur-md z-50 transition-all duration-300',
+                'fixed w-full z-50 transition-all duration-300',
                 isScrolled
-                    ? 'bg-white/95 shadow-md border-b-transparent'
-                    : 'bg-white/90 border-b border-gray-100',
+                    ? 'bg-white/70 backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.03)] border-b border-white/50'
+                    : 'bg-white/60 backdrop-blur-md border-b border-white/20',
             ]"
         >
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -169,7 +169,7 @@ const siteSettings = computed(() => usePage().props.siteSettings || {});
                         <a
                             :href="siteSettings.cta_trial_url"
                             target="blank"
-                            class="bg-main text-white px-5 py-2.5 rounded-full font-bold shadow-md shadow-primary-500/30 hover:shadow-lg hover:shadow-primary-500/40 transition-all transform hover:-translate-y-0.5"
+                            class="bg-main text-white px-5 py-2.5 rounded-full font-bold shadow-md shadow-primary-500/30 hover:bg-primary-600 hover:shadow-lg hover:shadow-primary-500/50 transition-all transform hover:-translate-y-0.5 hover:scale-105 active:scale-95"
                         >
                             Coba Sekarang
                         </a>
@@ -189,81 +189,90 @@ const siteSettings = computed(() => usePage().props.siteSettings || {});
             </div>
 
             <!-- Mobile Menu -->
-            <div
-                v-show="isMenuOpen"
-                class="md:hidden bg-white border-b border-gray-100 absolute w-full shadow-lg"
+            <Transition
+                enter-active-class="transition duration-200 ease-out"
+                enter-from-class="transform -translate-y-4 opacity-0"
+                enter-to-class="transform translate-y-0 opacity-100"
+                leave-active-class="transition duration-150 ease-in"
+                leave-from-class="transform translate-y-0 opacity-100"
+                leave-to-class="transform -translate-y-4 opacity-0"
             >
                 <div
-                    class="px-4 pt-2 pb-6 space-y-1 sm:px-3 flex flex-col gap-3"
+                    v-show="isMenuOpen"
+                    class="md:hidden bg-white/95 backdrop-blur-md border-b border-gray-100 absolute w-full shadow-xl"
                 >
-                    <Link
-                        href="/"
-                        @click="isMenuOpen = false"
-                        :class="[
-                            'block px-3 py-2 text-base font-medium rounded-md transition-colors',
-                            $page.url === '/'
-                                ? 'bg-primary-50 text-primary-600'
-                                : 'text-gray-800 hover:text-primary-600 hover:bg-gray-50',
-                        ]"
-                        >Beranda</Link
+                    <div
+                        class="px-4 pt-2 pb-6 space-y-1 sm:px-3 flex flex-col gap-3"
                     >
-                    <Link
-                        href="/services"
-                        @click="isMenuOpen = false"
-                        :class="[
-                            'block px-3 py-2 text-base font-medium rounded-md transition-colors',
-                            $page.url.startsWith('/services')
-                                ? 'bg-primary-50 text-primary-600'
-                                : 'text-gray-800 hover:text-primary-600 hover:bg-gray-50',
-                        ]"
-                        >Layanan</Link
-                    >
-                    <Link
-                        href="/pricing"
-                        @click="isMenuOpen = false"
-                        :class="[
-                            'block px-3 py-2 text-base font-medium rounded-md transition-colors',
-                            $page.url.startsWith('/pricing')
-                                ? 'bg-primary-50 text-primary-600'
-                                : 'text-gray-800 hover:text-primary-600 hover:bg-gray-50',
-                        ]"
-                        >Harga</Link
-                    >
-                    <Link
-                        href="/blog"
-                        @click="isMenuOpen = false"
-                        :class="[
-                            'block px-3 py-2 text-base font-medium rounded-md transition-colors',
-                            $page.url.startsWith('/blog')
-                                ? 'bg-primary-50 text-primary-600'
-                                : 'text-gray-800 hover:text-primary-600 hover:bg-gray-50',
-                        ]"
-                        >Blog</Link
-                    >
-                    <Link
-                        href="/contact"
-                        @click="isMenuOpen = false"
-                        :class="[
-                            'block px-3 py-2 text-base font-medium rounded-md transition-colors',
-                            $page.url.startsWith('/contact')
-                                ? 'bg-primary-50 text-primary-600'
-                                : 'text-gray-800 hover:text-primary-600 hover:bg-gray-50',
-                        ]"
-                        >Hubungi Kami</Link
-                    >
-                    <div class="h-px bg-gray-100 my-2"></div>
-                    <a
-                        :href="siteSettings.portal_url"
-                        class="block px-3 py-2 text-base font-medium text-main"
-                        >Masuk Aplikasi</a
-                    >
-                    <a
-                        :href="siteSettings.cta_trial_url"
-                        class="block px-3 py-3 text-center text-base font-medium bg-main text-white rounded-md mt-2 shadow-sm"
-                        >Coba Sekarang Gratis</a
-                    >
+                        <Link
+                            href="/"
+                            @click="isMenuOpen = false"
+                            :class="[
+                                'block px-3 py-2 text-base font-medium rounded-md transition-all',
+                                $page.url === '/'
+                                    ? 'bg-primary-50 text-primary-600'
+                                    : 'text-gray-800 hover:text-primary-600 hover:bg-primary-50/50 hover:translate-x-1',
+                            ]"
+                            >Beranda</Link
+                        >
+                        <Link
+                            href="/services"
+                            @click="isMenuOpen = false"
+                            :class="[
+                                'block px-3 py-2 text-base font-medium rounded-md transition-all',
+                                $page.url.startsWith('/services')
+                                    ? 'bg-primary-50 text-primary-600'
+                                    : 'text-gray-800 hover:text-primary-600 hover:bg-primary-50/50 hover:translate-x-1',
+                            ]"
+                            >Layanan</Link
+                        >
+                        <Link
+                            href="/pricing"
+                            @click="isMenuOpen = false"
+                            :class="[
+                                'block px-3 py-2 text-base font-medium rounded-md transition-all',
+                                $page.url.startsWith('/pricing')
+                                    ? 'bg-primary-50 text-primary-600'
+                                    : 'text-gray-800 hover:text-primary-600 hover:bg-primary-50/50 hover:translate-x-1',
+                            ]"
+                            >Harga</Link
+                        >
+                        <Link
+                            href="/blog"
+                            @click="isMenuOpen = false"
+                            :class="[
+                                'block px-3 py-2 text-base font-medium rounded-md transition-all',
+                                $page.url.startsWith('/blog')
+                                    ? 'bg-primary-50 text-primary-600'
+                                    : 'text-gray-800 hover:text-primary-600 hover:bg-primary-50/50 hover:translate-x-1',
+                            ]"
+                            >Blog</Link
+                        >
+                        <Link
+                            href="/contact"
+                            @click="isMenuOpen = false"
+                            :class="[
+                                'block px-3 py-2 text-base font-medium rounded-md transition-all',
+                                $page.url.startsWith('/contact')
+                                    ? 'bg-primary-50 text-primary-600'
+                                    : 'text-gray-800 hover:text-primary-600 hover:bg-primary-50/50 hover:translate-x-1',
+                            ]"
+                            >Hubungi Kami</Link
+                        >
+                        <div class="h-px bg-gray-100 my-2"></div>
+                        <a
+                            :href="siteSettings.portal_url"
+                            class="block px-3 py-2 text-base font-medium text-main hover:translate-x-1 transition-all"
+                            >Masuk Aplikasi</a
+                        >
+                        <a
+                            :href="siteSettings.cta_trial_url"
+                            class="block px-3 py-3 text-center text-base font-medium bg-main text-white rounded-md mt-2 shadow-sm hover:bg-primary-600 hover:scale-[1.02] active:scale-95 transition-all"
+                            >Coba Sekarang Gratis</a
+                        >
+                    </div>
                 </div>
-            </div>
+            </Transition>
         </header>
 
         <!-- Main Content -->

@@ -132,8 +132,8 @@ const hasAccess = (item) => {
         <!-- Main column -->
         <div class="flex flex-col flex-1 w-full md:pl-64">
             
-            <div class="sticky top-0 z-10 flex h-16 shrink-0 bg-white shadow-sm border-b border-gray-200">
-                <button type="button" class="border-r border-gray-200 px-4 text-gray-500 hover:text-gray-700 hover:bg-gray-50 focus:outline-none md:hidden transition-colors" @click="showingSidebar = true">
+            <div class="sticky top-0 z-10 flex h-16 shrink-0 bg-white/70 backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.03)] border-b border-white/50 transition-all duration-300">
+                <button type="button" class="border-r border-gray-200/50 px-4 text-gray-500 hover:text-primary-600 hover:bg-white/50 focus:outline-none md:hidden transition-colors" @click="showingSidebar = true">
                     <span class="sr-only">Open sidebar</span>
                     <Menu class="h-6 w-6" aria-hidden="true" />
                 </button>

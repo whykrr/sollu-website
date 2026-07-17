@@ -70,15 +70,19 @@ const readTime = (content) => {
     <MainLayout>
         <!-- Header Section -->
         <div
-            class="bg-primary-50 py-16 border-b border-primary-100 text-center relative overflow-hidden"
+            class="bg-primary-50 py-20 border-b border-primary-100 text-center relative overflow-hidden"
         >
+            <!-- Playful Mesh Gradients -->
+            <div class="absolute top-0 right-0 -mr-20 -mt-20 w-[30rem] h-[30rem] rounded-full bg-primary-300/40 blur-3xl opacity-60 animate-float-organic"></div>
+            <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-[24rem] h-[24rem] rounded-full bg-blue-400/30 blur-3xl opacity-60 animate-float-organic" style="animation-delay: -2s;"></div>
+
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <h1
-                    class="text-4xl md:text-5xl font-heading font-extrabold text-gray-900 mb-6"
+                    class="text-4xl md:text-5xl lg:text-6xl font-heading font-extrabold text-gray-900 mb-6 opacity-0 animate-bouncy-entry" style="animation-delay: 100ms;"
                 >
                     {{ pageContents?.hero?.title || "Wawasan & Tips Bisnis" }}
                 </h1>
-                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto opacity-0 animate-bouncy-entry" style="animation-delay: 200ms;">
                     {{
                         pageContents?.hero?.subtitle ||
                         "Kumpulan artikel, studi kasus, dan panduan praktis untuk membantu Anda menumbuhkan usaha menjadi lebih besar."
@@ -92,7 +96,7 @@ const readTime = (content) => {
                 <!-- Featured Post -->
                 <div
                     v-if="featuredArticle && !filters?.category"
-                    class="mb-20 group cursor-pointer relative overflow-hidden rounded-3xl shadow-xl"
+                    class="mb-20 group cursor-pointer relative overflow-hidden rounded-3xl shadow-xl shadow-gray-200/50 hover:shadow-2xl hover:shadow-primary-200/50 transition-all duration-500 hover:-translate-y-2 opacity-0 animate-slide-up" style="animation-delay: 300ms;"
                 >
                     <Link :href="route('blog.show', featuredArticle.slug)">
                         <img
@@ -151,7 +155,7 @@ const readTime = (content) => {
                 </div>
 
                 <!-- Category Filter -->
-                <div class="flex items-center gap-3 mb-10 flex-wrap">
+                <div class="flex items-center gap-3 mb-10 flex-wrap opacity-0 animate-slide-up" style="animation-delay: 400ms;">
                     <span
                         class="text-sm font-bold text-gray-500 uppercase tracking-wider"
                         >Kategori:</span
@@ -159,10 +163,10 @@ const readTime = (content) => {
                     <button
                         @click="filterByCategory(null)"
                         :class="[
-                            'px-4 py-2 text-sm rounded-full border font-medium transition',
+                            'px-5 py-2.5 text-sm rounded-full border font-bold transition-all transform hover:scale-105 active:scale-95 hover:-translate-y-0.5',
                             !filters?.category
-                                ? 'bg-main text-white border-main shadow-md'
-                                : 'bg-white text-gray-600 border-gray-200 hover:border-secondary',
+                                ? 'bg-main text-white border-main shadow-lg shadow-primary-500/30'
+                                : 'bg-white text-gray-600 border-gray-100 shadow-sm hover:border-primary-200 hover:text-primary-600',
                         ]"
                     >
                         Semua
@@ -172,10 +176,10 @@ const readTime = (content) => {
                         :key="cat.id"
                         @click="filterByCategory(cat.id)"
                         :class="[
-                            'px-4 py-2 text-sm rounded-full border font-medium transition',
+                            'px-5 py-2.5 text-sm rounded-full border font-bold transition-all transform hover:scale-105 active:scale-95 hover:-translate-y-0.5',
                             filters?.category == cat.id
-                                ? 'bg-main text-white border-main shadow-md'
-                                : 'bg-white text-gray-600 border-gray-200 hover:border-secondary',
+                                ? 'bg-main text-white border-main shadow-lg shadow-primary-500/30'
+                                : 'bg-white text-gray-600 border-gray-100 shadow-sm hover:border-primary-200 hover:text-primary-600',
                         ]"
                     >
                         {{ cat.name }}
@@ -186,7 +190,7 @@ const readTime = (content) => {
                 </div>
 
                 <!-- Latest Posts Grid -->
-                <div class="flex items-center justify-between mb-8">
+                <div class="flex items-center justify-between mb-8 opacity-0 animate-slide-up" style="animation-delay: 500ms;">
                     <h3 class="text-2xl font-bold font-heading text-gray-900">
                         Artikel Terbaru
                     </h3>
@@ -194,9 +198,10 @@ const readTime = (content) => {
 
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <article
-                        v-for="article in articles.data"
+                        v-for="(article, index) in articles.data"
                         :key="article.id"
-                        class="flex flex-col bg-white border border-gray-100 rounded-2xl overflow-hidden hover:shadow-xl hover:border-primary-100 transition-all group"
+                        class="flex flex-col bg-white border border-gray-100/60 rounded-3xl overflow-hidden hover:shadow-2xl hover:shadow-primary-100/60 hover:border-primary-200 transition-all duration-500 hover:-translate-y-2 group opacity-0 animate-slide-up"
+                        :style="`animation-delay: ${index * 100 + 500}ms;`"
                     >
                         <Link
                             :href="route('blog.show', article.slug)"

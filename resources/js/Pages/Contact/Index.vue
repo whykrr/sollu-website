@@ -65,17 +65,21 @@ const submitForm = () => {
 
     <MainLayout>
         <!-- Header Section -->
-        <div class="bg-primary-900 py-20 text-center relative">
+        <div class="bg-primary-900 py-24 text-center relative overflow-hidden">
+            <!-- Playful Mesh Gradients -->
+            <div class="absolute top-0 right-0 -mr-20 -mt-20 w-[30rem] h-[30rem] rounded-full bg-primary-600/30 blur-3xl opacity-60 animate-float-organic"></div>
+            <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-[24rem] h-[24rem] rounded-full bg-blue-500/20 blur-3xl opacity-60 animate-float-organic" style="animation-delay: -2s;"></div>
+
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <h1
-                    class="text-4xl md:text-5xl font-heading font-extrabold text-white mb-6"
+                    class="text-4xl md:text-5xl font-heading font-extrabold text-white mb-6 opacity-0 animate-bouncy-entry" style="animation-delay: 100ms;"
                 >
                     {{
                         pageContents?.hero?.title ||
                         "Mari Ciptakan Solusi Bersama"
                     }}
                 </h1>
-                <p class="text-xl text-primary-200 max-w-2xl mx-auto">
+                <p class="text-xl text-primary-200 max-w-2xl mx-auto opacity-0 animate-bouncy-entry" style="animation-delay: 200ms;">
                     {{
                         pageContents?.hero?.subtitle ||
                         "Tim kami siap membantu Anda memilih paket yang tepat atau memandu Anda dalam menggunakan Sollu POS di hari pertama."
@@ -93,10 +97,10 @@ const submitForm = () => {
                     <div class="lg:col-span-1 space-y-6">
                         <!-- Contact Card 1 -->
                         <div
-                            class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 flex items-start gap-4"
+                            class="bg-white p-8 rounded-3xl shadow-lg border border-gray-100 flex items-start gap-4 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary-100/50 opacity-0 animate-slide-up" style="animation-delay: 300ms;"
                         >
                             <div
-                                class="w-12 h-12 rounded-full bg-primary-100 flex items-center justify-center shrink-0"
+                                class="w-12 h-12 rounded-full bg-primary-50 flex items-center justify-center shrink-0"
                             >
                                 <Phone class="w-6 h-6 text-primary-600" />
                             </div>
@@ -127,10 +131,10 @@ const submitForm = () => {
 
                         <!-- Contact Card 2 -->
                         <div
-                            class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 flex items-start gap-4"
+                            class="bg-white p-8 rounded-3xl shadow-lg border border-gray-100 flex items-start gap-4 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary-100/50 opacity-0 animate-slide-up" style="animation-delay: 400ms;"
                         >
                             <div
-                                class="w-12 h-12 rounded-full bg-primary-100 flex items-center justify-center shrink-0"
+                                class="w-12 h-12 rounded-full bg-primary-50 flex items-center justify-center shrink-0"
                             >
                                 <Mail class="w-6 h-6 text-primary-600" />
                             </div>
@@ -188,7 +192,7 @@ const submitForm = () => {
 
                     <!-- Contact Form -->
                     <div
-                        class="lg:col-span-2 bg-white rounded-2xl shadow-xl border border-gray-100 p-8 md:p-12"
+                        class="lg:col-span-2 bg-white rounded-3xl shadow-xl border border-gray-100 p-8 md:p-12 opacity-0 animate-slide-up" style="animation-delay: 500ms;"
                     >
                         <h2
                             class="text-3xl font-heading font-bold text-gray-900 mb-2"
@@ -341,7 +345,7 @@ const submitForm = () => {
                             <button
                                 type="submit"
                                 :disabled="form.processing"
-                                class="w-full flex justify-center items-center gap-2 bg-linear-to-r from-main to-secondary text-white font-bold px-8 py-4 rounded-xl shadow-lg shadow-primary-500/30 hover:bg-primary-700 hover:shadow-xl transition-all disabled:opacity-70 disabled:cursor-not-allowed"
+                                class="w-full flex justify-center items-center gap-2 bg-main text-white font-bold px-8 py-4 rounded-xl shadow-lg shadow-primary-500/30 hover:bg-primary-600 hover:shadow-xl hover:-translate-y-1 transition-all disabled:opacity-70 disabled:cursor-not-allowed"
                             >
                                 <span v-if="form.processing"
                                     >Mengirim Pesan...</span

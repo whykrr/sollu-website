@@ -47,19 +47,20 @@ const siteSettings = computed(() => usePage().props.siteSettings || {});
         <div
             class="bg-primary-900 py-24 border-b border-primary-800 text-center relative overflow-hidden"
         >
-            <div
-                class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/micro-carbon.png')] opacity-20 hidden md:block"
-            ></div>
+            <!-- Playful Mesh Gradients -->
+            <div class="absolute top-0 right-0 -mr-20 -mt-20 w-[30rem] h-[30rem] rounded-full bg-primary-600/30 blur-3xl opacity-60 animate-float-organic"></div>
+            <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-[24rem] h-[24rem] rounded-full bg-blue-500/20 blur-3xl opacity-60 animate-float-organic" style="animation-delay: -2s;"></div>
+
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <h1
-                    class="text-4xl md:text-5xl font-heading font-extrabold text-white mb-6"
+                    class="text-4xl md:text-5xl font-heading font-extrabold text-white mb-6 opacity-0 animate-bouncy-entry" style="animation-delay: 100ms;"
                 >
                     {{
                         pageContents?.hero?.title ||
                         "Investasi Transparan untuk Skala Bisnis"
                     }}
                 </h1>
-                <p class="text-xl text-primary-200 max-w-3xl mx-auto">
+                <p class="text-xl text-primary-200 max-w-3xl mx-auto opacity-0 animate-bouncy-entry" style="animation-delay: 200ms;">
                     {{
                         pageContents?.hero?.subtitle ||
                         "Tanpa biaya tersembunyi. Pilih paket yang sesuai dengan ukuran bisnis Anda hari ini dan tingkatkan kapan saja."
@@ -79,11 +80,12 @@ const siteSettings = computed(() => usePage().props.siteSettings || {});
                             ?.attributes?.plans || []"
                         :key="index"
                         :class="[
-                            'rounded-2xl p-6 flex flex-col',
+                            'rounded-3xl p-8 flex flex-col transition-all duration-500 hover:-translate-y-2 opacity-0 animate-slide-up',
                             plan.is_popular
-                                ? 'bg-primary-600 shadow-xl shadow-primary-500/20 border border-primary-500 transform scale-105 z-10 relative'
-                                : 'bg-white shadow-lg border border-gray-100',
+                                ? 'bg-gradient-to-b from-primary-600 to-primary-800 shadow-2xl shadow-primary-500/30 border border-primary-500 transform scale-105 hover:scale-[1.07] z-10 relative'
+                                : 'bg-white shadow-xl shadow-gray-200/50 border border-gray-100/60 backdrop-blur-sm hover:border-primary-200 hover:shadow-2xl hover:shadow-primary-100/50',
                         ]"
+                        :style="`animation-delay: ${index * 150 + 300}ms;`"
                     >
                         <!-- Popular Badge -->
                         <div
@@ -140,12 +142,12 @@ const siteSettings = computed(() => usePage().props.siteSettings || {});
                         <a
                             :href="siteSettings.portal_url || '#'"
                             :class="[
-                                'w-full block text-center py-3 px-4 font-bold rounded-lg transition-colors mb-8',
+                                'w-full block text-center py-3.5 px-4 font-bold rounded-xl transition-all transform hover:scale-105 active:scale-95 mb-8 shadow-sm',
                                 plan.is_popular
-                                    ? 'bg-white text-primary-700 hover:bg-gray-50'
+                                    ? 'bg-white text-primary-700 hover:bg-gray-50 shadow-white/20'
                                     : plan.name === 'Enterprise'
-                                      ? 'bg-gray-900 text-white hover:bg-gray-800'
-                                      : 'bg-primary-50 text-primary-700 hover:bg-primary-100',
+                                      ? 'bg-gray-900 text-white hover:bg-gray-800 shadow-gray-900/20'
+                                      : 'bg-primary-50 text-primary-700 hover:bg-primary-100 shadow-primary-100/50',
                             ]"
                         >
                             {{

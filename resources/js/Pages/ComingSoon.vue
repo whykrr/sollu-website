@@ -209,9 +209,11 @@ onUnmounted(() => {
                     <!-- Days -->
                     <div class="flex flex-col items-center gap-1.5">
                         <div
-                            class="countdown-box w-14 sm:w-16 md:w-[72px] py-2.5 sm:py-3 md:py-4 rounded-xl md:rounded-2xl bg-white/[0.08] backdrop-blur-sm border border-white/10 text-xl sm:text-2xl md:text-[2.2rem] font-heading font-bold text-white text-center transition-all hover:-translate-y-0.5 hover:bg-white/[0.12]"
+                            class="countdown-box relative overflow-hidden flex items-center justify-center w-14 sm:w-16 md:w-[72px] h-[48px] sm:h-[56px] md:h-[68px] rounded-xl md:rounded-2xl bg-white/[0.08] backdrop-blur-sm border border-white/10 text-xl sm:text-2xl md:text-[2.2rem] font-heading font-bold text-white text-center transition-all hover:-translate-y-0.5 hover:bg-white/[0.12]"
                         >
-                            {{ days }}
+                            <Transition name="slide-up">
+                                <span :key="days" class="absolute">{{ days }}</span>
+                            </Transition>
                         </div>
                         <span
                             class="text-[0.6rem] sm:text-[0.65rem] md:text-[0.7rem] text-white/40 uppercase tracking-widest font-semibold"
@@ -227,9 +229,11 @@ onUnmounted(() => {
                     <!-- Hours -->
                     <div class="flex flex-col items-center gap-1.5">
                         <div
-                            class="countdown-box w-14 sm:w-16 md:w-[72px] py-2.5 sm:py-3 md:py-4 rounded-xl md:rounded-2xl bg-white/[0.08] backdrop-blur-sm border border-white/10 text-xl sm:text-2xl md:text-[2.2rem] font-heading font-bold text-white text-center transition-all hover:-translate-y-0.5 hover:bg-white/[0.12]"
+                            class="countdown-box relative overflow-hidden flex items-center justify-center w-14 sm:w-16 md:w-[72px] h-[48px] sm:h-[56px] md:h-[68px] rounded-xl md:rounded-2xl bg-white/[0.08] backdrop-blur-sm border border-white/10 text-xl sm:text-2xl md:text-[2.2rem] font-heading font-bold text-white text-center transition-all hover:-translate-y-0.5 hover:bg-white/[0.12]"
                         >
-                            {{ hours }}
+                            <Transition name="slide-up">
+                                <span :key="hours" class="absolute">{{ hours }}</span>
+                            </Transition>
                         </div>
                         <span
                             class="text-[0.6rem] sm:text-[0.65rem] md:text-[0.7rem] text-white/40 uppercase tracking-widest font-semibold"
@@ -245,9 +249,11 @@ onUnmounted(() => {
                     <!-- Minutes -->
                     <div class="flex flex-col items-center gap-1.5">
                         <div
-                            class="countdown-box w-14 sm:w-16 md:w-[72px] py-2.5 sm:py-3 md:py-4 rounded-xl md:rounded-2xl bg-white/[0.08] backdrop-blur-sm border border-white/10 text-xl sm:text-2xl md:text-[2.2rem] font-heading font-bold text-white text-center transition-all hover:-translate-y-0.5 hover:bg-white/[0.12]"
+                            class="countdown-box relative overflow-hidden flex items-center justify-center w-14 sm:w-16 md:w-[72px] h-[48px] sm:h-[56px] md:h-[68px] rounded-xl md:rounded-2xl bg-white/[0.08] backdrop-blur-sm border border-white/10 text-xl sm:text-2xl md:text-[2.2rem] font-heading font-bold text-white text-center transition-all hover:-translate-y-0.5 hover:bg-white/[0.12]"
                         >
-                            {{ minutes }}
+                            <Transition name="slide-up">
+                                <span :key="minutes" class="absolute">{{ minutes }}</span>
+                            </Transition>
                         </div>
                         <span
                             class="text-[0.6rem] sm:text-[0.65rem] md:text-[0.7rem] text-white/40 uppercase tracking-widest font-semibold"
@@ -263,9 +269,11 @@ onUnmounted(() => {
                     <!-- Seconds -->
                     <div class="flex flex-col items-center gap-1.5">
                         <div
-                            class="countdown-box w-14 sm:w-16 md:w-[72px] py-2.5 sm:py-3 md:py-4 rounded-xl md:rounded-2xl bg-white/[0.08] backdrop-blur-sm border border-white/10 text-xl sm:text-2xl md:text-[2.2rem] font-heading font-bold text-white text-center transition-all hover:-translate-y-0.5 hover:bg-white/[0.12]"
+                            class="countdown-box relative overflow-hidden flex items-center justify-center w-14 sm:w-16 md:w-[72px] h-[48px] sm:h-[56px] md:h-[68px] rounded-xl md:rounded-2xl bg-white/[0.08] backdrop-blur-sm border border-white/10 text-xl sm:text-2xl md:text-[2.2rem] font-heading font-bold text-white text-center transition-all hover:-translate-y-0.5 hover:bg-white/[0.12]"
                         >
-                            {{ seconds }}
+                            <Transition name="slide-up">
+                                <span :key="seconds" class="absolute">{{ seconds }}</span>
+                            </Transition>
                         </div>
                         <span
                             class="text-[0.6rem] sm:text-[0.65rem] md:text-[0.7rem] text-white/40 uppercase tracking-widest font-semibold"
@@ -534,5 +542,19 @@ onUnmounted(() => {
 }
 .fade-leave-active {
     animation: fadeInUp 0.3s ease reverse;
+}
+
+/* Slide Up Timer */
+.slide-up-enter-active,
+.slide-up-leave-active {
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.slide-up-enter-from {
+    transform: translateY(100%);
+    opacity: 0;
+}
+.slide-up-leave-to {
+    transform: translateY(-100%);
+    opacity: 0;
 }
 </style>

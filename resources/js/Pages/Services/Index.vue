@@ -51,17 +51,21 @@ const activeTab = ref("fnb");
 
     <MainLayout>
         <!-- Header Section -->
-        <div class="bg-primary-50 py-20 border-b border-primary-100">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div class="relative bg-primary-50 py-24 border-b border-primary-100 overflow-hidden">
+            <!-- Playful Mesh Gradients -->
+            <div class="absolute top-0 right-0 -mr-20 -mt-20 w-[30rem] h-[30rem] rounded-full bg-primary-300/40 blur-3xl opacity-60 animate-float-organic"></div>
+            <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-[24rem] h-[24rem] rounded-full bg-blue-400/30 blur-3xl opacity-60 animate-float-organic" style="animation-delay: -2s;"></div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
                 <h1
-                    class="text-4xl md:text-5xl font-heading font-extrabold text-gray-900 mb-6"
+                    class="text-4xl md:text-5xl lg:text-6xl font-heading font-extrabold text-gray-900 mb-6 opacity-0 animate-bouncy-entry" style="animation-delay: 100ms;"
                 >
                     {{
                         pageContents?.hero?.title ||
                         "Solusi Disesuaikan untuk Bisnis Anda"
                     }}
                 </h1>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto opacity-0 animate-bouncy-entry" style="animation-delay: 200ms;">
                     {{
                         pageContents?.hero?.subtitle ||
                         "Sollu POS menyediakan fitur terdedikasi untuk industri F&B, Retail, dan Jasa. Tingkatkan efisiensi dan skala bisnis Anda."
@@ -75,15 +79,15 @@ const activeTab = ref("fnb");
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <!-- Tab Navigation -->
                 <div
-                    class="flex flex-col md:flex-row justify-center gap-4 mb-16"
+                    class="flex flex-col md:flex-row justify-center gap-4 mb-16 opacity-0 animate-bouncy-entry" style="animation-delay: 300ms;"
                 >
                     <button
                         @click="activeTab = 'fnb'"
                         :class="[
-                            'flex items-center gap-3 px-8 py-4 rounded-xl font-bold text-lg transition-all',
+                            'flex items-center justify-center gap-3 px-8 py-4 rounded-xl font-bold text-lg transition-all transform hover:scale-105 active:scale-95',
                             activeTab === 'fnb'
-                                ? 'bg-main text-white shadow-lg shadow-primary-500/40'
-                                : 'bg-gray-50 text-gray-600 hover:bg-primary-50',
+                                ? 'bg-main text-white shadow-lg shadow-primary-500/40 hover:bg-primary-600'
+                                : 'bg-white text-gray-600 border border-gray-100 shadow-sm hover:border-primary-200 hover:text-primary-600 hover:bg-primary-50/50',
                         ]"
                     >
                         <Coffee class="w-6 h-6" />
@@ -92,10 +96,10 @@ const activeTab = ref("fnb");
                     <button
                         @click="activeTab = 'retail'"
                         :class="[
-                            'flex items-center gap-3 px-8 py-4 rounded-xl font-bold text-lg transition-all',
+                            'flex items-center justify-center gap-3 px-8 py-4 rounded-xl font-bold text-lg transition-all transform hover:scale-105 active:scale-95',
                             activeTab === 'retail'
-                                ? 'bg-main text-white shadow-lg shadow-primary-500/40'
-                                : 'bg-gray-50 text-gray-600 hover:bg-primary-50',
+                                ? 'bg-main text-white shadow-lg shadow-primary-500/40 hover:bg-primary-600'
+                                : 'bg-white text-gray-600 border border-gray-100 shadow-sm hover:border-primary-200 hover:text-primary-600 hover:bg-primary-50/50',
                         ]"
                     >
                         <ShoppingBag class="w-6 h-6" />
@@ -104,10 +108,10 @@ const activeTab = ref("fnb");
                     <button
                         @click="activeTab = 'jasa'"
                         :class="[
-                            'flex items-center gap-3 px-8 py-4 rounded-xl font-bold text-lg transition-all',
+                            'flex items-center justify-center gap-3 px-8 py-4 rounded-xl font-bold text-lg transition-all transform hover:scale-105 active:scale-95',
                             activeTab === 'jasa'
-                                ? 'bg-main text-white shadow-lg shadow-primary-500/40'
-                                : 'bg-gray-50 text-gray-600 hover:bg-primary-50',
+                                ? 'bg-main text-white shadow-lg shadow-primary-500/40 hover:bg-primary-600'
+                                : 'bg-white text-gray-600 border border-gray-100 shadow-sm hover:border-primary-200 hover:text-primary-600 hover:bg-primary-50/50',
                         ]"
                     >
                         <Scissors class="w-6 h-6" />
@@ -118,7 +122,7 @@ const activeTab = ref("fnb");
                 <!-- Tab F&B -->
                 <div
                     v-show="activeTab === 'fnb'"
-                    class="grid md:grid-cols-2 gap-12 items-center animate-in fade-in slide-in-from-bottom-4 duration-500"
+                    class="grid md:grid-cols-2 gap-12 items-center animate-slide-up"
                 >
                     <div>
                         <h2
@@ -134,16 +138,16 @@ const activeTab = ref("fnb");
                                 v-for="(feature, idx) in pageContents?.fnb
                                     ?.attributes?.features_list || []"
                                 :key="idx"
-                                class="flex items-start gap-3"
+                                class="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors"
                             >
-                                <CheckCircle2
-                                    class="w-6 h-6 text-primary-600 shrink-0 mt-0.5"
-                                />
+                                <div class="w-8 h-8 rounded-full bg-primary-50 flex items-center justify-center shrink-0 mt-0.5">
+                                    <CheckCircle2 class="w-5 h-5 text-primary-600" />
+                                </div>
                                 <div>
                                     <h4 class="font-bold text-gray-900">
                                         {{ feature.title }}
                                     </h4>
-                                    <p class="text-gray-600 text-sm">
+                                    <p class="text-gray-600 text-sm mt-1">
                                         {{ feature.description }}
                                     </p>
                                 </div>
@@ -155,13 +159,13 @@ const activeTab = ref("fnb");
                                 siteSettings.portal_url ||
                                 '#'
                             "
-                            class="inline-flex items-center gap-2 text-primary-600 font-bold hover:text-primary-800 transition"
+                            class="inline-flex items-center gap-2 text-primary-600 font-bold hover:text-primary-800 transition-all hover:gap-3 bg-primary-50 px-6 py-3 rounded-full hover:bg-primary-100"
                         >
                             Coba POS F&B Gratis <ArrowRight class="w-5 h-5" />
                         </a>
                     </div>
                     <div
-                        class="relative rounded-2xl overflow-hidden shadow-2xl bg-gray-100 h-96"
+                        class="relative rounded-3xl overflow-hidden shadow-2xl shadow-primary-900/10 bg-gradient-to-tr from-primary-100 to-white h-[400px] group border border-white/60"
                     >
                         <img
                             :src="
@@ -169,18 +173,19 @@ const activeTab = ref("fnb");
                                 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
                             "
                             alt="F&B POS"
-                            class="w-full h-full object-cover opacity-90"
+                            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:-rotate-1"
                         />
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                     </div>
                 </div>
 
                 <!-- Tab Retail -->
                 <div
                     v-show="activeTab === 'retail'"
-                    class="grid md:grid-cols-2 gap-12 items-center animate-in fade-in slide-in-from-bottom-4 duration-500"
+                    class="grid md:grid-cols-2 gap-12 items-center animate-slide-up"
                 >
                     <div
-                        class="order-2 md:order-1 relative rounded-2xl overflow-hidden shadow-2xl bg-gray-100 h-96"
+                        class="order-2 md:order-1 relative rounded-3xl overflow-hidden shadow-2xl shadow-primary-900/10 bg-gradient-to-tr from-primary-100 to-white h-[400px] group border border-white/60"
                     >
                         <img
                             :src="
@@ -188,8 +193,9 @@ const activeTab = ref("fnb");
                                 'https://images.unsplash.com/photo-1556740758-90de374c12ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
                             "
                             alt="Retail POS"
-                            class="w-full h-full object-cover opacity-90"
+                            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:rotate-1"
                         />
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                     </div>
                     <div class="order-1 md:order-2">
                         <h2
@@ -205,16 +211,16 @@ const activeTab = ref("fnb");
                                 v-for="(feature, idx) in pageContents?.retail
                                     ?.attributes?.features_list || []"
                                 :key="idx"
-                                class="flex items-start gap-3"
+                                class="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors"
                             >
-                                <CheckCircle2
-                                    class="w-6 h-6 text-primary-600 shrink-0 mt-0.5"
-                                />
+                                <div class="w-8 h-8 rounded-full bg-primary-50 flex items-center justify-center shrink-0 mt-0.5">
+                                    <CheckCircle2 class="w-5 h-5 text-primary-600" />
+                                </div>
                                 <div>
                                     <h4 class="font-bold text-gray-900">
                                         {{ feature.title }}
                                     </h4>
-                                    <p class="text-gray-600 text-sm">
+                                    <p class="text-gray-600 text-sm mt-1">
                                         {{ feature.description }}
                                     </p>
                                 </div>
@@ -226,7 +232,7 @@ const activeTab = ref("fnb");
                                 siteSettings.portal_url ||
                                 '#'
                             "
-                            class="inline-flex items-center gap-2 text-primary-600 font-bold hover:text-primary-800 transition"
+                            class="inline-flex items-center gap-2 text-primary-600 font-bold hover:text-primary-800 transition-all hover:gap-3 bg-primary-50 px-6 py-3 rounded-full hover:bg-primary-100"
                         >
                             Coba POS Retail Gratis
                             <ArrowRight class="w-5 h-5" />
@@ -237,7 +243,7 @@ const activeTab = ref("fnb");
                 <!-- Tab Jasa -->
                 <div
                     v-show="activeTab === 'jasa'"
-                    class="grid md:grid-cols-2 gap-12 items-center animate-in fade-in slide-in-from-bottom-4 duration-500"
+                    class="grid md:grid-cols-2 gap-12 items-center animate-slide-up"
                 >
                     <div>
                         <h2
@@ -253,16 +259,16 @@ const activeTab = ref("fnb");
                                 v-for="(feature, idx) in pageContents?.jasa
                                     ?.attributes?.features_list || []"
                                 :key="idx"
-                                class="flex items-start gap-3"
+                                class="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors"
                             >
-                                <CheckCircle2
-                                    class="w-6 h-6 text-primary-600 shrink-0 mt-0.5"
-                                />
+                                <div class="w-8 h-8 rounded-full bg-primary-50 flex items-center justify-center shrink-0 mt-0.5">
+                                    <CheckCircle2 class="w-5 h-5 text-primary-600" />
+                                </div>
                                 <div>
                                     <h4 class="font-bold text-gray-900">
                                         {{ feature.title }}
                                     </h4>
-                                    <p class="text-gray-600 text-sm">
+                                    <p class="text-gray-600 text-sm mt-1">
                                         {{ feature.description }}
                                     </p>
                                 </div>
@@ -274,13 +280,13 @@ const activeTab = ref("fnb");
                                 siteSettings.portal_url ||
                                 '#'
                             "
-                            class="inline-flex items-center gap-2 text-primary-600 font-bold hover:text-primary-800 transition"
+                            class="inline-flex items-center gap-2 text-primary-600 font-bold hover:text-primary-800 transition-all hover:gap-3 bg-primary-50 px-6 py-3 rounded-full hover:bg-primary-100"
                         >
                             Coba POS Jasa Gratis <ArrowRight class="w-5 h-5" />
                         </a>
                     </div>
                     <div
-                        class="relative rounded-2xl overflow-hidden shadow-2xl bg-gray-100 h-96"
+                        class="relative rounded-3xl overflow-hidden shadow-2xl shadow-primary-900/10 bg-gradient-to-tr from-primary-100 to-white h-[400px] group border border-white/60"
                     >
                         <img
                             :src="
@@ -288,8 +294,9 @@ const activeTab = ref("fnb");
                                 'https://images.unsplash.com/photo-1560066984-138dadb4c035?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
                             "
                             alt="Service POS"
-                            class="w-full h-full object-cover opacity-90"
+                            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:-rotate-1"
                         />
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                     </div>
                 </div>
             </div>

@@ -47,14 +47,18 @@ const toggleFaq = (id) => {
 
     <MainLayout>
         <!-- Header Section -->
-        <div class="bg-primary-900 py-20 text-center relative">
+        <div class="bg-primary-900 py-24 text-center relative overflow-hidden">
+            <!-- Playful Mesh Gradients -->
+            <div class="absolute top-0 right-0 -mr-20 -mt-20 w-[30rem] h-[30rem] rounded-full bg-primary-600/30 blur-3xl opacity-60 animate-float-organic"></div>
+            <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-[24rem] h-[24rem] rounded-full bg-blue-500/20 blur-3xl opacity-60 animate-float-organic" style="animation-delay: -2s;"></div>
+
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <h1
-                    class="text-4xl md:text-5xl font-heading font-extrabold text-white mb-6"
+                    class="text-4xl md:text-5xl font-heading font-extrabold text-white mb-6 opacity-0 animate-bouncy-entry" style="animation-delay: 100ms;"
                 >
                     Pertanyaan Umum
                 </h1>
-                <p class="text-xl text-primary-200">
+                <p class="text-xl text-primary-200 opacity-0 animate-bouncy-entry" style="animation-delay: 200ms;">
                     Temukan jawaban atas pertanyaan yang paling sering diajukan seputar Sollu POS.
                 </p>
             </div>
@@ -64,10 +68,11 @@ const toggleFaq = (id) => {
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="space-y-4">
                     <div
-                        v-for="faq in faqs"
+                        v-for="(faq, index) in faqs"
                         :key="faq.id"
-                        class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden transition-all duration-300"
-                        :class="{'ring-2 ring-primary-500 shadow-md': openFaqId === faq.id}"
+                        class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden transition-all duration-300 opacity-0 animate-slide-up"
+                        :class="{'ring-2 ring-primary-500 shadow-md transform -translate-y-1': openFaqId === faq.id}"
+                        :style="`animation-delay: ${index * 100 + 300}ms;`"
                     >
                         <button
                             @click="toggleFaq(faq.id)"
@@ -95,14 +100,14 @@ const toggleFaq = (id) => {
                 </div>
 
                 <!-- CTA -->
-                <div class="mt-16 text-center bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
-                    <h3 class="text-2xl font-bold text-gray-900 mb-2">Masih punya pertanyaan?</h3>
-                    <p class="text-gray-600 mb-6">
+                <div class="mt-16 text-center bg-white p-10 rounded-3xl shadow-xl shadow-gray-200/50 border border-gray-100 opacity-0 animate-slide-up" style="animation-delay: 600ms;">
+                    <h3 class="text-3xl font-bold font-heading text-gray-900 mb-4">Masih punya pertanyaan?</h3>
+                    <p class="text-gray-600 mb-8 text-lg">
                         Tim layanan pelanggan kami siap membantu Anda kapan saja.
                     </p>
                     <Link
                         href="/contact"
-                        class="inline-block bg-linear-to-r from-main to-secondary text-white px-8 py-3 rounded-full font-bold shadow-md shadow-primary-500/30 hover:shadow-lg hover:-translate-y-0.5 transition-all"
+                        class="inline-block bg-main text-white px-8 py-4 rounded-xl font-bold shadow-lg shadow-primary-500/30 hover:bg-primary-600 hover:shadow-xl hover:-translate-y-1 transition-all transform hover:scale-105 active:scale-95"
                     >
                         Hubungi Kami
                     </Link>

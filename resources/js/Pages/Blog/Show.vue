@@ -38,16 +38,16 @@ const readTime = (content) => {
 
             <div class="absolute bottom-0 left-0 right-0 p-8 md:p-16">
                 <div class="max-w-4xl mx-auto">
-                    <Link :href="route('blog')" class="inline-flex items-center gap-1.5 text-sm text-gray-300 hover:text-white transition mb-6">
+                    <Link :href="route('blog')" class="inline-flex items-center gap-1.5 text-sm text-gray-300 hover:text-white transition mb-6 opacity-0 animate-bouncy-entry" style="animation-delay: 100ms;">
                         <ArrowLeft class="w-4 h-4" /> Kembali ke Blog
                     </Link>
-                    <div v-if="article.category" class="inline-flex items-center rounded-full bg-primary-600 px-3 py-1 text-sm font-semibold text-white mb-4 ml-4">
+                    <div v-if="article.category" class="inline-flex items-center rounded-full bg-primary-600 px-3 py-1 text-sm font-semibold text-white mb-4 ml-4 opacity-0 animate-bouncy-entry" style="animation-delay: 200ms;">
                         <Tag class="w-3.5 h-3.5 mr-1.5" /> {{ article.category.name }}
                     </div>
-                    <h1 class="text-3xl md:text-5xl font-heading font-extrabold text-white leading-tight mb-6">
+                    <h1 class="text-3xl md:text-5xl font-heading font-extrabold text-white leading-tight mb-6 opacity-0 animate-bouncy-entry" style="animation-delay: 300ms;">
                         {{ article.title }}
                     </h1>
-                    <div class="flex flex-wrap items-center gap-4 text-sm text-gray-300">
+                    <div class="flex flex-wrap items-center gap-4 text-sm text-gray-300 opacity-0 animate-bouncy-entry" style="animation-delay: 400ms;">
                         <div class="flex items-center gap-2">
                             <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
                                 <User class="w-5 h-5 text-white" />
@@ -67,7 +67,7 @@ const readTime = (content) => {
         </div>
 
         <!-- Article Content -->
-        <div class="py-16 bg-white">
+        <div class="py-16 bg-white opacity-0 animate-slide-up" style="animation-delay: 500ms;">
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                 <!-- Excerpt Highlight -->
                 <div v-if="article.excerpt" class="mb-10 p-6 bg-primary-50 border-l-4 border-primary-500 rounded-r-xl">
@@ -99,11 +99,11 @@ const readTime = (content) => {
         </div>
 
         <!-- Related Articles -->
-        <div v-if="relatedArticles && relatedArticles.length > 0" class="py-16 bg-gray-50">
+        <div v-if="relatedArticles && relatedArticles.length > 0" class="py-16 bg-gray-50 opacity-0 animate-slide-up" style="animation-delay: 600ms;">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <h2 class="text-2xl font-heading font-bold text-gray-900 mb-8">Artikel Terkait</h2>
                 <div class="grid md:grid-cols-3 gap-8">
-                    <article v-for="related in relatedArticles" :key="related.id" class="flex flex-col bg-white border border-gray-100 rounded-2xl overflow-hidden hover:shadow-xl hover:border-primary-100 transition-all group">
+                    <article v-for="related in relatedArticles" :key="related.id" class="flex flex-col bg-white border border-gray-100 rounded-3xl overflow-hidden hover:shadow-2xl hover:shadow-primary-100/60 hover:border-primary-200 transition-all duration-500 hover:-translate-y-2 group">
                         <Link :href="route('blog.show', related.slug)" class="relative h-48 overflow-hidden block">
                             <img :src="related.image_url || 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'" :alt="related.title" class="w-full h-full object-cover transition duration-500 group-hover:scale-110" />
                             <div v-if="related.category" class="absolute top-4 left-4 inline-flex items-center rounded-full bg-white/90 backdrop-blur-sm px-3 py-1 text-xs font-bold text-primary-700 shadow-sm">
