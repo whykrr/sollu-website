@@ -6,7 +6,7 @@ import DropdownLink from "@/Components/DropdownLink.vue";
 import { Head, Link, usePage } from "@inertiajs/vue3";
 import { 
     LayoutDashboard, FileText, Search, LibraryBig, MessageSquare, 
-    Settings, Users, Menu, X, FolderTree, HelpCircle
+    Settings, Users, Menu, X, FolderTree, HelpCircle, Map
 } from "lucide-vue-next";
 
 const showingSidebar = ref(false);
@@ -21,6 +21,7 @@ const menuItems = [
     { name: 'Pesan Masuk', route: 'admin.messages.index', icon: MessageSquare },
     { name: 'Pengaturan Situs', route: 'admin.settings.index', icon: Settings, gate: ['superadmin', 'admin'] },
     { name: 'SEO', route: 'admin.seo.index', icon: Search, gate: ['superadmin', 'admin'] },
+    { name: 'Sitemap', route: 'admin.sitemap.index', icon: Map, gate: ['superadmin', 'admin'] },
     { name: 'Pengguna', route: 'admin.users.index', icon: Users, gate: ['superadmin'] },
 ];
 

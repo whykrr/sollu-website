@@ -56,6 +56,9 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::middleware('can:manage-seo')->group(function () {
         Route::get('/seo', [SeoController::class, 'index'])->name('seo.index');
         Route::put('/seo', [SeoController::class, 'update'])->name('seo.update');
+
+        Route::get('/sitemap', [\App\Http\Controllers\Admin\SitemapController::class, 'index'])->name('sitemap.index');
+        Route::post('/sitemap/generate', [\App\Http\Controllers\Admin\SitemapController::class, 'generate'])->name('sitemap.generate');
     });
 
     Route::middleware('can:manage-users')->group(function () {
