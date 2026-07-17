@@ -15,20 +15,20 @@ class SitemapController extends Controller
      */
     public function index()
     {
-        $sitemapPath = public_path('sitemap.xml');
-        $sitemap = null;
+        $sitemaps = [];
+        $files = File::glob(public_path('sitemap*.xml'));
 
-        if (File::exists($sitemapPath)) {
-            $sitemap = [
-                'name' => 'sitemap.xml',
-                'size' => $this->formatBytes(File::size($sitemapPath)),
-                'last_modified' => date('Y-m-d H:i:s', File::lastModified($sitemapPath)),
-                'url' => url('/sitemap.xml'),
+        foreach ($files as $file) {
+            $sitemaps[] = [
+                'name' => basename($file),
+                'size' => $this->formatBytes(File::size($file)),
+                'last_modified' => date('Y-m-d H:i:s', File::lastModified($file)),
+                'url' => url('/' . basename($file)),
             ];
         }
 
         return Inertia::render('Admin/Sitemap/Index', [
-            'sitemap' => $sitemap,
+            'sitemaps' => $sitemaps,
         ]);
     }
 
@@ -41,9 +41,8 @@ class SitemapController extends Controller
             $service->execute();
             
             return redirect()->route('admin.sitemap.index')
-                ->with('success', 'Sitemap berhasil digenerate.');
+                ->with('success', 'Sitemap berhasil digenerate dan didaftarkan ke robots.txt.');
         } catch (\Exception $e) {
-            // Since rules say log only for error/integration failure etc, this is a valid case.
             \Illuminate\Support\Facades\Log::error('Sitemap generation failed: ' . $e->getMessage());
             
             return redirect()->route('admin.sitemap.index')

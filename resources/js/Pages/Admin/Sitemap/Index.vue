@@ -5,7 +5,7 @@ import { ref } from "vue";
 import { Info, Download, ExternalLink, RefreshCw, CheckCircle2 } from "lucide-vue-next";
 
 const props = defineProps({
-    sitemap: Object,
+    sitemaps: Array,
 });
 
 const form = useForm({});
@@ -82,7 +82,7 @@ const generateSitemap = () => {
                     </div>
                     
                     <div class="p-6">
-                        <div v-if="sitemap" class="overflow-x-auto rounded-lg border border-gray-200">
+                        <div v-if="sitemaps && sitemaps.length > 0" class="overflow-x-auto rounded-lg border border-gray-200">
                             <table class="min-w-full divide-y divide-gray-200">
                                 <thead class="bg-gray-50">
                                     <tr>
@@ -93,22 +93,22 @@ const generateSitemap = () => {
                                     </tr>
                                 </thead>
                                 <tbody class="bg-white divide-y divide-gray-200">
-                                    <tr class="hover:bg-gray-50 transition-colors">
+                                    <tr v-for="(item, index) in sitemaps" :key="index" class="hover:bg-gray-50 transition-colors">
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 flex items-center gap-2">
                                             <svg class="w-5 h-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
-                                            {{ sitemap.name }}
+                                            {{ item.name }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                            {{ sitemap.size }}
+                                            {{ item.size }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                            {{ sitemap.last_modified }}
+                                            {{ item.last_modified }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-3">
-                                            <a :href="sitemap.url" target="_blank" class="inline-flex items-center text-primary-600 hover:text-primary-900 transition">
+                                            <a :href="item.url" target="_blank" class="inline-flex items-center text-primary-600 hover:text-primary-900 transition">
                                                 <ExternalLink class="w-4 h-4 mr-1" /> Lihat
                                             </a>
-                                            <a :href="sitemap.url" download class="inline-flex items-center text-gray-600 hover:text-gray-900 transition">
+                                            <a :href="item.url" download class="inline-flex items-center text-gray-600 hover:text-gray-900 transition">
                                                 <Download class="w-4 h-4 mr-1" /> Unduh
                                             </a>
                                         </td>
@@ -122,15 +122,15 @@ const generateSitemap = () => {
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m3.75 9v6m3-3H9m1.5-12H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
                             </svg>
                             <h3 class="mt-2 text-sm font-semibold text-gray-900">Belum ada Sitemap</h3>
-                            <p class="mt-1 text-sm text-gray-500">Klik tombol "Generate Sitemap Sekarang" di atas untuk membuat file sitemap.xml pertama Anda.</p>
+                            <p class="mt-1 text-sm text-gray-500">Klik tombol "Generate Sitemap Sekarang" di atas untuk membuat file sitemap Anda.</p>
                         </div>
                         
                         <!-- Snippet for Robot.txt -->
-                        <div class="mt-6 border-t border-gray-100 pt-6" v-if="sitemap">
-                            <h4 class="text-sm font-medium text-gray-900 mb-2">Tambahkan ke robots.txt</h4>
-                            <p class="text-xs text-gray-500 mb-3">Salin baris di bawah ini dan tempelkan di file <code>robots.txt</code> Anda agar mesin pencari tahu lokasi sitemap.</p>
+                        <div class="mt-6 border-t border-gray-100 pt-6" v-if="sitemaps && sitemaps.length > 0">
+                            <h4 class="text-sm font-medium text-gray-900 mb-2">Ditambahkan otomatis ke robots.txt</h4>
+                            <p class="text-xs text-gray-500 mb-3">Sistem telah mendaftarkan sitemap index ke dalam file <code>robots.txt</code> Anda secara otomatis.</p>
                             <div class="relative bg-gray-900 rounded-md p-3">
-                                <code class="text-sm text-green-400 font-mono">Sitemap: {{ sitemap.url }}</code>
+                                <code class="text-sm text-green-400 font-mono">Sitemap: {{ sitemaps.find(s => s.name === 'sitemap.xml')?.url || 'URL Sitemap' }}</code>
                             </div>
                         </div>
 
