@@ -47,7 +47,7 @@ FROM php:8.3-fpm-alpine
 
 # Install runtime dependencies saja
 RUN apk add --no-cache \
-    nginx supervisor libzip libpng libjpeg-turbo freetype icu libpq
+    nginx supervisor libzip libpng libjpeg-turbo freetype icu libpq curl
 
 WORKDIR /var/www/html
 
@@ -66,12 +66,21 @@ COPY ./docker/nginx.conf /etc/nginx/http.d/default.conf
 COPY ./docker/supervisord.conf /etc/supervisord.conf
 COPY ./docker/php-production.ini /usr/local/etc/php/conf.d/app.ini
 
-# Permission untuk Laravel
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+# Pastikan direktori storage & bootstrap cache ada dan permission sesuai
+RUN mkdir -p /var/www/html/storage/framework/cache \
+             /var/www/html/storage/framework/sessions \
+             /var/www/html/storage/framework/views \
+             /var/www/html/storage/logs \
+             /var/www/html/bootstrap/cache \
+    && chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
+    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
 # linked storage untuk akses file yang diupload
 RUN ln -s /var/www/html/storage/app/public /var/www/html/public/storage
 
 EXPOSE 80
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+    CMD curl -f http://127.0.0.1/ || exit 1
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]

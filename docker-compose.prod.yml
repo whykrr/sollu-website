@@ -1,0 +1,20 @@
+services:
+  sollu-website:
+    image: ghcr.io/whykrr/sollu-website:latest
+    container_name: sollu-website
+    restart: always
+    ports:
+      - "8001:80" # Port 8001 di server ke port 80 di container
+    env_file:
+      - .env
+    networks:
+      - sollu-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  sollu-network:
+    external: true

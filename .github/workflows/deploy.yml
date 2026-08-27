@@ -1,57 +1,105 @@
-name: Deploy to Server
+name: Build and Deploy
 
 on:
   push:
-    branches: [master]
+    tags:
+      - "v*"
+      - "v*.*.*"
+    paths-ignore:
+      - "README.md"
+      - "docs/**"
+      - "prd/**"
+  workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  build-and-deploy:
+  build-and-push-image:
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
-    env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Login to GitHub Container Registry
+      - name: Log in to the Container registry
         uses: docker/login-action@v3
         with:
-          registry: ghcr.io
+          registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and Push Image
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=ref,event=tag
+            type=ref,event=branch
+            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/') }}
+            type=sha
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
-          tags: ghcr.io/${{ github.repository }}:latest
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
-      - name: Copy config files to server
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.SERVER_IP }}
-          username: ubuntu
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          # Kita kirim docker-compose dan folder docker (isi nginx & php config)
-          source: "docker-compose.yml,docker/"
-          target: "~/sollu-deployment/${{ github.event.repository.name }}/"
+  deploy:
+    needs: build-and-push-image
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/')
 
-      - name: Deploy via SSH
-        uses: appleboy/ssh-action@master
+    steps:
+      - name: Deploy to Server via SSH
+        uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ secrets.SERVER_IP }}
-          username: ubuntu # atau 'opc' untuk Oracle
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
-            cd ~/sollu-deployment/${{ github.event.repository.name }}
-            echo "${{ secrets.ENV_FILE }}" > .env
-            # Login ulang di server untuk pull dari GHCR
-            echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-            docker compose down --remove-orphans
-            docker compose pull
-            docker compose up -d
+            set -e
+            cd ${{ secrets.SERVER_DEPLOY_PATH }}
+
+            # Deteksi perintah Docker Compose yang tersedia di server
+            if docker compose version > /dev/null 2>&1; then
+                DOCKER_COMPOSE="docker compose"
+            else
+                DOCKER_COMPOSE="docker-compose"
+            fi
+
+            echo "=> Pulling latest Docker images..."
+            $DOCKER_COMPOSE -f docker-compose.prod.yml pull
+
+            echo "=> Restarting containers..."
+            $DOCKER_COMPOSE -f docker-compose.prod.yml up -d
+
+            echo "=> Running database migrations..."
+            $DOCKER_COMPOSE -f docker-compose.prod.yml exec -T sollu-website php artisan migrate --force
+
+            echo "=> Refreshing Laravel framework caches (config, route, view)..."
+            $DOCKER_COMPOSE -f docker-compose.prod.yml exec -T sollu-website php artisan config:clear
+            $DOCKER_COMPOSE -f docker-compose.prod.yml exec -T sollu-website php artisan route:clear
+            $DOCKER_COMPOSE -f docker-compose.prod.yml exec -T sollu-website php artisan view:clear
+
+            echo "=> Re-caching and optimizing Laravel for production..."
+            $DOCKER_COMPOSE -f docker-compose.prod.yml exec -T sollu-website php artisan optimize
+
+            echo "=> Pruning unused old Docker images..."
+            docker image prune -f
+
+            echo "=> Deployment completed successfully!"
