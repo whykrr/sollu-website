@@ -94,13 +94,10 @@ return [
             'password' => env('DB_PASSWORD', ''),
             'charset' => env('DB_CHARSET', 'utf8'),
             'prefix' => '',
-            'prepared' => false,
+            'prepared' => env('DB_PREPARED', true),
             'prefix_indexes' => true,
             'search_path' => env('DB_SCHEMA', 'public'),
             'sslmode' => env('DB_SSLMODE', 'prefer'),
-            'options' => [
-                PDO::ATTR_EMULATE_PREPARES => env('DB_PDO_EMULATE_PREPARE', true),
-            ],
         ],
 
         'sqlsrv' => [
