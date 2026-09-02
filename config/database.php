@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Str;
 use Pdo\Mysql;
-use PDO;
 
 return [
 
@@ -100,7 +99,7 @@ return [
             'search_path' => env('DB_SCHEMA', 'public'),
             'sslmode' => env('DB_SSLMODE', 'prefer'),
             'options' => [
-                PDO::ATTR_EMULATE_PREPARES => true,
+                PDO::ATTR_EMULATE_PREPARES => env('DB_PDO_EMULATE_PREPARE', 'true'),
             ],
         ],
 
