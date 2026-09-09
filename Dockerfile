@@ -81,6 +81,6 @@ RUN ln -s /var/www/html/storage/app/public /var/www/html/public/storage
 EXPOSE 80
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
-    CMD curl -f http://127.0.0.1/ || exit 1
+    CMD curl -f http://127.0.0.1/up || exit 1
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
