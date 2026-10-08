@@ -13,8 +13,8 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Inter', ...defaultTheme.fontFamily.sans],
-                heading: ['Outfit', ...defaultTheme.fontFamily.sans],
+                sans: ['Plus Jakarta Sans', 'Inter', ...defaultTheme.fontFamily.sans],
+                heading: ['Plus Jakarta Sans', 'Inter', ...defaultTheme.fontFamily.sans],
             },
             colors: {
                 primary: {

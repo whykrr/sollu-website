@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\PageContent;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
@@ -12,20 +12,31 @@ class ContentController extends Controller
 {
     public function index()
     {
+        $friendlyNames = [
+            'home' => 'Landing Page Utama',
+            'blog' => 'Tips Usaha & Blog',
+        ];
+
+        $friendlyDescriptions = [
+            'home' => 'Kelola seluruh bagian Landing Page (Hero, Keunggulan & Metrik, Fitur Unggulan, Solusi Industri, Paket Harga, Testimoni, dan Kontak).',
+            'blog' => 'Kelola banner dan headline untuk halaman Tips & Edukasi Usaha.',
+        ];
+
         $pages = PageContent::select('page_slug')
             ->groupBy('page_slug')
             ->orderByRaw('MIN(id)')
             ->get()
             ->pluck('page_slug')
-            ->map(function ($slug) {
+            ->map(function ($slug) use ($friendlyNames, $friendlyDescriptions) {
                 return [
                     'slug' => $slug,
-                    'name' => ucfirst($slug)
+                    'name' => $friendlyNames[$slug] ?? ucfirst($slug),
+                    'description' => $friendlyDescriptions[$slug] ?? 'Kelola teks dan visual untuk halaman '.ucfirst($slug).'.',
                 ];
             });
 
         return Inertia::render('Admin/Pages/Index', [
-            'pages' => $pages
+            'pages' => $pages,
         ]);
     }
 
@@ -42,7 +53,7 @@ class ContentController extends Controller
         return Inertia::render('Admin/Pages/Edit', [
             'slug' => $slug,
             'name' => ucfirst($slug),
-            'pageContents' => $contents
+            'pageContents' => $contents,
         ]);
     }
 
@@ -59,8 +70,8 @@ class ContentController extends Controller
 
         foreach ($validated['contents'] as $item) {
             $content = PageContent::where('page_slug', $slug)
-                                  ->where('id', $item['id'])
-                                  ->first();
+                ->where('id', $item['id'])
+                ->first();
 
             if ($content) {
                 $content->update([
@@ -78,13 +89,13 @@ class ContentController extends Controller
     public function uploadImage(Request $request)
     {
         $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:512'
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:512',
         ]);
 
         $path = $request->file('image')->store('uploads');
 
         return response()->json([
-            'url' => Storage::disk('s3')->url($path)
+            'url' => Storage::disk('s3')->url($path),
         ]);
     }
 }

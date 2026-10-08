@@ -41,8 +41,7 @@ defineProps({
                                     {{ page.name }}
                                 </h3>
                                 <p class="text-sm text-gray-500 mb-4">
-                                    Edit teks hero, fitur, dan visual untuk
-                                    halaman {{ page.slug }}.
+                                    {{ page.description || `Edit teks dan visual untuk halaman ${page.slug}.` }}
                                 </p>
                                 <Link
                                     :href="route('admin.pages.edit', page.slug)"

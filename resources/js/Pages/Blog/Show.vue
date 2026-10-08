@@ -14,9 +14,9 @@ const formatDate = (dateStr) => {
 };
 
 const readTime = (content) => {
-    if (!content) return '1 min';
+    if (!content) return '1 mnt';
     const words = content.replace(/<[^>]*>/g, '').split(/\s+/).length;
-    return Math.max(1, Math.ceil(words / 200)) + ' min read';
+    return Math.max(1, Math.ceil(words / 200)) + ' mnt baca';
 };
 </script>
 
@@ -30,93 +30,98 @@ const readTime = (content) => {
     </Head>
 
     <MainLayout>
-        <!-- Hero Cover -->
-        <div class="relative bg-gray-900">
-            <img v-if="article.image_url" :src="article.image_url" :alt="article.title" class="w-full h-[400px] md:h-[500px] object-cover opacity-40" />
-            <div v-else class="w-full h-[400px] md:h-[500px] bg-gradient-to-br from-primary-800 to-primary-950"></div>
-            <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent"></div>
+        <!-- Article Header / Hero -->
+        <div class="bg-white pt-12 pb-10 border-b border-gray-100">
+            <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+                <Link :href="route('blog')" class="inline-flex items-center gap-1.5 text-xs font-semibold text-gray-500 hover:text-main transition mb-8">
+                    <ArrowLeft class="w-3.5 h-3.5" /> Kembali ke Wawasan & Tips
+                </Link>
 
-            <div class="absolute bottom-0 left-0 right-0 p-8 md:p-16">
-                <div class="max-w-4xl mx-auto">
-                    <Link :href="route('blog')" class="inline-flex items-center gap-1.5 text-sm text-gray-300 hover:text-white transition mb-6 opacity-0 animate-bouncy-entry" style="animation-delay: 100ms;">
-                        <ArrowLeft class="w-4 h-4" /> Kembali ke Blog
-                    </Link>
-                    <div v-if="article.category" class="inline-flex items-center rounded-full bg-primary-600 px-3 py-1 text-sm font-semibold text-white mb-4 ml-4 opacity-0 animate-bouncy-entry" style="animation-delay: 200ms;">
-                        <Tag class="w-3.5 h-3.5 mr-1.5" /> {{ article.category.name }}
+                <div v-if="article.category" class="mb-4">
+                    <span class="inline-flex items-center rounded-full bg-blue-50 text-main px-3 py-1 text-xs font-bold uppercase tracking-wider">
+                        {{ article.category.name }}
+                    </span>
+                </div>
+
+                <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#061a40] leading-tight tracking-tight mb-6">
+                    {{ article.title }}
+                </h1>
+
+                <div class="flex flex-wrap items-center gap-4 text-xs text-gray-500 pb-2">
+                    <div class="flex items-center gap-2">
+                        <span class="font-bold text-gray-900">{{ article.user?.name || 'Redaksi Sollu' }}</span>
                     </div>
-                    <h1 class="text-3xl md:text-5xl font-heading font-extrabold text-white leading-tight mb-6 opacity-0 animate-bouncy-entry" style="animation-delay: 300ms;">
-                        {{ article.title }}
-                    </h1>
-                    <div class="flex flex-wrap items-center gap-4 text-sm text-gray-300 opacity-0 animate-bouncy-entry" style="animation-delay: 400ms;">
-                        <div class="flex items-center gap-2">
-                            <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
-                                <User class="w-5 h-5 text-white" />
-                            </div>
-                            <div>
-                                <div class="font-bold text-white">{{ article.user?.name || 'Admin' }}</div>
-                                <div class="text-xs text-gray-400">Penulis</div>
-                            </div>
-                        </div>
-                        <span class="w-1 h-1 rounded-full bg-gray-500 hidden sm:block"></span>
-                        <span class="flex items-center gap-1.5"><Clock class="w-4 h-4" /> {{ formatDate(article.published_at) }}</span>
-                        <span class="w-1 h-1 rounded-full bg-gray-500 hidden sm:block"></span>
-                        <span>{{ readTime(article.content) }}</span>
-                    </div>
+                    <span>&middot;</span>
+                    <span>{{ formatDate(article.published_at) }}</span>
+                    <span>&middot;</span>
+                    <span>{{ readTime(article.content) }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Featured Image -->
+        <div v-if="article.image_url" class="bg-[#fafafa] py-8">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="rounded-3xl overflow-hidden border border-gray-200/80 shadow-xs aspect-16/9">
+                    <img :src="article.image_url" :alt="article.title" class="w-full h-full object-cover" />
                 </div>
             </div>
         </div>
 
         <!-- Article Content -->
-        <div class="py-16 bg-white opacity-0 animate-slide-up" style="animation-delay: 500ms;">
-            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                <!-- Excerpt Highlight -->
-                <div v-if="article.excerpt" class="mb-10 p-6 bg-primary-50 border-l-4 border-primary-500 rounded-r-xl">
-                    <p class="text-lg text-primary-900 font-medium leading-relaxed italic">{{ article.excerpt }}</p>
+        <div class="py-12 md:py-16 bg-white">
+            <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Highlight Excerpt -->
+                <div v-if="article.excerpt" class="mb-10 p-6 bg-blue-50/50 border-l-2 border-main rounded-r-2xl">
+                    <p class="text-base sm:text-lg text-gray-800 leading-relaxed italic">
+                        {{ article.excerpt }}
+                    </p>
                 </div>
 
-                <!-- Content -->
-                <article class="tiptap max-w-none text-gray-700" v-html="article.content">
+                <!-- Tiptap Body Content -->
+                <article class="tiptap max-w-none text-gray-800 text-base leading-relaxed font-sans" v-html="article.content">
                 </article>
 
-                <!-- Share Section -->
-                <div class="mt-16 pt-8 border-t border-gray-200">
-                    <div class="flex items-center justify-between flex-wrap gap-4">
-                        <div class="flex items-center gap-3">
-                            <div class="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center">
-                                <User class="w-7 h-7 text-gray-500" />
-                            </div>
-                            <div>
-                                <p class="font-bold text-gray-900">{{ article.user?.name || 'Admin' }}</p>
-                                <p class="text-sm text-gray-500">Ditulis pada {{ formatDate(article.published_at) }}</p>
-                            </div>
+                <!-- Author & Back Section -->
+                <div class="mt-16 pt-8 border-t border-gray-100 flex items-center justify-between flex-wrap gap-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center font-bold text-main">
+                            {{ (article.user?.name || 'S').charAt(0) }}
                         </div>
-                        <Link :href="route('blog')" class="inline-flex items-center gap-2 px-4 py-2 bg-primary-50 text-primary-700 rounded-lg font-medium hover:bg-primary-100 transition text-sm">
-                            <ArrowLeft class="w-4 h-4" /> Lihat Semua Artikel
-                        </Link>
+                        <div>
+                            <p class="font-bold text-gray-900 text-sm">{{ article.user?.name || 'Redaksi Sollu' }}</p>
+                            <p class="text-xs text-gray-500">Dipublikasikan pada {{ formatDate(article.published_at) }}</p>
+                        </div>
                     </div>
+                    <Link :href="route('blog')" class="inline-flex items-center gap-2 px-5 py-2.5 bg-gray-100 text-gray-800 hover:text-main rounded-full font-semibold hover:bg-gray-200 transition text-xs">
+                        <ArrowLeft class="w-3.5 h-3.5" /> Lihat Semua Artikel
+                    </Link>
                 </div>
             </div>
         </div>
 
         <!-- Related Articles -->
-        <div v-if="relatedArticles && relatedArticles.length > 0" class="py-16 bg-gray-50 opacity-0 animate-slide-up" style="animation-delay: 600ms;">
+        <div v-if="relatedArticles && relatedArticles.length > 0" class="py-16 md:py-24 bg-[#fafafa] border-t border-gray-100">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-2xl font-heading font-bold text-gray-900 mb-8">Artikel Terkait</h2>
+                <div class="text-xs font-semibold uppercase tracking-wider text-main mb-2">
+                    — Rekomendasi
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-bold text-[#061a40] leading-tight mb-8">
+                    Artikel Terkait Lainnya
+                </h2>
+
                 <div class="grid md:grid-cols-3 gap-8">
-                    <article v-for="related in relatedArticles" :key="related.id" class="flex flex-col bg-white border border-gray-100 rounded-3xl overflow-hidden hover:shadow-2xl hover:shadow-primary-100/60 hover:border-primary-200 transition-all duration-500 hover:-translate-y-2 group">
-                        <Link :href="route('blog.show', related.slug)" class="relative h-48 overflow-hidden block">
-                            <img :src="related.image_url || 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'" :alt="related.title" class="w-full h-full object-cover transition duration-500 group-hover:scale-110" />
-                            <div v-if="related.category" class="absolute top-4 left-4 inline-flex items-center rounded-full bg-white/90 backdrop-blur-sm px-3 py-1 text-xs font-bold text-primary-700 shadow-sm">
-                                {{ related.category.name }}
-                            </div>
+                    <article v-for="related in relatedArticles" :key="related.id" class="bg-white rounded-3xl border border-gray-200/90 overflow-hidden shadow-2xs hover:shadow-md transition-all duration-300 flex flex-col group">
+                        <Link :href="route('blog.show', related.slug)" class="relative aspect-16/10 overflow-hidden block bg-gray-100">
+                            <img :src="related.image_url || 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'" :alt="related.title" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
                         </Link>
-                        <div class="p-5 flex flex-col flex-grow">
-                            <h4 class="text-lg font-bold text-gray-900 mb-2 group-hover:text-primary-600 transition line-clamp-2">
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-lg font-bold text-[#061a40] leading-snug mb-2 group-hover:text-main transition line-clamp-2">
                                 <Link :href="route('blog.show', related.slug)">{{ related.title }}</Link>
-                            </h4>
-                            <p class="text-gray-600 text-sm line-clamp-2 mb-4 flex-grow">{{ related.excerpt }}</p>
-                            <Link :href="route('blog.show', related.slug)" class="text-primary-600 font-bold text-sm flex items-center gap-1 hover:gap-2 transition-all">
-                                Baca Selengkapnya <ArrowRight class="w-4 h-4" />
+                            </h3>
+                            <p class="text-xs text-gray-600 line-clamp-2 mb-4 flex-grow">{{ related.excerpt }}</p>
+                            <Link :href="route('blog.show', related.slug)" class="inline-flex items-center gap-1 text-xs font-bold text-main hover:text-main-dark transition mt-auto">
+                                Baca Selengkapnya <ArrowRight class="w-3.5 h-3.5" />
                             </Link>
                         </div>
                     </article>

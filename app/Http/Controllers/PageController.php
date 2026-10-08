@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use Inertia\Inertia;
-use App\Models\PageContent;
 use App\Models\Article;
 use App\Models\Category;
 use App\Models\Faq;
+use App\Models\PageContent;
 use App\Models\SeoSetting;
+use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class PageController extends Controller
 {
@@ -21,8 +20,11 @@ class PageController extends Controller
     public function home()
     {
         $contents = PageContent::where('page_slug', 'home')->where('is_active', true)->get()->keyBy('section_key');
+        $faqs = Faq::where('is_active', true)->orderBy('order')->orderBy('created_at', 'desc')->take(4)->get();
+
         return Inertia::render('Home/Index', [
             'pageContents' => $contents,
+            'faqs' => $faqs,
             'seo' => $this->getSeo('home'),
         ]);
     }
@@ -30,6 +32,7 @@ class PageController extends Controller
     public function services()
     {
         $contents = PageContent::where('page_slug', 'services')->where('is_active', true)->get()->keyBy('section_key');
+
         return Inertia::render('Services/Index', [
             'pageContents' => $contents,
             'seo' => $this->getSeo('services'),
@@ -39,6 +42,7 @@ class PageController extends Controller
     public function pricing()
     {
         $contents = PageContent::where('page_slug', 'pricing')->where('is_active', true)->get()->keyBy('section_key');
+
         return Inertia::render('Pricing/Index', [
             'pageContents' => $contents,
             'seo' => $this->getSeo('pricing'),
@@ -48,6 +52,7 @@ class PageController extends Controller
     public function contact()
     {
         $contents = PageContent::where('page_slug', 'contact')->where('is_active', true)->get()->keyBy('section_key');
+
         return Inertia::render('Contact/Index', [
             'pageContents' => $contents,
             'seo' => $this->getSeo('contact'),
@@ -62,8 +67,8 @@ class PageController extends Controller
             'faqs' => $faqs,
             'seo' => $this->getSeo('faq') ?: [
                 'meta_title' => 'Pertanyaan Umum (FAQ) - Sollu POS',
-                'meta_description' => 'Temukan jawaban untuk pertanyaan umum seputar fitur dan layanan Sollu POS.'
-            ]
+                'meta_description' => 'Temukan jawaban untuk pertanyaan umum seputar fitur dan layanan Sollu POS.',
+            ],
         ]);
     }
 

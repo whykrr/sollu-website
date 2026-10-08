@@ -1,26 +1,27 @@
 <?php
 
-use App\Http\Controllers\PageController;
-use App\Http\Controllers\ContactFormController;
-use App\Http\Controllers\SubscriberController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Admin\ContentController;
-use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ContactMessageController;
+use App\Http\Controllers\Admin\ContentController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\SeoController;
+use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\SitemapController;
 use App\Http\Controllers\Admin\UserController;
-use Illuminate\Foundation\Application;
+use App\Http\Controllers\ContactFormController;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SubscriberController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 // Public Pages Routes
 Route::get('/', [PageController::class, 'home'])->name('home');
-Route::get('/services', [PageController::class, 'services'])->name('services');
-Route::get('/pricing', [PageController::class, 'pricing'])->name('pricing');
-Route::get('/contact', [PageController::class, 'contact'])->name('contact');
+Route::get('/services', fn () => redirect('/#solusi', 301))->name('services');
+Route::get('/pricing', fn () => redirect('/#harga', 301))->name('pricing');
+Route::get('/contact', fn () => redirect('/#kontak', 301))->name('contact');
 Route::post('/contact', [ContactFormController::class, 'store'])->name('contact.store');
 Route::get('/blog', [PageController::class, 'blog'])->name('blog');
 Route::get('/faq', [PageController::class, 'faq'])->name('faq');
@@ -31,13 +32,16 @@ Route::get('/maintenance', fn () => Inertia::render('Maintenance', [
     'contactEmail' => config('mail.from.address', 'hello@solluapp.com'),
 ]))->name('maintenance');
 
+// Alias route for dashboard redirect
+Route::get('/dashboard', fn () => redirect()->route('admin.dashboard'))->name('dashboard');
+
 // Admin Routes (using Breeze scaffold)
 Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', function () {
         return redirect()->route('admin.dashboard');
     });
-    
-    Route::get('/dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
+
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Protected Core Management Routes
     Route::middleware('can:manage-pages')->group(function () {
@@ -57,8 +61,8 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
         Route::get('/seo', [SeoController::class, 'index'])->name('seo.index');
         Route::put('/seo', [SeoController::class, 'update'])->name('seo.update');
 
-        Route::get('/sitemap', [\App\Http\Controllers\Admin\SitemapController::class, 'index'])->name('sitemap.index');
-        Route::post('/sitemap/generate', [\App\Http\Controllers\Admin\SitemapController::class, 'generate'])->name('sitemap.generate');
+        Route::get('/sitemap', [SitemapController::class, 'index'])->name('sitemap.index');
+        Route::post('/sitemap/generate', [SitemapController::class, 'generate'])->name('sitemap.generate');
     });
 
     Route::middleware('can:manage-users')->group(function () {

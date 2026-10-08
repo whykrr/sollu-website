@@ -1,0 +1,228 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" width="100%" height="100%" fill="none">
+  <defs>
+    <!-- Background & Shading Gradients -->
+    <linearGradient id="laptopBezel" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0e1726"/>
+      <stop offset="100%" stop-color="#061a40"/>
+    </linearGradient>
+    <linearGradient id="screenBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f8fafc"/>
+      <stop offset="100%" stop-color="#f1f5f9"/>
+    </linearGradient>
+    <linearGradient id="chartGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0052cc" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#0052cc" stop-opacity="0.0"/>
+    </linearGradient>
+    <linearGradient id="blueAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0052cc"/>
+      <stop offset="100%" stop-color="#008fad"/>
+    </linearGradient>
+    
+    <!-- Drop Shadow Filters -->
+    <filter id="shadowLarge" x="-10%" y="-10%" width="130%" height="130%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="25" stdDeviation="30" flood-color="#061a40" flood-opacity="0.18"/>
+    </filter>
+    <filter id="shadowTablet" x="-20%" y="-20%" width="150%" height="150%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="-10" dy="20" stdDeviation="25" flood-color="#061a40" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+
+  <!-- ========================================================= -->
+  <!-- 1. COMPUTER / LAPTOP MONITOR FRAME                       -->
+  <!-- ========================================================= -->
+  <g filter="url(#shadowLarge)" transform="translate(60, 40)">
+    <!-- Monitor Outer Bezel -->
+    <rect x="0" y="0" width="880" height="550" rx="24" fill="url(#laptopBezel)"/>
+    <rect x="0" y="0" width="880" height="550" rx="24" stroke="#1e293b" stroke-width="2"/>
+
+    <!-- Screen Display Area -->
+    <rect x="14" y="14" width="852" height="522" rx="16" fill="url(#screenBg)"/>
+
+    <!-- Top Window Titlebar -->
+    <rect x="14" y="14" width="852" height="42" rx="16" fill="#ffffff"/>
+    <rect x="14" y="44" width="852" height="12" fill="#ffffff"/>
+    <line x1="14" y1="56" x2="866" y2="56" stroke="#e2e8f0" stroke-width="1"/>
+
+    <!-- Window Control Dots -->
+    <circle cx="38" cy="35" r="5.5" fill="#ef4444"/>
+    <circle cx="56" cy="35" r="5.5" fill="#f59e0b"/>
+    <circle cx="74" cy="35" r="5.5" fill="#10b981"/>
+
+    <!-- Browser URL Bar -->
+    <rect x="220" y="24" width="440" height="22" rx="11" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1"/>
+    <circle cx="236" cy="35" r="3.5" fill="#0052cc"/>
+    <text x="250" y="39" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="11" font-weight="600" fill="#475569">app.sollu.local/dashboard</text>
+    <rect x="635" y="29" width="16" height="12" rx="3" fill="#cbd5e1"/>
+
+    <!-- DASHBOARD CONTENT INSIDE MONITOR -->
+    <!-- Left Sidebar -->
+    <rect x="14" y="56" width="160" height="480" fill="#ffffff"/>
+    <line x1="174" y1="56" x2="174" y2="536" stroke="#e2e8f0" stroke-width="1"/>
+
+    <!-- Logo placeholder in sidebar -->
+    <rect x="34" y="74" width="22" height="22" rx="6" fill="url(#blueAccent)"/>
+    <text x="64" y="90" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="14" font-weight="800" fill="#0052cc">SOLLU</text>
+    <text x="110" y="90" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="10" font-weight="700" fill="#64748b">POS</text>
+
+    <!-- Sidebar Menu Items -->
+    <rect x="26" y="116" width="136" height="32" rx="8" fill="#eff6ff"/>
+    <circle cx="44" cy="132" r="4" fill="#0052cc"/>
+    <text x="56" y="136" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="11" font-weight="700" fill="#0052cc">Dashboard</text>
+
+    <text x="56" y="172" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="11" font-weight="600" fill="#64748b">Kasir Digital</text>
+    <text x="56" y="206" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="11" font-weight="600" fill="#64748b">Produk &amp; Stok</text>
+    <text x="56" y="240" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="11" font-weight="600" fill="#64748b">Multi Cabang</text>
+    <text x="56" y="274" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="11" font-weight="600" fill="#64748b">Laporan Finansial</text>
+    <text x="56" y="308" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="11" font-weight="600" fill="#64748b">Pengaturan</text>
+
+    <!-- Main Workspace in Monitor -->
+    <!-- Top Bar inside app -->
+    <text x="196" y="88" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="16" font-weight="800" fill="#061a40">Ringkasan Bisnis &amp; Cabang</text>
+    <text x="196" y="106" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="11" font-weight="500" fill="#64748b">Real-time Cloud Sync &middot; Hari Ini</text>
+    
+    <rect x="520" y="74" width="90" height="28" rx="14" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/>
+    <text x="536" y="92" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="10" font-weight="700" fill="#0052cc">Live Online</text>
+
+    <!-- 3 Stat Metric Cards -->
+    <!-- Card 1: Omzet -->
+    <rect x="196" y="124" width="134" height="68" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+    <text x="210" y="144" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="10" font-weight="600" fill="#64748b">Total Penjualan</text>
+    <text x="210" y="166" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="15" font-weight="800" fill="#061a40">Rp 14.85M</text>
+    <text x="210" y="182" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="9" font-weight="700" fill="#16a34a">+18.4% vs kemarin</text>
+
+    <!-- Card 2: Transaksi -->
+    <rect x="340" y="124" width="134" height="68" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+    <text x="354" y="144" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="10" font-weight="600" fill="#64748b">Total Transaksi</text>
+    <text x="354" y="166" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="15" font-weight="800" fill="#061a40">218 Struk</text>
+    <text x="354" y="182" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="9" font-weight="600" fill="#64748b">Rata-rata Rp 68.100</text>
+
+    <!-- Card 3: Produk -->
+    <rect x="484" y="124" width="134" height="68" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+    <text x="498" y="144" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="10" font-weight="600" fill="#64748b">Produk Terjual</text>
+    <text x="498" y="166" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="15" font-weight="800" fill="#061a40">462 Item</text>
+    <text x="498" y="182" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="9" font-weight="700" fill="#0052cc">Stok Aman</text>
+
+    <!-- Main Chart Card -->
+    <rect x="196" y="206" width="422" height="180" rx="14" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+    <text x="214" y="230" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="12" font-weight="800" fill="#061a40">Tren Penjualan Per Jam</text>
+    
+    <!-- SVG Area Chart -->
+    <path d="M 216 350 L 260 320 L 300 335 L 350 280 L 400 300 L 450 255 L 500 270 L 550 240 L 596 260 L 596 360 L 216 360 Z" fill="url(#chartGradient)"/>
+    <path d="M 216 350 L 260 320 L 300 335 L 350 280 L 400 300 L 450 255 L 500 270 L 550 240 L 596 260" stroke="#0052cc" stroke-width="2.5" fill="none"/>
+    <circle cx="550" cy="240" r="4.5" fill="#ffffff" stroke="#0052cc" stroke-width="2.5"/>
+
+    <!-- Table Outline below Chart -->
+    <rect x="196" y="398" width="422" height="110" rx="14" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+    <text x="214" y="420" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="11" font-weight="800" fill="#061a40">Produk Terlaris Hari Ini</text>
+    <line x1="214" y1="430" x2="600" y2="430" stroke="#f1f5f9" stroke-width="1"/>
+    
+    <text x="214" y="448" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="10" font-weight="600" fill="#1e293b">1. Kopi Susu Aren Gula Aren</text>
+    <text x="430" y="448" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="10" font-weight="700" fill="#0052cc">84 terjual</text>
+    <text x="540" y="448" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="10" font-weight="800" fill="#061a40">Rp 1.84M</text>
+
+    <text x="214" y="472" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="10" font-weight="600" fill="#1e293b">2. Croissant Butter Premium</text>
+    <text x="430" y="472" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="10" font-weight="700" fill="#0052cc">42 terjual</text>
+    <text x="540" y="472" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="10" font-weight="800" fill="#061a40">Rp 1.17M</text>
+
+    <text x="214" y="496" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="10" font-weight="600" fill="#1e293b">3. Iced Matcha Latte 500ml</text>
+    <text x="430" y="496" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="10" font-weight="700" fill="#0052cc">38 terjual</text>
+    <text x="540" y="496" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="10" font-weight="800" fill="#061a40">Rp 988rb</text>
+  </g>
+
+  <!-- ========================================================= -->
+  <!-- 2. TABLET / MOBILE POS CASH REGISTER (OVERLAPPING FRONT)  -->
+  <!-- ========================================================= -->
+  <g filter="url(#shadowTablet)" transform="translate(680, 110)">
+    <!-- Tablet Outer Bezel -->
+    <rect x="0" y="0" width="460" height="540" rx="36" fill="url(#laptopBezel)"/>
+    <rect x="0" y="0" width="460" height="540" rx="36" stroke="#1e293b" stroke-width="2.5"/>
+
+    <!-- Tablet Camera / Speaker Notch -->
+    <circle cx="230" cy="14" r="3" fill="#334155"/>
+
+    <!-- Screen Area -->
+    <rect x="14" y="24" width="432" height="492" rx="24" fill="#ffffff"/>
+
+    <!-- Tablet App Header -->
+    <rect x="14" y="24" width="432" height="46" rx="24" fill="#0052cc"/>
+    <rect x="14" y="54" width="432" height="16" fill="#0052cc"/>
+    <text x="34" y="48" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="14" font-weight="800" fill="#ffffff">SOLLU KASIR</text>
+    <text x="140" y="48" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="10" font-weight="600" fill="#bfdbfe">Shift #1 &middot; Outlet Utama</text>
+    <rect x="360" y="34" width="68" height="22" rx="11" fill="#ffffff" fill-opacity="0.2"/>
+    <text x="372" y="48" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="10" font-weight="700" fill="#ffffff">Meja 04</text>
+
+    <!-- Category Tabs in Tablet -->
+    <rect x="28" y="80" width="64" height="26" rx="13" fill="#0052cc"/>
+    <text x="42" y="97" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="10" font-weight="700" fill="#ffffff">Semua</text>
+
+    <rect x="100" y="80" width="60" height="26" rx="13" fill="#f1f5f9"/>
+    <text x="115" y="97" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="10" font-weight="600" fill="#475569">Kopi</text>
+
+    <rect x="168" y="80" width="60" height="26" rx="13" fill="#f1f5f9"/>
+    <text x="180" y="97" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="10" font-weight="600" fill="#475569">Non-Kopi</text>
+
+    <rect x="236" y="80" width="64" height="26" rx="13" fill="#f1f5f9"/>
+    <text x="248" y="97" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="10" font-weight="600" fill="#475569">Makanan</text>
+
+    <!-- Product Grid (2 Columns on Left of Tablet) -->
+    <!-- Product 1 -->
+    <rect x="28" y="118" width="126" height="120" rx="12" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+    <rect x="38" y="128" width="106" height="52" rx="8" fill="#e2e8f0"/>
+    <text x="38" y="196" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="10" font-weight="700" fill="#0f172a">Kopi Susu Aren</text>
+    <text x="38" y="214" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="11" font-weight="800" fill="#0052cc">Rp 22.000</text>
+    <circle cx="138" cy="214" r="10" fill="#0052cc"/>
+    <text x="135" y="218" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="12" font-weight="700" fill="#ffffff">+</text>
+
+    <!-- Product 2 -->
+    <rect x="162" y="118" width="126" height="120" rx="12" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+    <rect x="172" y="128" width="106" height="52" rx="8" fill="#e2e8f0"/>
+    <text x="172" y="196" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="10" font-weight="700" fill="#0f172a">Americano Iced</text>
+    <text x="172" y="214" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="11" font-weight="800" fill="#0052cc">Rp 18.000</text>
+    <circle cx="272" cy="214" r="10" fill="#0052cc"/>
+    <text x="269" y="218" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="12" font-weight="700" fill="#ffffff">+</text>
+
+    <!-- Product 3 -->
+    <rect x="28" y="248" width="126" height="120" rx="12" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+    <rect x="38" y="258" width="106" height="52" rx="8" fill="#e2e8f0"/>
+    <text x="38" y="326" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="10" font-weight="700" fill="#0f172a">Matcha Latte</text>
+    <text x="38" y="344" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="11" font-weight="800" fill="#0052cc">Rp 26.000</text>
+    <circle cx="138" cy="344" r="10" fill="#0052cc"/>
+    <text x="135" y="348" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="12" font-weight="700" fill="#ffffff">+</text>
+
+    <!-- Product 4 -->
+    <rect x="162" y="248" width="126" height="120" rx="12" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+    <rect x="172" y="258" width="106" height="52" rx="8" fill="#e2e8f0"/>
+    <text x="172" y="326" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="10" font-weight="700" fill="#0f172a">Croissant Butter</text>
+    <text x="172" y="344" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="11" font-weight="800" fill="#0052cc">Rp 28.000</text>
+    <circle cx="272" cy="344" r="10" fill="#0052cc"/>
+    <text x="269" y="218" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="12" font-weight="700" fill="#ffffff">+</text>
+
+    <!-- Cart Panel on Right of Tablet -->
+    <rect x="298" y="74" width="134" height="428" rx="14" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+    <text x="312" y="98" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="11" font-weight="800" fill="#061a40">Pesanan Meja 04</text>
+    <line x1="312" y1="108" x2="418" y2="108" stroke="#e2e8f0" stroke-width="1"/>
+
+    <!-- Cart Item 1 -->
+    <text x="312" y="126" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="10" font-weight="700" fill="#0f172a">2x Kopi Susu Aren</text>
+    <text x="312" y="140" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="9" font-weight="600" fill="#64748b">Less ice &middot; Normal</text>
+    <text x="376" y="126" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="10" font-weight="700" fill="#061a40">44.000</text>
+
+    <!-- Cart Item 2 -->
+    <text x="312" y="164" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="10" font-weight="700" fill="#0f172a">1x Croissant Butter</text>
+    <text x="312" y="178" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="9" font-weight="600" fill="#64748b">Warm</text>
+    <text x="376" y="164" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="10" font-weight="700" fill="#061a40">28.000</text>
+
+    <!-- Total Bill & Pay Button -->
+    <rect x="310" y="380" width="112" height="1" fill="#cbd5e1"/>
+    <text x="312" y="400" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="10" font-weight="600" fill="#64748b">Subtotal</text>
+    <text x="372" y="400" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="10" font-weight="700" fill="#061a40">72.000</text>
+    <text x="312" y="416" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="10" font-weight="600" fill="#64748b">PB1 (10%)</text>
+    <text x="378" y="416" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="10" font-weight="700" fill="#061a40">7.200</text>
+
+    <text x="312" y="440" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="12" font-weight="800" fill="#0052cc">Total Tagihan</text>
+    <text x="312" y="458" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="14" font-weight="800" fill="#061a40">Rp 79.200</text>
+
+    <rect x="310" y="468" width="112" height="26" rx="13" fill="#0052cc"/>
+    <text x="334" y="485" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="10" font-weight="700" fill="#ffffff">Bayar Sekarang</text>
+  </g>
+</svg>
